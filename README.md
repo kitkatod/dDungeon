@@ -2,6 +2,8 @@
 Minecraft Dungeon Generation using Denizen Scripting.
 
 ### Features:
+* Create a Dungeon World generated randomly using user defined section schematics
+* Most "random selections" allow for a "weight" to be applied, to allow some entries to appear more frequently than others
 * Tools for creating/saving Dungeon Sections
 * Custom Loot Tables defined via Data Script
 * Custom Spawn Tables defined via Data Script
