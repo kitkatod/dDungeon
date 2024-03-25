@@ -1,5 +1,5 @@
 # dDungeon: Adds a robust Dungeon Generation tool to Denizen!
-Minecraft Dungeon Generation using Denizen Scripting.
+Minecraft Dungeon Generation toolset using Denizen Scripting.
 
 ### Features:
 * Create a Dungeon World generated randomly using user defined section schematics
@@ -14,6 +14,10 @@ Minecraft Dungeon Generation using Denizen Scripting.
 * Multiple Dungeon Categories can be specified
 * Multiple Dungeon Settings can be defined to generate the same Category of Dungeon, but with different settings
 * Support for creating "sub-dungeons" - Areas that can be designed differently from the rest of the dungeon
+
+![image](https://github.com/kitkatod/dDungeon/assets/100255227/302db807-985f-4996-976b-8f2540bb184d)
+
+[YouTube Generation Preview](https://youtu.be/4291zh7caW4)
 
 ### Required Dependency:
 - Denizen ([GitHub](https://github.com/DenizenScript/Denizen)) ([Release Builds](https://ci.citizensnpcs.co/job/Denizen/))
