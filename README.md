@@ -8,7 +8,7 @@ Minecraft Dungeon Generation toolset using Denizen Scripting.
 * Custom Loot Tables defined via Data Script
 * Custom Spawn Tables defined via Data Script
 * Ambient Mob Spawning around the player using a given Spawn Table name
-* Specify a Spawn Table to spawn mobs at a specific location
+* Setup spawners to use a specific Spawn Table to spawn mobs using
 * Loot generated into Chests/Furnaces/any block with an Inventory
 * Loot generated for Mob drops
 * Multiple Dungeon Categories can be specified
