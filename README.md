@@ -46,6 +46,8 @@ Minecraft Dungeon Generation using Denizen Scripting.
   - Create a new dungeon in a new void world
   - DungeonType: Corresponds to a key saved in the script "/scripts/dDungeon/config/dungeonSettings.dsc"
   - DungeonKey: Can be any value, this is just used to identify the dungeon between regenerating a world
+- /ddGoTo [DungeonKey]
+  - Teleports the player to the configured Dungeon Entrance for the given Dungeon Key
 - /ddPaste [FileName]
   - Paste a given Dungeon Section file at the player's current location
   - FileName will fill in a tab-complete list of files
