@@ -5,10 +5,12 @@ Minecraft Dungeon Generation toolset using Denizen Scripting.
 * Create a Dungeon World generated randomly using user defined section schematics
 * Most "random selections" allow for a "weight" to be applied, to allow some entries to appear more frequently than others
 * Tools for creating/saving Dungeon Sections
+* Automatic Flipping and Rotating of Dungeon Sections during generation to add variety
 * Custom Loot Tables defined via Data Script
 * Custom Spawn Tables defined via Data Script
 * Ambient Mob Spawning around the player using a given Spawn Table name
 * Setup spawners to use a specific Spawn Table to spawn mobs using
+* Configurable Boss Bar for spawners
 * Loot generated into Chests/Furnaces/any block with an Inventory
 * Loot generated for Mob drops
 * Multiple Dungeon Categories can be specified
