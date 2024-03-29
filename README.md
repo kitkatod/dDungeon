@@ -61,6 +61,10 @@ Minecraft Dungeon Generation toolset using Denizen Scripting.
   - FileName will fill in a tab-complete list of files
 - /ddDestroy [DungeonKey]
   - Destroys a dungeon world for the given DungeonKey (matches the one used in /ddCreate)
+- /ddTestLootTable [LootTableName] [ReplaceInventoryLoot] [RepeatCount]
+  - Roll the specified LootTable a number of times, using the inventory of the block you are looking at
+  - If [ReplaceInventoryLoot] is true, it will wipe the inventory contents before each re-roll
+  - Helpful for testing a Loot Table's output. (Don't forget to "/ex reload" after making changes to data scripts!)
  
 
 ### Configuration / Usage
