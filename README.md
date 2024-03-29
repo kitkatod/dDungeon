@@ -45,10 +45,10 @@ Minecraft Dungeon Generation toolset using Denizen Scripting.
   - Gives the player the two tool items used to create/modify sections
   - First tool is a Schematic Section Editor, used for saving and making config changes to a Dungeon Section
   - Second tool can be swapped between all other minor-tools (Uses the "Swap Offhand" key, usually defaulted to "F")
-    - Dungeon Pathway Wand: Used to specify entrances/exits to/from a Dungeon Section. This is the point where Sections connect to each other at.
-    - Dungeon Inventory Wand: Used to configure loot spawning on an inventory
-    - Dungeon Fake Block Wand: Used to flag a block as being fake. When dungeon generates the block will be replaced with air, and a matching block_display entity will be spawned
-    - Dungeon Entrance Wand: Only used on spawn_room Section Types, used to specify the position players will spawn into when entering the dungeon
+    - Dungeon Pathway Tool: Used to specify entrances/exits to/from a Dungeon Section. This is the point where Sections connect to each other at.
+    - Dungeon Inventory Tool: Used to configure loot spawning on an inventory
+    - Dungeon Fake Block Tool: Used to flag a block as being fake. When dungeon generates the block will be replaced with air, and a matching block_display entity will be spawned
+    - Dungeon Entrance Tool: Used to setup how to enter a dungeon created with /ddCreate. This uses the [DungeonKey], so the entrance/exit remains functional even if a dungeon is regenerated.
     - Dungeon Spawner Tool: Used to configure Spawners within Dungeon Sections
 - /ddCreate [DungeonType] [DungeonKey]
   - Create a new dungeon in a new void world
