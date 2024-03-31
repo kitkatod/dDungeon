@@ -24,10 +24,14 @@ Minecraft Dungeon Generation toolset using Denizen Scripting.
 ### Required Dependency:
 - Denizen ([GitHub](https://github.com/DenizenScript/Denizen)) ([Release Builds](https://ci.citizensnpcs.co/job/Denizen/))
 
-### Optional Dependencies - only if using NPCs on Spawn Tables:
+### Optional Dependencies:
+**Used for turning entities spawned on Dungeon Spawn Tables into a Sentinel NPC. Not Required.**
 - Depenizen ([GitHub](https://github.com/DenizenScript/Depenizen)) ([Release Builds](https://ci.citizensnpcs.co/job/Depenizen/))
 - Citizens ([GitHub](https://github.com/CitizensDev/Citizens2))
 - Sentinel ([GitHub](https://github.com/mcmonkeyprojects/Sentinel))
+
+**Used for Dungeon Section Selection when creating/editing Sections. Not Required.**
+- WorldEdit ([GitHUb](https://github.com/EngineHub/WorldEdit) ([Server Plugin](https://dev.bukkit.org/projects/worldedit))
 
 ### Installation:
 - Save all contents of "scripts" folder to "/plugins/Denizen/scripts" within the Minecraft Server folder.
