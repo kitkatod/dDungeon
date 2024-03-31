@@ -4,7 +4,7 @@ dd_SpawnTables_RandomSpawnableLoc:
     definitions: loc|distance|ignoreLight
     script:
     #Get list of spawnable blocks
-    - define spawnableBlocks <[loc].find_spawnable_blocks_within[<[distance].if_null[3]>]>
+    - define spawnableBlocks <[loc].center.find_spawnable_blocks_within[<[distance].if_null[3]>]>
 
     - define dungeonArea <[loc].world.flag[dd_area]>
 

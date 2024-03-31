@@ -43,9 +43,8 @@ dd_SpawnTables_RunSpawner:
         - define spawnPointsMax <[spawnerData.currentBank]>
 
 
-
     #Find nearby spawnable points
-    - define spawningLocs <[spawnerLoc].find_spawnable_blocks_within[<[spawnerData.spawn_radius]>]>
+    - define spawningLocs <[spawnerLoc].center.find_spawnable_blocks_within[<[spawnerData.spawn_radius]>]>
 
     #Ignore spawnable points that are within a spawning blocker (specifcally only NULL_TABLE spawn table spawners)
     - define nearbySpawners <[spawnerLoc].find_blocks_flagged[dd_spawner].within[30].exclude[<[spawnerLoc]>]>
