@@ -4,6 +4,7 @@ dd_SpawnTables_world:
     events:
         #Run "dungeon ambient" spawning
         on delta time secondly every:5:
+        - ~run dd_SpawnTables_CleanupSpawnerBossbars
         - foreach <server.worlds> as:world:
             - if !<[world].has_flag[dd_DungeonSettings]> || !<[world].flag[dd_allowSpawning].if_null[false]>:
                 - foreach next

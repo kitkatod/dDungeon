@@ -25,8 +25,10 @@ dc_SpawnTables_UpdateSpawnerBossbar:
 
     #Check players who have the spawner's bossbar already, hide if the player isn't within radius anymore
     - define exitedPlayers <[spawnerData.bossbarPlayers].if_null[<list[]>].exclude[<[players]>]>
-    - if !<[exitedPlayers].is_empty>:
-        - bossbar remove <[spawnerData.bossbarId]> players:<[exitedPlayers]>
+    - foreach <[exitedPlayers]> as:player:
+        - bossbar remove <[spawnerData.bossbarId]> players:<[player]>
+        #Untrack bossbar's ID for the player
+        - flag <[player]> dd_bossbars.<[spawnerData.bossbarId]>:!
 
     #Determine progress
     - define progress <[spawnerData.currentBank]>
@@ -42,11 +44,19 @@ dc_SpawnTables_UpdateSpawnerBossbar:
     #If spawner's progress is still positive then show the bossbar
     - if <[progress]> > 0:
         #Show bossbar
-        - bossbar auto <[spawnerData.bossbarId]> players:<[players]> title:<[title]> progress:<[progress]> style:SOLID color:<[color]> options:<[options]>
+        - foreach <[players]> as:player:
+            - bossbar auto <[spawnerData.bossbarId]> players:<[player]> title:<[title]> progress:<[progress]> style:SOLID color:<[color]> options:<[options]>
+            #On player, track Boss Bar's location. If player goes too far, or changes worlds we'll use this to cleanup the bossbar.
+            - flag <[player]> dd_bossbars.<[spawnerData.bossbarId]>:<map[location=<[spawnerLoc]>;last_checked=<util.time_now>]>
+
         #Track bossbar players on the spawner
         - flag <[spawnerLoc]> dd_spawner.bossbarPlayers:<[players]>
 
     - else:
         #Remove the bossbar if progress is zero
-        - bossbar remove <[spawnerData.bossbarId]> players:<[spawnerData.bossbarPlayers]>
+        - foreach <[spawnerData.bossbarPlayers]> as:player:
+            - bossbar remove <[spawnerData.bossbarId]> players:<[player]>
+            #Untrack bossbar's ID for the player
+            - flag <[player]> dd_bossbars.<[spawnerData.bossbarId]>:!
+
         - flag <[spawnerLoc]> dd_spawner.bossbarPlayers:<list[]>
