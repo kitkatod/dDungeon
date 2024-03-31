@@ -41,7 +41,7 @@ Minecraft Dungeon Generation toolset using Denizen Scripting.
       - Allow file deletion: **true**
     - FileCopy
       - Allow copying files: **true**
-- **If not using the provided dungeon demo you can stop here**
+- **If not using the provided dungeon schematics, you're done installing! Otherwise:**
 -  Save all contents of "schematics" folder to "/plugins/Denizen/schematics".
 
 ### Commands:
