@@ -18,7 +18,7 @@ dd_ProcessNextSection:
     - define sectionCountSoftCapReached <[dungeonSettings.section_count_soft_max].if_null[450].is_less_than_or_equal_to[<[world].flag[dd_sectionCount]>]>
 
     #Make sure the area is loaded incase we move far away from the origin
-    - ~run loadAreaChunks def:<[nextSectionLoc].chunk>|4|15s
+    - ~run dd_LoadAreaChunks def:<[nextSectionLoc].chunk>|4|15s
 
     #Check if the pathway is setting the next room type
     - if !<[pathOptions.possible_connections].if_null[<map[]>].is_empty>:

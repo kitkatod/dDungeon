@@ -76,7 +76,7 @@ dd_Create:
 
     #Load a spawn schematic
     #Make sure the area is loaded incase we move far away from the origin
-    - ~run loadAreaChunks def:<[loc].chunk>|8|5s
+    - ~run dd_LoadAreaChunks def:<[loc].chunk>|8|5s
 
     #Randomly flip the spawn room to add variability
     - define flip <util.random_boolean>
