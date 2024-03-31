@@ -46,7 +46,8 @@ dd_SpawnTables_AmbientSpawning:
         - define nearbySpawners <[player].location.find_blocks_flagged[dd_spawner].within[30]>
         - foreach <[nearbySpawners]> as:spawnerLoc:
             - if <[spawnerLoc].flag[dd_spawner.prevent_dungeon_spawning_nearby]> || <[spawnerLoc].flag[dd_spawner.spawn_table]> == NULL_TABLE:
-                - foreach <[nearbySpawners]> as:spawnLoc:
+                #Remove spawnable points that are within Spawn Radius
+                - foreach <[spawningLocs]> as:spawnLoc:
                     - if <[spawnerLoc].distance[<[spawnLoc]>]> <= <[spawnerLoc].flag[dd_spawner.spawn_radius]>:
                         - define spawningLocs:<-:<[spawnLoc]>
 
