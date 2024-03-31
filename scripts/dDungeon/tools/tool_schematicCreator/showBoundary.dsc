@@ -17,4 +17,4 @@ dd_SchematicEditor_ShowBoundary:
         - wait 10t
         - run dd_SchematicEditor_MainMenu def.optionsLoc:<[optionsLoc]>
 
-    - run outlineArea def.area:<[cuboid]> def.color:red def.duration:30s
+    - run dd_OutlineArea def.area:<[cuboid]> def.color:red def.duration:30s
