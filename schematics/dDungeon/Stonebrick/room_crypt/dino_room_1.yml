@@ -1,0 +1,39 @@
+SectionOptions:
+  pathways:
+    2,-5,5:
+      direction: l@1,0,0
+      possible_connections: {}
+      hallwayType: crypt
+  inventories:
+    -7,-4,8:
+      35b30e29-b67d-47a9-aec2-5a0cc92125d3:
+        crypt_pot: '50'
+    -9,-3,7:
+      35b30e29-b67d-47a9-aec2-5a0cc92125d3:
+        crypt_pot: '50'
+    -10,-3,6:
+      35b30e29-b67d-47a9-aec2-5a0cc92125d3:
+        crypt_pot: '50'
+    -9,-3,3:
+      35b30e29-b67d-47a9-aec2-5a0cc92125d3:
+        crypt_pot: '50'
+    -10,-3,5:
+      812be7bd-b494-499e-ac0c-da2615e7864f:
+        major_treasure: '30'
+        minor_treasure: '70'
+    -3,-4,8:
+      63b1f4f6-5dbd-4ccc-9b03-463018e2aa4a:
+        library: '80'
+    -5,-3,2:
+      b5c4eb46-cf98-4ff0-a55c-4d6139a46f67:
+        library: '80'
+    -5,-4,5:
+      019eeab2-123e-4ebd-ae24-9f010d8c6dc0:
+        library_lectern: '90'
+  chance: '30'
+  maxoccurrencecount: '1'
+  category: Stonebrick
+  type: room_crypt
+  name: dino_room_1
+  pos1: l@-11,-5,0
+  pos2: l@2,5,10

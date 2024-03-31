@@ -1,0 +1,16 @@
+dd_ExitDungeon:
+    debug: false
+    type: task
+    definitions: player
+    script:
+    - if <[player].exists>:
+        - adjust <queue> linked_player:<[player]>
+
+    - if <player.has_flag[dd_enterExitCooldown]>:
+        - stop
+    - flag <player> dd_enterExitCooldown expire:5s
+
+    - define exitLoc <player.flag[dd_dungeonExit].if_null[<player.bed_spawn.if_null[<world[world].spawn_location>]>]>
+    - flag <player> dd_dungeonExit:!
+
+    - teleport <player> <[exitLoc]> cause:PLUGIN

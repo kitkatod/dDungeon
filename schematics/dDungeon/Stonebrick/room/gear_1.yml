@@ -1,0 +1,31 @@
+SectionOptions:
+  pathways:
+    -2,-3,0:
+      direction: l@0,0,1
+      possible_connections: {}
+  inventories:
+    -6,-2,-4:
+      862b8720-70f4-4158-82b2-1ca0b0407fa4:
+        storeroom: '90'
+    -7,-1,-4:
+      862b8720-70f4-4158-82b2-1ca0b0407fa4:
+        storeroom: '90'
+    -7,-2,-4:
+      862b8720-70f4-4158-82b2-1ca0b0407fa4:
+        storeroom: '90'
+    0,-2,-15:
+      862b8720-70f4-4158-82b2-1ca0b0407fa4:
+        storeroom: '90'
+    0,-1,-15:
+      862b8720-70f4-4158-82b2-1ca0b0407fa4:
+        storeroom: '90'
+    0,-2,-14:
+      862b8720-70f4-4158-82b2-1ca0b0407fa4:
+        storeroom: '90'
+  chance: '30'
+  maxoccurrencecount: '-1'
+  category: Stonebrick
+  type: room
+  name: gear_1
+  pos1: l@-9,-6,-18
+  pos2: l@3,7,0

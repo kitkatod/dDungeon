@@ -1,0 +1,12 @@
+SectionOptions:
+  pathways:
+    -2,-1,0:
+      direction: l@-1,-0,-0
+      possible_connections: {}
+  inventories: {}
+  chance: '100'
+  category: Stonebrick
+  type: closet
+  name: bedroom_2
+  pos1: l@-2,-2,-2
+  pos2: l@0,3,2

@@ -1,0 +1,15 @@
+SectionOptions:
+  pathways:
+    -2,-3,2:
+      direction: l@-1,-0,-0
+      possible_connections: {}
+  inventories:
+    1,-1,2:
+      50b20127-c48a-4202-944b-cfa3ae7f8692:
+        adventure_chest: '90'
+  chance: '5'
+  category: Stonebrick
+  type: deadend_default
+  name: treasure
+  pos1: l@-2,-3,-1
+  pos2: l@2,2,5

@@ -1,0 +1,26 @@
+SectionOptions:
+  pathways:
+    -3,-3,2:
+      direction: l@-1,0,0
+      possible_connections: {}
+      hallwayType: crypt
+  inventories:
+    2,0,1:
+      757443ef-5da0-46fd-a7c2-6bb27be9e100:
+        crypt_pot: '100'
+    2,0,3:
+      757443ef-5da0-46fd-a7c2-6bb27be9e100:
+        crypt_pot: '100'
+    2,-2,3:
+      757443ef-5da0-46fd-a7c2-6bb27be9e100:
+        crypt_pot: '100'
+    2,-2,2:
+      9ec42b3d-f516-4b9f-92aa-dc38e8ca91d4:
+        adventure_chest: '90'
+  chance: '100'
+  maxoccurrencecount: '-1'
+  category: Stonebrick
+  type: closet_crypt
+  name: storeroom_2
+  pos1: l@-3,-3,0
+  pos2: l@3,3,4

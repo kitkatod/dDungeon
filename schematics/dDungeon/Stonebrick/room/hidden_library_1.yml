@@ -1,0 +1,67 @@
+SectionOptions:
+  pathways:
+    -3,1,5:
+      direction: l@-1,0,0
+      possible_connections: {}
+  inventories:
+    0,3,6:
+      94ba8f98-bbd7-48a0-9033-fb2378ef34b0:
+        library: '100'
+    4,-4,9:
+      c6a36dc7-008c-46e7-9b8b-e70eb977ce68:
+        generic_pot: '90'
+    5,-5,5:
+      c6a36dc7-008c-46e7-9b8b-e70eb977ce68:
+        generic_pot: '90'
+    9,-5,4:
+      6c37099c-6c6e-4eee-8e30-5f9e8193998a:
+        storeroom: '100'
+    8,-5,3:
+      6c37099c-6c6e-4eee-8e30-5f9e8193998a:
+        storeroom: '50'
+    9,-4,3:
+      6c37099c-6c6e-4eee-8e30-5f9e8193998a:
+        storeroom: '50'
+    8,-5,2:
+      6c37099c-6c6e-4eee-8e30-5f9e8193998a:
+        storeroom: '100'
+    9,-4,2:
+      6c37099c-6c6e-4eee-8e30-5f9e8193998a:
+        storeroom: '100'
+    9,-5,2:
+      6c37099c-6c6e-4eee-8e30-5f9e8193998a:
+        storeroom: '50'
+    11,-5,8:
+      6c37099c-6c6e-4eee-8e30-5f9e8193998a:
+        storeroom: '100'
+    11,-4,9:
+      6c37099c-6c6e-4eee-8e30-5f9e8193998a:
+        storeroom: '100'
+    12,-5,8:
+      c6a36dc7-008c-46e7-9b8b-e70eb977ce68:
+        generic_pot: '90'
+    13,-5,9:
+      b79d15f7-a099-4d68-a9f3-5392d690395a: {}
+    15,-5,3:
+      c6a36dc7-008c-46e7-9b8b-e70eb977ce68:
+        generic_pot: '90'
+    15,-5,2:
+      c6a36dc7-008c-46e7-9b8b-e70eb977ce68:
+        generic_pot: '90'
+    0,3,4:
+      94ba8f98-bbd7-48a0-9033-fb2378ef34b0:
+        library: '100'
+    12,-5,9:
+      6c37099c-6c6e-4eee-8e30-5f9e8193998a:
+        storeroom: '100'
+    15,-5,1:
+      7170c529-50c9-40af-b6e2-dc90185e9308:
+        major_treasure: '50'
+        minor_treasure: '50'
+  chance: '20'
+  maxoccurrencecount: '-1'
+  category: Stonebrick
+  type: room
+  name: hidden_library_1
+  pos1: l@-3,-6,-1
+  pos2: l@19,6,10

@@ -1,0 +1,12 @@
+SectionOptions:
+  pathways:
+    1,-1,0:
+      direction: l@0,-1,0
+      possible_connections: {}
+  inventories: {}
+  chance: '100'
+  category: Stonebrick
+  type: deadend_default
+  name: ladder_plug_2
+  pos1: l@0,-1,-2
+  pos2: l@3,0,2

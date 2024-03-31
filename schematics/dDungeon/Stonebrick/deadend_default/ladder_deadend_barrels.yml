@@ -1,0 +1,21 @@
+SectionOptions:
+  pathways:
+    1,-2,-2:
+      direction: l@0,-1,0
+      possible_connections: {}
+  inventories:
+    -1,-1,-1:
+      a267b3e7-eed5-494f-9b53-f1985d84f29f:
+        storeroom: '90'
+    -1,0,-1:
+      a267b3e7-eed5-494f-9b53-f1985d84f29f:
+        storeroom: '33'
+    -1,-1,-2:
+      a267b3e7-eed5-494f-9b53-f1985d84f29f:
+        storeroom: '90'
+  chance: '40'
+  category: Stonebrick
+  type: deadend_default
+  name: ladder_deadend_barrels
+  pos1: l@-2,-3,-4
+  pos2: l@2,2,0

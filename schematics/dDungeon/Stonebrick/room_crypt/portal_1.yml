@@ -1,0 +1,37 @@
+SectionOptions:
+  pathways:
+    -3,-3,1:
+      direction: l@-1,0,0
+      possible_connections: {}
+      hallwayType: crypt
+  inventories:
+    7,-2,-2:
+      089dde92-8f02-4c9b-91d3-aff159b31644:
+        crypt_pot: '70'
+    7,-2,-3:
+      089dde92-8f02-4c9b-91d3-aff159b31644:
+        crypt_pot: '70'
+    5,-2,-3:
+      089dde92-8f02-4c9b-91d3-aff159b31644:
+        crypt_pot: '70'
+    6,-2,5:
+      089dde92-8f02-4c9b-91d3-aff159b31644:
+        crypt_pot: '70'
+    8,-2,5:
+      089dde92-8f02-4c9b-91d3-aff159b31644:
+        crypt_pot: '70'
+    9,-5,-9:
+      26e7c146-b664-4573-aa1d-47904c82d847:
+        major_treasure: '50'
+        minor_treasure: '50'
+    5,-5,-8:
+      26e7c146-b664-4573-aa1d-47904c82d847:
+        major_treasure: '50'
+        minor_treasure: '50'
+  chance: '30'
+  maxoccurrencecount: '1'
+  category: Stonebrick
+  type: room_crypt
+  name: portal_1
+  pos1: l@-3,-6,-12
+  pos2: l@11,9,8

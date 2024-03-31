@@ -1,0 +1,17 @@
+SectionOptions:
+  pathways:
+    0,-6,0:
+      direction: l@1,0,0
+      possible_connections: {}
+    -2,-13,-1:
+      direction: l@0,0,1
+      possible_connections: {}
+      allowIncoming: 'false'
+  inventories: {}
+  chance: '50'
+  maxoccurrencecount: '1'
+  category: Stonebrick
+  type: closet
+  name: trapped_pipes_2
+  pos1: l@-5,-13,-6
+  pos2: l@0,0,2

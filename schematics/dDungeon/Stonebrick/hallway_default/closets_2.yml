@@ -1,0 +1,27 @@
+SectionOptions:
+  pathways:
+    -2,0,0:
+      direction: l@-1,-0,-0
+      possible_connections: {}
+    6,0,0:
+      direction: l@1,-0,-0
+      possible_connections: {}
+    2,0,-2:
+      direction: l@-0,-0,-1
+      possible_connections:
+        closet:
+          chance: '100'
+      hallwayType: skip_hallway
+    0,0,2:
+      direction: l@0,0,1
+      possible_connections:
+        closet:
+          chance: '100'
+      hallwayType: skip_hallway
+  inventories: {}
+  chance: '20'
+  category: Stonebrick
+  type: hallway_default
+  name: closets_2
+  pos1: l@-2,-1,-2
+  pos2: l@6,6,2

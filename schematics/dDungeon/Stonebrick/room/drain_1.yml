@@ -1,0 +1,15 @@
+SectionOptions:
+  pathways:
+    -3,-3,3:
+      direction: l@-1,0,0
+      possible_connections: {}
+  inventories:
+    4,-2,3:
+      3aae156a-e9ae-46fe-855d-e072f5b444df:
+        adventure_chest: '100'
+  chance: '50'
+  category: Stonebrick
+  type: room
+  name: drain_1
+  pos1: l@-3,-4,0
+  pos2: l@6,5,7

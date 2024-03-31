@@ -1,0 +1,19 @@
+SectionOptions:
+  pathways:
+    -1,-3,3:
+      direction: l@-1,0,0
+      possible_connections: {}
+      hallwayType: crypt
+  inventories:
+    17,-2,3:
+      4a7fded5-1bfd-473c-ba99-876966723d1d:
+        major_treasure: '100'
+      e1af7cb2-222d-49ce-99e4-082a28a43635:
+        special_enchanted_book: '30'
+  chance: '50'
+  maxoccurrencecount: '1'
+  category: Stonebrick
+  type: room_crypt
+  name: fire_room_1
+  pos1: l@-1,-3,-1
+  pos2: l@18,3,7

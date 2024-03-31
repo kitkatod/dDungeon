@@ -1,0 +1,27 @@
+SectionOptions:
+  pathways:
+    -3,1,0:
+      direction: l@-1,0,0
+      possible_connections: {}
+      resetHallwayCount: 'true'
+    -2,-5,6:
+      direction: l@-0,0,1
+      possible_connections: {}
+      resetHallwayCount: 'true'
+      allowIncoming: 'false'
+  inventories:
+    14,-1,3:
+      61d6a33e-4995-461d-9283-85998134a325:
+        adventure_chest: '80'
+        minor_treasure: '20'
+    14,-1,-3:
+      61d6a33e-4995-461d-9283-85998134a325:
+        adventure_chest: '80'
+        minor_treasure: '20'
+  chance: '100'
+  category: Stonebrick
+  type: room
+  name: sewer
+  pos1: l@-3,-5,-6
+  pos2: l@16,6,6
+  maxOccurrenceCount: '1'

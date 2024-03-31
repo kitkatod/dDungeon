@@ -1,0 +1,23 @@
+SectionOptions:
+  pathways:
+    -3,-3,2:
+      direction: l@-1,0,0
+      possible_connections: {}
+      hallwayType: crypt
+  inventories:
+    3,-1,-1:
+      ddc4f851-9690-4ac6-8c64-d332caa005b5:
+        crypt_pot: '40'
+    2,-2,4:
+      ddc4f851-9690-4ac6-8c64-d332caa005b5:
+        crypt_pot: '40'
+    3,-1,5:
+      ddc4f851-9690-4ac6-8c64-d332caa005b5:
+        crypt_pot: '40'
+  chance: '70'
+  maxoccurrencecount: '-1'
+  category: Stonebrick
+  type: room_crypt
+  name: tomb_1
+  pos1: l@-3,-3,-2
+  pos2: l@7,3,6

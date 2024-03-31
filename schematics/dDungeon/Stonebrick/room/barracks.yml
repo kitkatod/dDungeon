@@ -1,0 +1,22 @@
+SectionOptions:
+  pathways:
+    0,-1,2:
+      direction: l@-1,0,0
+      possible_connections: {}
+  inventories:
+    6,0,4:
+      1aa788b4-18f4-4f15-9983-d7935afa7862:
+        adventure_chest: '100'
+    6,0,-1:
+      1aa788b4-18f4-4f15-9983-d7935afa7862:
+        adventure_chest: '100'
+    4,0,-9:
+      5dd31680-3c24-4aa7-a51e-e75815e57a97:
+        adventure_chest: '50'
+  chance: '50'
+  category: Stonebrick
+  type: room
+  name: barracks
+  pos1: l@0,-1,-10
+  pos2: l@7,4,5
+  maxOccurrenceCount: '2'

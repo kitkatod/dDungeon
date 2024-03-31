@@ -1,0 +1,14 @@
+SectionOptions:
+  pathways:
+    -4,-3,2:
+      direction: l@-1,0,0
+      possible_connections: {}
+      hallwayType: crypt
+  inventories: {}
+  chance: '40'
+  maxoccurrencecount: '-1'
+  category: Stonebrick
+  type: closet_crypt
+  name: blood_pool_1
+  pos1: l@-4,-3,-1
+  pos2: l@8,3,5

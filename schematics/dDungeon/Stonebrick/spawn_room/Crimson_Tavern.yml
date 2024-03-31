@@ -1,0 +1,123 @@
+SectionOptions:
+  pathways:
+    10,0,5:
+      direction: l@1,0,0
+      possible_connections:
+        junction:
+          chance: '100'
+      resetHallwayCount: 'true'
+    4,7,-9:
+      direction: l@0,0,-1
+      possible_connections:
+        junction:
+          chance: '100'
+      resetHallwayCount: 'true'
+    -1,0,7:
+      direction: l@-1,0,0
+      possible_connections:
+        junction:
+          chance: '100'
+      resetHallwayCount: 'true'
+  inventories:
+    7,9,14:
+      d194ee51-6f7f-4da4-8713-3bfc14a26725:
+        inn_bedroom: '75'
+        inn_bedroom_rare: '25'
+    9,3,-4:
+      c45819b0-dc09-4f79-8281-5f263b62655b:
+        food: '70'
+    9,2,-4:
+      c45819b0-dc09-4f79-8281-5f263b62655b:
+        food: '70'
+    9,1,-4:
+      c45819b0-dc09-4f79-8281-5f263b62655b:
+        food: '20'
+    9,1,-5:
+      c45819b0-dc09-4f79-8281-5f263b62655b:
+        food: '70'
+    9,3,-5:
+      c45819b0-dc09-4f79-8281-5f263b62655b:
+        food: '20'
+    9,2,-5:
+      c45819b0-dc09-4f79-8281-5f263b62655b:
+        food: '20'
+    9,3,-8:
+      c45819b0-dc09-4f79-8281-5f263b62655b:
+        food: '20'
+    9,2,-8:
+      c45819b0-dc09-4f79-8281-5f263b62655b:
+        food: '70'
+    9,1,-7:
+      c45819b0-dc09-4f79-8281-5f263b62655b:
+        food: '70'
+    9,1,-8:
+      c45819b0-dc09-4f79-8281-5f263b62655b:
+        food: '20'
+    9,2,-7:
+      c45819b0-dc09-4f79-8281-5f263b62655b:
+        food: '20'
+    9,3,-7:
+      c45819b0-dc09-4f79-8281-5f263b62655b:
+        food: '20'
+    9,3,-6:
+      c45819b0-dc09-4f79-8281-5f263b62655b:
+        food: '70'
+    9,2,-6:
+      c45819b0-dc09-4f79-8281-5f263b62655b:
+        food: '70'
+    9,1,-6:
+      c45819b0-dc09-4f79-8281-5f263b62655b:
+        food: '20'
+    5,9,14:
+      d194ee51-6f7f-4da4-8713-3bfc14a26725:
+        inn_bedroom: '75'
+        inn_bedroom_rare: '25'
+    1,9,14:
+      d194ee51-6f7f-4da4-8713-3bfc14a26725:
+        inn_bedroom: '75'
+        inn_bedroom_rare: '25'
+    2,1,8:
+      c45819b0-dc09-4f79-8281-5f263b62655b:
+        food: '20'
+    1,3,8:
+      c45819b0-dc09-4f79-8281-5f263b62655b:
+        food: '20'
+    0,3,8:
+      c45819b0-dc09-4f79-8281-5f263b62655b:
+        food: '20'
+    0,1,8:
+      c45819b0-dc09-4f79-8281-5f263b62655b:
+        food: '20'
+    1,1,8:
+      c45819b0-dc09-4f79-8281-5f263b62655b:
+        food: '20'
+    2,3,8:
+      c45819b0-dc09-4f79-8281-5f263b62655b:
+        food: '70'
+    7,1,-9:
+      31c04d70-5320-4472-9197-dd5833d0c503:
+        furnace_fuel: '80'
+      8cf39bbd-e274-400a-b5f3-30ceb01ccfbf:
+        furnace_kitchen: '60'
+    7,2,-9:
+      31c04d70-5320-4472-9197-dd5833d0c503:
+        furnace_fuel: '80'
+      8cf39bbd-e274-400a-b5f3-30ceb01ccfbf:
+        furnace_kitchen: '60'
+    8,1,-9:
+      31c04d70-5320-4472-9197-dd5833d0c503:
+        furnace_fuel: '80'
+      8cf39bbd-e274-400a-b5f3-30ceb01ccfbf:
+        furnace_kitchen: '60'
+    8,2,-9:
+      31c04d70-5320-4472-9197-dd5833d0c503:
+        furnace_fuel: '80'
+      8cf39bbd-e274-400a-b5f3-30ceb01ccfbf:
+        furnace_kitchen: '60'
+  chance: '100'
+  category: Stonebrick
+  type: spawn_room
+  name: Crimson_Tavern
+  pos1: l@-14,-1,-10
+  pos2: l@10,18,15
+  entrancepoint: l@-12.699999988079071,13,0.49382881813078594,17.09971,270.009033

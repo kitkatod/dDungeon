@@ -1,0 +1,90 @@
+SectionOptions:
+  pathways:
+    0,-3,-2:
+      direction: l@-1,0,0
+      possible_connections: {}
+  inventories:
+    1,0,-5:
+      c5a46af2-7004-48fe-a791-fc8b9067f8a2:
+        storeroom: '90'
+    2,0,-5:
+      c5a46af2-7004-48fe-a791-fc8b9067f8a2:
+        storeroom: '50'
+    3,0,-5:
+      c5a46af2-7004-48fe-a791-fc8b9067f8a2:
+        storeroom: '90'
+    4,0,-5:
+      c5a46af2-7004-48fe-a791-fc8b9067f8a2:
+        storeroom: '50'
+    4,-2,-5:
+      c5a46af2-7004-48fe-a791-fc8b9067f8a2:
+        storeroom: '50'
+    2,-2,-5:
+      c5a46af2-7004-48fe-a791-fc8b9067f8a2:
+        storeroom: '50'
+    1,-2,-5:
+      c5a46af2-7004-48fe-a791-fc8b9067f8a2:
+        storeroom: '90'
+    3,-2,-5:
+      c5a46af2-7004-48fe-a791-fc8b9067f8a2:
+        storeroom: '90'
+    2,-1,-1:
+      c5a46af2-7004-48fe-a791-fc8b9067f8a2:
+        storeroom: '90'
+    3,-1,-1:
+      c5a46af2-7004-48fe-a791-fc8b9067f8a2:
+        storeroom: '50'
+    4,-1,-1:
+      c5a46af2-7004-48fe-a791-fc8b9067f8a2:
+        storeroom: '50'
+    5,-1,-1:
+      c5a46af2-7004-48fe-a791-fc8b9067f8a2:
+        storeroom: '50'
+    3,0,-1:
+      c5a46af2-7004-48fe-a791-fc8b9067f8a2:
+        storeroom: '50'
+    2,0,-1:
+      c5a46af2-7004-48fe-a791-fc8b9067f8a2:
+        storeroom: '50'
+    4,0,-1:
+      c5a46af2-7004-48fe-a791-fc8b9067f8a2:
+        storeroom: '90'
+    5,0,-1:
+      c5a46af2-7004-48fe-a791-fc8b9067f8a2:
+        storeroom: '50'
+    5,0,1:
+      c5a46af2-7004-48fe-a791-fc8b9067f8a2:
+        storeroom: '50'
+    4,0,1:
+      c5a46af2-7004-48fe-a791-fc8b9067f8a2:
+        storeroom: '50'
+    3,0,1:
+      c5a46af2-7004-48fe-a791-fc8b9067f8a2:
+        storeroom: '90'
+    1,0,1:
+      c5a46af2-7004-48fe-a791-fc8b9067f8a2:
+        storeroom: '90'
+    1,-2,1:
+      c5a46af2-7004-48fe-a791-fc8b9067f8a2:
+        storeroom: '90'
+    3,-2,1:
+      c5a46af2-7004-48fe-a791-fc8b9067f8a2:
+        storeroom: '90'
+    4,-2,1:
+      c5a46af2-7004-48fe-a791-fc8b9067f8a2:
+        storeroom: '50'
+    5,-2,1:
+      c5a46af2-7004-48fe-a791-fc8b9067f8a2:
+        storeroom: '90'
+    2,0,1:
+      c5a46af2-7004-48fe-a791-fc8b9067f8a2:
+        storeroom: '90'
+    2,-2,1:
+      c5a46af2-7004-48fe-a791-fc8b9067f8a2:
+        storeroom: '90'
+  chance: '50'
+  category: Stonebrick
+  type: room
+  name: cellar
+  pos1: l@0,-4,-6
+  pos2: l@6,2,2

@@ -1,0 +1,48 @@
+SectionOptions:
+  pathways:
+    -13,-8,21:
+      direction: l@-1,0,0
+      possible_connections:
+        junction_crypt:
+          chance: '100'
+      hallwayType: crypt
+      resetHallwayCount: 'true'
+      allowIncoming: 'false'
+    -2,-3,-1:
+      direction: l@0,0,-1
+      possible_connections: {}
+  inventories:
+    1,1,2:
+      e7e7caae-83b2-4be9-949d-db32fd2b0d53:
+        crypt_pot: '80'
+    1,-1,5:
+      e7e7caae-83b2-4be9-949d-db32fd2b0d53:
+        crypt_pot: '80'
+    1,1,6:
+      e7e7caae-83b2-4be9-949d-db32fd2b0d53:
+        crypt_pot: '80'
+    0,-2,5:
+      e7e7caae-83b2-4be9-949d-db32fd2b0d53:
+        crypt_pot: '80'
+    1,-1,3:
+      e7e7caae-83b2-4be9-949d-db32fd2b0d53:
+        crypt_pot: '80'
+    -4,-2,3:
+      e7e7caae-83b2-4be9-949d-db32fd2b0d53:
+        crypt_pot: '80'
+    -5,-1,2:
+      e7e7caae-83b2-4be9-949d-db32fd2b0d53:
+        crypt_pot: '80'
+    -5,1,5:
+      e7e7caae-83b2-4be9-949d-db32fd2b0d53:
+        crypt_pot: '80'
+    0,-5,23:
+      56a348d1-885b-4fa3-8da2-bb55f4334de7:
+        minor_treasure: '80'
+  chance: '50'
+  maxoccurrencecount: '2'
+  category: Stonebrick
+  type: room
+  name: main_crypt_1
+  pos1: l@-13,-8,-1
+  pos2: l@6,5,26

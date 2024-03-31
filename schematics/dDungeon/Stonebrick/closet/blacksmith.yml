@@ -1,0 +1,46 @@
+SectionOptions:
+  pathways:
+    -3,0,-1:
+      direction: l@-1,-0,-0
+      possible_connections: {}
+  inventories:
+    4,1,1:
+      f1387ace-818a-4e13-bff4-38bf8bba8f58:
+        blacksmith: '95'
+    4,2,0:
+      6ae182e1-19fe-4e62-801d-6ffa795bbe1c:
+        furnace_fuel: '70'
+      ee6a0253-8b0d-457e-a920-47e5fadabe84:
+        furnace_blacksmith: '50'
+    4,2,-1:
+      6ae182e1-19fe-4e62-801d-6ffa795bbe1c:
+        furnace_fuel: '70'
+      ee6a0253-8b0d-457e-a920-47e5fadabe84:
+        furnace_blacksmith: '50'
+    4,2,-2:
+      6ae182e1-19fe-4e62-801d-6ffa795bbe1c:
+        furnace_fuel: '70'
+      ee6a0253-8b0d-457e-a920-47e5fadabe84:
+        furnace_blacksmith: '50'
+    4,1,-2:
+      6ae182e1-19fe-4e62-801d-6ffa795bbe1c:
+        furnace_fuel: '70'
+      ee6a0253-8b0d-457e-a920-47e5fadabe84:
+        furnace_blacksmith: '50'
+    4,1,-1:
+      6ae182e1-19fe-4e62-801d-6ffa795bbe1c:
+        furnace_fuel: '70'
+      ee6a0253-8b0d-457e-a920-47e5fadabe84:
+        furnace_blacksmith: '50'
+    4,1,0:
+      6ae182e1-19fe-4e62-801d-6ffa795bbe1c:
+        furnace_fuel: '70'
+      ee6a0253-8b0d-457e-a920-47e5fadabe84:
+        furnace_blacksmith: '50'
+  chance: '20'
+  category: Stonebrick
+  type: closet
+  name: blacksmith
+  pos1: l@-3,-1,-5
+  pos2: l@5,4,2
+  maxOccurrenceCount: '2'

@@ -1,0 +1,14 @@
+SectionOptions:
+  pathways:
+    0,-2,0:
+      direction: l@-1,0,0
+      possible_connections: {}
+      hallwayType: crypt
+  inventories: {}
+  chance: '0'
+  maxoccurrencecount: '-1'
+  category: Stonebrick
+  type: deadend_crypt
+  name: deadend_basic
+  pos1: l@0,-2,-2
+  pos2: l@0,4,2

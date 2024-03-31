@@ -1,0 +1,22 @@
+SectionOptions:
+  pathways:
+    4,0,6:
+      direction: l@-0,-0,1
+      possible_connections:
+        junction:
+          chance: '100'
+      resetHallwayCount: 'true'
+    4,0,-6:
+      direction: l@0,0,-1
+      possible_connections:
+        junction:
+          chance: '100'
+      resetHallwayCount: 'true'
+  inventories: {}
+  chance: '100'
+  category: Stonebrick
+  type: spawn_room
+  name: standard_entrance
+  pos1: l@-16,-1,-7
+  pos2: l@13,17,7
+  entrancepoint: l@-13.208714885079848,11,0.5146025368344169,20.549707,269.856934

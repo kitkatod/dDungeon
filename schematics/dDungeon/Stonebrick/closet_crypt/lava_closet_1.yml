@@ -1,0 +1,18 @@
+SectionOptions:
+  pathways:
+    -2,-5,0:
+      direction: l@-1,0,0
+      possible_connections: {}
+      hallwayType: crypt
+  inventories:
+    6,-4,-1:
+      b6499755-9c3a-438a-921e-f4c4f6d872d5:
+        major_treasure: '30'
+        minor_treasure: '70'
+  chance: '30'
+  maxoccurrencecount: '-1'
+  category: Stonebrick
+  type: closet_crypt
+  name: lava_closet_1
+  pos1: l@-2,-6,-2
+  pos2: l@7,2,2

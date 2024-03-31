@@ -1,0 +1,15 @@
+SectionOptions:
+  pathways:
+    -4,-2,0:
+      direction: l@-1,-0,-0
+      possible_connections: {}
+    2,-10,-8:
+      direction: l@-0,-0,-1
+      possible_connections: {}
+  inventories: {}
+  chance: '15'
+  category: Stonebrick
+  type: hallway_default
+  name: stairs_corner
+  pos1: l@-4,-11,-8
+  pos2: l@5,3,3

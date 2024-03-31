@@ -1,0 +1,12 @@
+SectionOptions:
+  pathways:
+    -2,0,0:
+      direction: l@-1,0,0
+      possible_connections: {}
+  inventories: {}
+  chance: '30'
+  category: Stonebrick
+  type: deadend_default
+  name: wedge
+  pos1: l@-2,0,-3
+  pos2: l@5,5,3

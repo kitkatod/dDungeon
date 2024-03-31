@@ -1,0 +1,12 @@
+SectionOptions:
+  pathways:
+    -4,-3,0:
+      direction: l@-1,-0,-0
+      possible_connections: {}
+  inventories: {}
+  chance: '40'
+  category: Stonebrick
+  type: closet
+  name: chains
+  pos1: l@-4,-3,-3
+  pos2: l@0,4,3

@@ -1,0 +1,37 @@
+SectionOptions:
+  pathways:
+    -1,-4,2:
+      direction: l@-1,0,0
+      possible_connections:
+        room_crypt:
+          chance: '100'
+        junction_crypt:
+          chance: '10'
+      hallwayType: crypt
+      resetHallwayCount: 'true'
+    7,-4,0:
+      direction: l@0,0,-1
+      possible_connections:
+        room_crypt:
+          chance: '100'
+        junction_crypt:
+          chance: '10'
+      hallwayType: crypt
+      resetHallwayCount: 'true'
+    7,-4,4:
+      direction: l@0,0,1
+      possible_connections:
+        room_crypt:
+          chance: '100'
+        junction_crypt:
+          chance: '10'
+      hallwayType: crypt
+      resetHallwayCount: 'true'
+  inventories: {}
+  chance: '50'
+  maxoccurrencecount: '2'
+  category: Stonebrick
+  type: junction_crypt
+  name: t_junction_1
+  pos1: l@-1,-4,-1
+  pos2: l@10,2,5

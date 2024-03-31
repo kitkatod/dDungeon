@@ -1,0 +1,12 @@
+SectionOptions:
+  pathways:
+    0,-2,0:
+      direction: l@-1,-0,-0
+      possible_connections: {}
+  inventories: {}
+  chance: '10'
+  category: Stonebrick
+  type: deadend_default
+  name: bricks
+  pos1: l@0,-2,-2
+  pos2: l@0,3,2

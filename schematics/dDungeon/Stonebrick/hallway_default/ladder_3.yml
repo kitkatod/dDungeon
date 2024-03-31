@@ -1,0 +1,15 @@
+SectionOptions:
+  pathways:
+    0,0,-2:
+      direction: l@0,0,-1
+      possible_connections: {}
+    1,6,0:
+      direction: l@0,1,0
+      possible_connections: {}
+  inventories: {}
+  chance: '100'
+  category: Stonebrick
+  type: hallway_default
+  name: ladder_3
+  pos1: l@-2,-1,-2
+  pos2: l@2,7,1

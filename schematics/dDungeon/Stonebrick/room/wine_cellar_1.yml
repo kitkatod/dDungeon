@@ -1,0 +1,36 @@
+SectionOptions:
+  pathways:
+    8,-6,-5:
+      direction: l@0,0,-1
+      possible_connections: {}
+  inventories:
+    -1,-5,3:
+      6e408c8c-ffe6-48f0-911b-176ac9f77e6b:
+        storeroom: '90'
+    -1,-5,4:
+      19e84673-bb65-4854-b733-2443597d86e0: {}
+    -2,-5,3:
+      6e408c8c-ffe6-48f0-911b-176ac9f77e6b:
+        storeroom: '90'
+    -2,-4,4:
+      6e408c8c-ffe6-48f0-911b-176ac9f77e6b:
+        storeroom: '90'
+    -1,-5,-3:
+      6e408c8c-ffe6-48f0-911b-176ac9f77e6b:
+        storeroom: '90'
+    -1,-4,-4:
+      6e408c8c-ffe6-48f0-911b-176ac9f77e6b:
+        storeroom: '90'
+    -1,-5,-4:
+      6e408c8c-ffe6-48f0-911b-176ac9f77e6b:
+        storeroom: '90'
+    -2,-5,-4:
+      08d748bc-4c8d-4e8c-a702-e6eb1ff0ff19:
+        adventure_chest: '90'
+  chance: '50'
+  maxoccurrencecount: '2'
+  category: Stonebrick
+  type: room
+  name: wine_cellar_1
+  pos1: l@-6,-6,-5
+  pos2: l@11,0,5

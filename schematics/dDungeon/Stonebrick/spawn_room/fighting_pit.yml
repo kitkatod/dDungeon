@@ -1,0 +1,45 @@
+SectionOptions:
+  pathways:
+    18,3,0:
+      direction: l@1,0,0
+      possible_connections:
+        junction:
+          chance: '100'
+      resetHallwayCount: 'true'
+    0,3,-18:
+      direction: l@0,0,-1
+      possible_connections:
+        junction:
+          chance: '100'
+        room:
+          chance: '10'
+      resetHallwayCount: 'true'
+    0,3,18:
+      direction: l@0,0,1
+      possible_connections:
+        junction:
+          chance: '100'
+        room:
+          chance: '50'
+      resetHallwayCount: 'true'
+    -7,0,17:
+      direction: l@0,0,1
+      possible_connections:
+        closet:
+          chance: '100'
+      hallwayType: skip_hallway
+    -7,0,-17:
+      direction: l@0,0,-1
+      possible_connections:
+        closet:
+          chance: '100'
+      hallwayType: skip_hallway
+  inventories: {}
+  chance: '100'
+  maxoccurrencecount: '-1'
+  category: Stonebrick
+  type: spawn_room
+  name: fighting_pit
+  pos1: l@-34,-1,-18
+  pos2: l@18,20,18
+  entrancepoint: l@-27.218099538965475,1,0.4958914403244634,-0.600116,269.705688

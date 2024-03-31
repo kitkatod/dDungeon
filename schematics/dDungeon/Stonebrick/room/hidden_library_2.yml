@@ -1,0 +1,25 @@
+SectionOptions:
+  pathways:
+    0,-2,2:
+      direction: l@-1,0,0
+      possible_connections: {}
+  inventories:
+    3,-2,2:
+      2864f8f4-5048-4a56-a0a9-78d579c8bd34:
+        adventure_chest: '80'
+        minor_treasure: '20'
+    3,2,2:
+      4b5d5190-36ed-4c9a-8399-2b048467f26b:
+        library: '100'
+    3,-1,5:
+      4b5d5190-36ed-4c9a-8399-2b048467f26b:
+        library: '100'
+    1,0,0:
+      4b5d5190-36ed-4c9a-8399-2b048467f26b:
+        library: '100'
+  chance: '20'
+  category: Stonebrick
+  type: room
+  name: hidden_library_2
+  pos1: l@0,-3,-2
+  pos2: l@7,3,6

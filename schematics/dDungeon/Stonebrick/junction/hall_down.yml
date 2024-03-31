@@ -1,0 +1,32 @@
+SectionOptions:
+  pathways:
+    -2,0,1:
+      direction: l@-1,-0,-0
+      possible_connections:
+        room:
+          chance: '100'
+        junction:
+          chance: '10'
+      resetHallwayCount: 'true'
+    -1,-5,-1:
+      direction: l@-0,-0,-1
+      possible_connections:
+        room:
+          chance: '100'
+      resetHallwayCount: 'true'
+    4,0,1:
+      direction: l@1,-0,-0
+      possible_connections:
+        room:
+          chance: '100'
+        junction:
+          chance: '10'
+      resetHallwayCount: 'true'
+  inventories: {}
+  chance: '50'
+  category: Stonebrick
+  type: junction
+  name: hall_down
+  pos1: l@-2,-6,-2
+  pos2: l@4,5,4
+  maxOccurrenceCount: '3'

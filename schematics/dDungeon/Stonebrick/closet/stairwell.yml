@@ -1,0 +1,18 @@
+SectionOptions:
+  pathways:
+    0,1,-1:
+      direction: l@-1,-0,-0
+      possible_connections: {}
+    1,-8,2:
+      direction: l@-0,-0,1
+      possible_connections:
+        closet:
+          chance: '100'
+      hallwayType: default
+  inventories: {}
+  chance: '40'
+  category: Stonebrick
+  type: closet
+  name: stairwell
+  pos1: l@-1,-8,-3
+  pos2: l@4,5,2

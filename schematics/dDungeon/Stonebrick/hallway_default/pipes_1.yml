@@ -1,0 +1,15 @@
+SectionOptions:
+  pathways:
+    -2,-2,-2:
+      direction: l@-1,-0,-0
+      possible_connections: {}
+    11,-2,-2:
+      direction: l@1,-0,-0
+      possible_connections: {}
+  inventories: {}
+  chance: '30'
+  category: Stonebrick
+  type: hallway_default
+  name: pipes_1
+  pos1: l@-2,-3,-4
+  pos2: l@11,3,0

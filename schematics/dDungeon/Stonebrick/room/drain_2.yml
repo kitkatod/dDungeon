@@ -1,0 +1,12 @@
+SectionOptions:
+  pathways:
+    -3,-3,3:
+      direction: l@-1,0,0
+      possible_connections: {}
+  inventories: {}
+  chance: '100'
+  category: Stonebrick
+  type: room
+  name: drain_2
+  pos1: l@-3,-4,0
+  pos2: l@7,5,7

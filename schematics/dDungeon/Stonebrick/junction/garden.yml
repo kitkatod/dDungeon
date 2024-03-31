@@ -1,0 +1,42 @@
+SectionOptions:
+  pathways:
+    -4,0,3:
+      direction: l@-1,-0,-0
+      possible_connections:
+        room:
+          chance: '100'
+        junction:
+          chance: '10'
+      resetHallwayCount: 'true'
+    3,0,10:
+      direction: l@-0,-0,1
+      possible_connections:
+        junction:
+          chance: '10'
+        room:
+          chance: '100'
+      resetHallwayCount: 'true'
+    10,0,3:
+      direction: l@1,-0,-0
+      possible_connections:
+        junction:
+          chance: '10'
+        room:
+          chance: '100'
+      resetHallwayCount: 'true'
+    3,0,-4:
+      direction: l@-0,-0,-1
+      possible_connections:
+        room:
+          chance: '100'
+        junction:
+          chance: '10'
+      resetHallwayCount: 'true'
+  inventories: {}
+  chance: '20'
+  category: Stonebrick
+  type: junction
+  name: garden
+  pos1: l@-4,-1,-4
+  pos2: l@10,13,10
+  maxOccurrenceCount: '1'

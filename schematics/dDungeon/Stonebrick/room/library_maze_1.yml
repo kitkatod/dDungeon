@@ -1,0 +1,41 @@
+SectionOptions:
+  pathways:
+    0,-4,2:
+      direction: l@-1,0,0
+      possible_connections: {}
+    14,-3,5:
+      direction: l@1,0,0
+      possible_connections: {}
+      allowIncoming: 'false'
+  inventories:
+    3,-1,3:
+      26f71d6d-a626-4592-850c-098f4912b5bb:
+        library: '30'
+    3,0,3:
+      26f71d6d-a626-4592-850c-098f4912b5bb:
+        library: '30'
+    13,-1,4:
+      26f71d6d-a626-4592-850c-098f4912b5bb:
+        library: '30'
+    13,0,4:
+      26f71d6d-a626-4592-850c-098f4912b5bb:
+        library: '5'
+    13,-2,3:
+      26f71d6d-a626-4592-850c-098f4912b5bb:
+        library_lectern: '60'
+    4,-2,6:
+      26f71d6d-a626-4592-850c-098f4912b5bb:
+        library: '30'
+    11,0,6:
+      26f71d6d-a626-4592-850c-098f4912b5bb:
+        library: '30'
+    10,-2,4:
+      26f71d6d-a626-4592-850c-098f4912b5bb:
+        library: '30'
+  chance: '50'
+  maxoccurrencecount: '2'
+  category: Stonebrick
+  type: room
+  name: library_maze_1
+  pos1: l@0,-4,-3
+  pos2: l@14,3,7

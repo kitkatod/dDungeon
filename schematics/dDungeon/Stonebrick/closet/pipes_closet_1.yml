@@ -1,0 +1,13 @@
+SectionOptions:
+  pathways:
+    -1,-3,2:
+      direction: l@-1,0,0
+      possible_connections: {}
+  inventories: {}
+  chance: '40'
+  maxoccurrencecount: '-1'
+  category: Stonebrick
+  type: closet
+  name: pipes_closet_1
+  pos1: l@-1,-3,-1
+  pos2: l@3,2,5

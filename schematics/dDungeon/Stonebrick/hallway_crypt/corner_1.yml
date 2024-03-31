@@ -1,0 +1,18 @@
+SectionOptions:
+  pathways:
+    -1,-4,2:
+      direction: l@-1,0,0
+      possible_connections: {}
+      hallwayType: crypt
+    3,-4,-2:
+      direction: l@0,0,-1
+      possible_connections: {}
+      hallwayType: crypt
+  inventories: {}
+  chance: '70'
+  maxoccurrencecount: '-1'
+  category: Stonebrick
+  type: hallway_crypt
+  name: corner_1
+  pos1: l@-1,-4,-2
+  pos2: l@6,2,5

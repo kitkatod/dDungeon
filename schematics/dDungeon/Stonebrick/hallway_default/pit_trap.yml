@@ -1,0 +1,16 @@
+SectionOptions:
+  pathways:
+    -7,-2,3:
+      direction: l@-1,-0,-0
+      possible_connections: {}
+    1,-2,3:
+      direction: l@1,-0,-0
+      possible_connections: {}
+  inventories: {}
+  chance: '3'
+  category: Stonebrick
+  type: hallway_default
+  name: pit_trap
+  pos1: l@-7,-48,-1
+  pos2: l@1,6,7
+  maxOccurrenceCount: '2'

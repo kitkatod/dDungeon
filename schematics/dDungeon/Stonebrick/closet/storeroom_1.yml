@@ -1,0 +1,30 @@
+SectionOptions:
+  pathways:
+    0,-5,0:
+      direction: l@-1,-0,-0
+      possible_connections: {}
+  inventories:
+    1,-2,-1:
+      8d6be0d4-ccef-445a-a104-cd44b352d28d:
+        storeroom: '80'
+    1,-2,0:
+      8d6be0d4-ccef-445a-a104-cd44b352d28d:
+        storeroom: '80'
+    1,-2,1:
+      8d6be0d4-ccef-445a-a104-cd44b352d28d:
+        storeroom: '80'
+    1,-4,1:
+      8d6be0d4-ccef-445a-a104-cd44b352d28d:
+        storeroom: '80'
+    1,-4,-1:
+      8d6be0d4-ccef-445a-a104-cd44b352d28d:
+        storeroom: '80'
+    1,-4,0:
+      8d6be0d4-ccef-445a-a104-cd44b352d28d:
+        storeroom: '80'
+  chance: '60'
+  category: Stonebrick
+  type: closet
+  name: storeroom_1
+  pos1: l@0,-5,-2
+  pos2: l@2,0,2
