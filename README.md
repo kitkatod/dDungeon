@@ -41,6 +41,8 @@ Minecraft Dungeon Generation toolset using Denizen Scripting.
       - Allow file deletion: **true**
     - FileCopy
       - Allow copying files: **true**
+    - While
+      - Max Loops: **0** (OR, just a **REALLY** high number... This is due to using a task based FloodFill algorithm when backfilling areas around the Dungeon. If you run into void spaces around the Dungeon and this isn't **0**, it's probably too low...)
 - **If not using the provided dungeon schematics, you're done installing! Otherwise:**
 -  Save all contents of "schematics" folder to "/plugins/Denizen/schematics".
 
