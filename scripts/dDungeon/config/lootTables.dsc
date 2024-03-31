@@ -8,7 +8,7 @@ dd_LootTables:
             # Determines the number of item entries to randomly select when this loot category is called
             # May use the format min|max to set a range to randomly select from instead (uses a triangular distribution)
             # (optional, default is 1)
-            _selectionCount: 3
+            _selection_count: 3
             # Import all loot entries from the listed categories
             # Note that if an entry has the same key as another only one will be considered
             # (optional, default is to not import from any other categories)
@@ -46,7 +46,7 @@ dd_LootTables:
                 # Used to make a weighted random selection
                 # (optional, default is 100)
                 weight: 100
-                # Used to set the maximum number of times this can be selected if _selectionCount is greater than 1
+                # Used to set the maximum number of times this can be selected if _selection_count is greater than 1
                 # (optional, default is -1, which is treated as no limit)
                 max_selection_count: -1
                 # If the item has the ability to have a durability, randomize the durability, weighted towards the lower end of remaining durability
@@ -117,7 +117,7 @@ dd_LootTables:
                 item_proc_args: food
 
         food:
-            _selectionCount: 3
+            _selection_count: 3
             wheat:
                 weight: 300
                 quantity: 10|24
@@ -138,7 +138,7 @@ dd_LootTables:
 
 
         inn_bedroom:
-            _selectionCount: 3|7
+            _selection_count: 3|7
             leather_boots:
                 quantity: 1
                 max_selection_count: 1
@@ -172,7 +172,7 @@ dd_LootTables:
             brush: 1
 
         inn_bedroom_rare:
-            _selectionCount: 3|4
+            _selection_count: 3|4
             iron_boots:
                 quantity: 1
                 max_selection_count: 1
@@ -198,7 +198,7 @@ dd_LootTables:
                 quantity: 1|2
 
         blacksmith:
-            _selectionCount: 2|5
+            _selection_count: 2|5
             iron_ingot:
                 weight: 1000
                 quantity: 5|15
@@ -229,7 +229,7 @@ dd_LootTables:
                 max_selection_count: 1
 
         library:
-            _selectionCount: 2
+            _selection_count: 2
             dd_LootTables_SingleItemFromLootTable#books:
                 item_proc_args: library_books
             book:
@@ -268,7 +268,7 @@ dd_LootTables:
                         - tree_feller
 
         library_lectern:
-            _selectionCount: 1
+            _selection_count: 1
             dd_LootTables_SingleItemFromLootTable#books:
                 item_proc_args: library_books
             writable_book: 1
@@ -307,7 +307,7 @@ dd_LootTables:
             carwyn_3: 1
 
         crypt_pot:
-            _selectionCount: 1
+            _selection_count: 1
             bone_meal:
                 weight: 200
                 quantity: 2|4
@@ -328,7 +328,7 @@ dd_LootTables:
                 quantity: 1
 
         special_enchanted_book:
-            _selectionCount: 1
+            _selection_count: 1
             enchanted_book#rareBook:
                 max_selection_count: 1
                 modifier_procs:
@@ -342,20 +342,20 @@ dd_LootTables:
                         - tree_feller
 
         furnace_fuel:
-            _selectionCount: 1
+            _selection_count: 1
             _allow_split_stack: false
             coal: 4|8
             charcoal: 2|6
 
         furnace_blacksmith:
-            _selectionCount: 1
+            _selection_count: 1
             _allow_split_stack: false
             raw_iron: 3|8
             raw_gold: 3|8
             raw_copper: 3|8
 
         furnace_kitchen:
-            _selectionCount: 1
+            _selection_count: 1
             _allow_split_stack: false
             cod: 3|7
             salmon: 3|7
@@ -366,7 +366,7 @@ dd_LootTables:
             chicken: 3|7
 
         minor_treasure:
-            _selectionCount: 3|5
+            _selection_count: 3|5
             diamond:
                 weight: 200
                 quantity: 1|2
@@ -386,7 +386,7 @@ dd_LootTables:
                 max_selection_count: 1
 
         major_treasure:
-            _selectionCount: 3|6
+            _selection_count: 3|6
             _import_from:
             - special_enchanted_book
             diamond:
@@ -487,7 +487,7 @@ dd_LootTables:
                         - binding_curse
 
         trap_arrows:
-            _selectionCount: 9
+            _selection_count: 9
             _allow_split_stack: false
             tipped_arrow[potion_effects=[base_type=harming]]:
                 _flags:
@@ -507,7 +507,7 @@ dd_LootTables:
                 quantity: 5|10
 
         storeroom:
-            _selectionCount: 2|3
+            _selection_count: 2|3
             dried_kelp: 4|8
             wheat:
                 weight: 150

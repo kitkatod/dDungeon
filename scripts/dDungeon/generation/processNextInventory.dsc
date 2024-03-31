@@ -84,7 +84,7 @@ dd_ProcessNextInventory:
 ##Example loot table settings
 # lootTables:
 #         food:
-#             _selectionCount: 1
+#             _selection_count: 1
 #             cod#commentgoeshere:
 #                 weight: 1
 #                 quantity: 1|15

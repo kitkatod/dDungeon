@@ -26,7 +26,7 @@ dd_RollLootTable_Category:
                 - define lootTable.<[importKey]> <[importItem]>
 
     #Determine number of items to select
-    - define selectionCount <[lootTable._selectionCount].if_null[1]>
+    - define selectionCount <[lootTable._selection_count].if_null[1]>
     - if <[selectionCount].escaped.contains_all_text[&pipe]>:
         - define selectionCount <[selectionCount].proc[dd_TrangularDistroRandomInt]>
 
