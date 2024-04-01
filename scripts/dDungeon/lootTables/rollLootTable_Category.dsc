@@ -43,13 +43,15 @@ dd_RollLootTable_Category:
             #Skip loot table keys that are loot table settings, not loot entries
             - if <[itemKey].starts_with[_]>:
                 - foreach next
+            - if <[itemKey.weight]> == -1:
+                - define lootTableItems <[lootTableItems].insert[<map[item_key=<[itemKey]>;target_weight=-1]>].at[1]>
             - define selectionTotalWeight:+:<[itemEntry.weight].if_null[<[weight]>]>
             - define lootTableItems:->:<map[item_key=<[itemKey]>;target_weight=<[selectionTotalWeight]>]>
 
         - define selectedValue <util.random.decimal[0.1].to[<[selectionTotalWeight]>]>
         - foreach <[lootTableItems]> as:itemEntry:
-            #If the selected value is below the target chance of the item then we have a winner!
-            - if <[itemEntry.target_weight]> >= <[selectedValue]>:
+            #If the selected value is below the target chance of the item or is -1 then we have a winner!
+            - if <[itemEntry.target_weight]> >= <[selectedValue]> || <[itemEntry.target_weight]> == -1:
                 - define itemData <[lootTable.<[itemEntry.item_key]>]>
                 #Get item name (remove any comments/details at end of name)
                 - define itemName <[itemEntry.item_key].before_last[#]>
@@ -124,6 +126,10 @@ dd_RollLootTable_Category:
                 #(Less than 0 is okay. -1 indicates no limit is set, so we can keep going.)
                 - if <[lootTable.<[itemEntry.item_key]>.max_selection_count].if_null[-1]> == 0:
                     - define lootTable.<[itemEntry.item_key]>:!
+
+                #If the item weight is -1, remove the item from the list.
+                - if <[itemEntry.weight]> == -1:
+                    - define <[lootTableItems]>:<-:<[itemEntry]>
 
                 #Stop this run of selecting an item
                 - foreach stop
