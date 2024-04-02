@@ -7,6 +7,7 @@ dd_SchematicEditor_SaveSchematic:
         - run dd_Clickable_CancelGroup def.groupId:<[clickableGroupId]>
 
     - define optionsBlockData <[optionsLoc].flag[dd_SectionOptions]>
+    - define optionsBlockData.schematic_data_version <script[dd_Config].data_key[dd_schematic_data_version]>
 
     - if <[optionsBlockData.readonly].if_null[false]>:
         - narrate "<red> *** Whoah!! It looks like you're trying to save a Dungeon Section that was generated as part of a Dungeon."
