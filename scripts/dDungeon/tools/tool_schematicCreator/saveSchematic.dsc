@@ -22,12 +22,12 @@ dd_SchematicEditor_SaveSchematic:
     - define cuboid <[pos1].to_cuboid[<[pos2]>]>
 
     - ~schematic create name:<[name]> location:<[optionsLoc]> area:<[cuboid]> entities flags
-    - ~schematic save name:<[name]> filename:dDungeon\<[category]>\<[type]>\<[name]>
+    - ~schematic save name:<[name]> filename:dDungeon/<[category]>/<[type]>/<[name]>
     - ~schematic unload name:<[name]>
 
     - yaml create id:tmp_options
     - yaml id:tmp_options set SectionOptions:<[optionsBlockData]>
-    - ~yaml savefile:schematics\dDungeon\<[category]>\<[type]>\<[name]>.yml id:tmp_options
+    - ~yaml savefile:schematics/dDungeon/<[category]>/<[type]>/<[name]>.yml id:tmp_options
     - yaml unload id:tmp_options
 
     - narrate "<blue><italic> *** Schematic <gold><[name]> <blue>Saved"
