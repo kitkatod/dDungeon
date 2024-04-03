@@ -55,5 +55,16 @@ dd_Transform_RotateAroundY:
     - define pos <[pos].rotate_around_y[<[rotRad]>].round>
     - define sectionData.pos2 <[pos]>
 
+    #Flip flags
+    - define flags <[sectionData.flags].if_null[<map[]>]>
+    - define newFlags <map[]>
+    - foreach <[flags]> as:flags_map key:flag_offset:
+        #Rotate invKey
+        - define newFlagOffset <[flag_offset].proc[dd_KeyToLocation].rotate_around_y[<[rotRad]>].proc[dd_LocationToKey]>
+        #Save flag definition
+        - define newFlags.<[newFlagOffset]> <[flags_map]>
+    #Save new flags data
+    - define sectionData.flags <[newFlags]>
+
     #Return new section data
     - determine <[sectionData]>

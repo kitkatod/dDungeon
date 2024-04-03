@@ -185,9 +185,14 @@ dd_ProcessNextSection:
                         - ~schematic paste noair name:<[targetSectionSchemPath]> <[pasteLoc]> entities delayed
                         - ~run dd_Schematic_UndoOrientation def.schemPath:<[targetSectionSchemPath]> def.flip:<[flip]> def.rotation:<[rotate]>
 
+
                         #Flag options block with "transformed" section options data
                         - flag <[pasteLoc]> dd_SectionOptions:<[testOptions]>
                         - flag <[pasteLoc]> dd_SectionOptions.readonly:true
+
+                        #Reload any saved flags for the section due to flags being lost when pasting when saved to air blocks. Happens because we paste with noair set.
+                        - if !<[testOptions.flags].keys.is_empty.if_null[true]>:
+                            - ~run dd_ReloadSectionFlags def.optionsLoc:<[pasteLoc]>
 
                         #Remove this pathway from pathway options (since we just used it...)
                         - define testOptions.pathways.<[testPathwayKey]>:!
