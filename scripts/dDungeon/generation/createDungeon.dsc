@@ -89,7 +89,6 @@ dd_Create:
     - flag <[loc]> dd_SectionOptions.readonly:true
     - ~run dd_Schematic_UndoOrientation def.schemPath:<[sectionName]> def.flip:<[flip]> def.rotation:0
 
-
     #Get area of pasted section, handle any post transforms
     - define cuboid <[loc].add[<[sectionOptions.pos1]>].to_cuboid[<[loc].add[<[sectionOptions.pos2]>]>]>
     - if <[dungeonSettings.noise_generation_task].exists>:
@@ -210,7 +209,7 @@ dd_Create:
     - announce "<gold> *** Total generation took <util.time_now.duration_since[<[startTime]>].formatted> "
 
 
-    - run dd_SectionDataCache_Unload def.world:<[world]>
+    - ~run dd_SectionDataCache_Unload def.world:<[world]>
     - note remove as:<[world].name>_dcarea
 
     - flag <[world]> dd_generationRunning:false
