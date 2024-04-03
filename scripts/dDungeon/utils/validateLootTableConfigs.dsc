@@ -31,14 +31,23 @@ dd_LootTables_ValidateConfigs:
             - foreach <proc[dd_GetFilesList].context[<[category]>|<[type]>]> as:file:
                 - define fileList:->:<[file]>
 
+    - define dataVersion <script[dd_Config].data_key[dd_schematic_data_version]>
+    - define outOfDateSchematics 0
+
     #Validate schematic Section Options file configs
     - foreach <[fileList]> as:fileName:
         - ~yaml id:tmp_template_options_yaml load:schematics/dDungeon/<[fileName]>.yml
         - define sectionOptions <yaml[tmp_template_options_yaml].read[SectionOptions]>
         - ~yaml id:tmp_template_options_yaml unload
 
+        - if <[sectionOptions.schematic_data_version].if_null[1.0]> != <[dataVersion]>:
+            - define outOfDateSchematics:++
+
         - foreach <[sectionOptions.inventories].if_null[<map[]>]> as:invData:
             - foreach <[invData].if_null[<map[]>]> as:invGroupData:
                 - foreach <[invGroupData].if_null[<map[]>]> as:chance key:lootTableName:
                     - if !<[lootTableName].proc[dd_LootTables_Exists]>:
                         - narrate "<red>(dDungeon): Schematic Section Configuration Error, Configured Loot Table not found (<[lootTableName]>) in (<[fileName]>)" targets:<server.online_ops>
+
+    - if <[outOfDateSchematics]> > 0:
+        - narrate "<red>(dDungeon): There are Schematic Data files out of date. Consider resaving schematics to update format."

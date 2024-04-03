@@ -55,5 +55,17 @@ dd_Transform_FlipOverX:
     - if <[sectionData.entrancePoint].exists>:
         - define sectionData.entrancePoint <[sectionData.entrancePoint].with_z[<[sectionData.entrancePoint].z.mul[-1]>]>
 
+    #Flip flags
+    - define flags <[sectionData.flags].if_null[<map[]>]>
+    - define newFlags <map[]>
+    - foreach <[flags]> as:flags_map key:flag_offset:
+        #Flip flag offset
+        - define flagOffsetLoc <[flag_offset].proc[dd_keytolocation]>
+        - define newFlagOffset <[flagOffsetLoc].with_z[<[flagOffsetLoc].z.mul[-1]>].proc[dd_LocationToKey]>
+        #Save flag definition
+        - define newFlags.<[newFlagOffset]> <[flags_map]>
+    #Save new flags data
+    - define sectionData.flags <[newFlags]>
+
     #Return new section data
     - determine <[sectionData]>

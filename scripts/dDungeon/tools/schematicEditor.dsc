@@ -110,7 +110,7 @@ dd_SchematicEditor_MainMenu:
 
             - clickable dd_SchematicEditor_SetDungeonExitRadius def.optionsLoc:<[optionsLoc]> def.clickableGroupId:<[clickableGroupId]> for:<player> usages:1 until:5m save:clickSetExitRadius
             - run dd_Clickable_AddToGroup def.groupId:<[clickableGroupId]> def.clickableId:<entry[clickSetExitRadius].id>
-            - narrate "<blue>4.2: Set Spawn Room's Exit Radius <gold>[<element[SET].on_click[<entry[clickSetExitRadius].command>].on_hover[<script.data_key[data.hint_SetExitRadius].parsed>]>]"
+            - narrate "<blue>4.2: Set Spawn Room's Exit Radius (Current: <[sectionData.exitRadius].if_null[ERROR]>) <gold>[<element[SET].on_click[<entry[clickSetExitRadius].command>].on_hover[<script.data_key[data.hint_SetExitRadius].parsed>]>]"
 
         - clickable dd_SchematicEditor_SetSchematicName def.optionsLoc:<[optionsLoc]> def.clickableGroupId:<[clickableGroupId]> def.returnToMainMenu:true for:<player> usages:1 until:5m save:clickSetName
         - run dd_Clickable_AddToGroup def.groupId:<[clickableGroupId]> def.clickableId:<entry[clickSetName].id>

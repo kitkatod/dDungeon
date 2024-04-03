@@ -62,9 +62,9 @@ Minecraft Dungeon Generation toolset using Denizen Scripting.
   - DungeonKey: Can be any value, this is just used to identify the dungeon between regenerating a world
 - /ddGoTo [DungeonKey]
   - Teleports the player to the configured Dungeon Entrance for the given Dungeon Key
-- /ddPaste [FileName]
+- /ddPaste
   - Paste a given Dungeon Section file at the player's current location
-  - FileName will fill in a tab-complete list of files
+  - A Clickable menu will open in chat to navigate to the Section to paste
 - /ddDestroy [DungeonKey]
   - Destroys a dungeon world for the given DungeonKey (matches the one used in /ddCreate)
 - /ddTestLootTable [LootTableName] [ReplaceInventoryLoot] [RepeatCount]
