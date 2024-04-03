@@ -9,7 +9,7 @@ dd_BreakdownWorld:
 
     #Teleport offline players that are in the dungeon
     - foreach <server.offline_players> as:player:
-        - if <[player].location.world> matches <[world]>:
+        - if <[player].location.world.if_null[null]> matches <[world]>:
             - ~run dd_ExitDungeon def.player:<[player]>
 
     #Remove all NPCs spawned into the world
