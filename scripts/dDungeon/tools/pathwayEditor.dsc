@@ -59,6 +59,7 @@ dd_PathwayEditor_MainMenu:
         hint_ResetHallwayCountEnable: <italic>Force Dungeon Generation to re-roll a Hallway Count starting from this Pathway.<n>For example, if no more Hallways would have been placed,<n>this could make a new set of Hallways appear after the Pathway.
         hint_ResetHallwayCountDisabled: <italic>Do not re-roll a new Hallway Count.
         hint_AllowIncoming: <italic>Disable to disallow existing sections to connect onto this pathway.<n>Do not disable this if it is the only pathway on the section, otherwise the section will never be placed.
+        hint_PrintData: <italic>Show data for this Pathway in chat.
         hint_Delete: <italic>Delete this Pathway Connection and any settings associated to it.<n>This does not delete the Section overall.
     definitions: relativeLoc|optionsLoc|clickableGroupId
     script:
@@ -105,6 +106,9 @@ dd_PathwayEditor_MainMenu:
         - define allowIncoming <[optionsData.pathways.<[relativeLoc]>.allowIncoming].if_null[true]>
         - narrate "<blue>4: Allow Incoming (<[allowIncoming]>) <gold>[<element[TOGGLE].on_click[<entry[clickEditAllowIncoming].command>].on_hover[<script.data_key[data.hint_AllowIncoming].parsed>]>]"
 
+        - clickable dd_PathwayEditor_PrintData def.relativeLoc:<[relativeLoc]> def.optionsLoc:<[optionsLoc]> def.clickableGroupId:<[clickableGroupId]> usages:1 for:<player> until:5m save:clickPrintData
+        - run dd_Clickable_AddToGroup def.groupId:<[clickableGroupId]> def.clickableId:<entry[clickPrintData].id>
+        - narrate "<blue>5: Display Pathway Data <gold>[<element[SHOW].on_click[<entry[clickPrintData].command>].on_hover[<script.data_key[data.hint_PrintData].parsed>]>]"
 
         - narrate " "
 
