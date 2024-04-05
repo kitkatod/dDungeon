@@ -103,6 +103,8 @@ dd_InventoryEditor_MainMenu:
             - clickable dd_InventoryEditor_RemoveInventoryGroup_Prompt def.relativeLoc:<[relativeLoc]> def.optionsLoc:<[optionsLoc]> def.groupId:<[groupId]> def.clickableGroupId:<[clickableGroupId]> usages:1 for:<player> until:5m save:clickRemoveGroup
             - run dd_Clickable_AddToGroup def.groupId:<[clickableGroupId]> def.clickableId:<entry[clickRemoveGroup].id>
             - narrate "<blue> * <[loop_index]>: <gold>[<element[MODIFY].on_click[<entry[clickEditGroup].command>].on_hover[<script.data_key[data.hint_EditCategoryGroup]>]>] <blue>| <red>[<element[DELETE].on_click[<entry[clickRemoveGroup].command>].on_hover[<script.data_key[data.hint_RemoveCategoryGroup]>]>]"
+            - foreach <[groupData]> as:tableChance key:tableName:
+                - narrate "<blue>     - <[tableName]> (<[tableChance]>)"
 
         - narrate " "
 
