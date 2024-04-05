@@ -81,9 +81,6 @@ dd_PathwayEditor_MainMenu:
         #List configured "Next Room Types, with chances"
         - define nextRoomTypes <[optionsData.pathways.<[relativeLoc]>.possible_connections]>
         - foreach <[nextRoomTypes]> as:nextRoomData key:nextRoomType:
-            - clickable dd_PathwayEditor_PromptAddConnectingType def.relativeLoc:<[relativeLoc]> def.optionsLoc:<[optionsLoc]> def.clickableGroupId:<[clickableGroupId]> usages:1 for:<player> until:5m save:clickChangeChance
-            - run dd_Clickable_AddToGroup def.groupId:<[clickableGroupId]> def.clickableId:<entry[clickAddConType].id>
-
             - clickable dd_PathwayEditor_PromptRemoveConnectingType_Confirm def.relativeLoc:<[relativeLoc]> def.optionsLoc:<[optionsLoc]> def.type:<[nextRoomType]> def.clickableGroupId:<[clickableGroupId]> usages:1 for:<player> until:5m save:clickRemoveType
             - run dd_Clickable_AddToGroup def.groupId:<[clickableGroupId]> def.clickableId:<entry[clickAddConType].id>
 
