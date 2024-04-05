@@ -72,6 +72,7 @@ dd_InventoryEditor_MainMenu:
         hint_EditCategoryGroup: Modify this Category Group
         hint_CopyInventorySettings: Copy settings for this inventory so they can be pasted to another inventory
         hint_PasteInventorySettings: Paste settings copied from another inventory to this one
+        hint_PrintData: <italic>Show data for this Inventory in chat.
         hint_Delete: Delete this Inventory from the Section
         hint_Exit: Exit Inventory Menu
     definitions: relativeLoc|optionsLoc|clickableGroupId
@@ -104,6 +105,10 @@ dd_InventoryEditor_MainMenu:
             - narrate "<blue> * <[loop_index]>: <gold>[<element[MODIFY].on_click[<entry[clickEditGroup].command>].on_hover[<script.data_key[data.hint_EditCategoryGroup]>]>] <blue>| <red>[<element[DELETE].on_click[<entry[clickRemoveGroup].command>].on_hover[<script.data_key[data.hint_RemoveCategoryGroup]>]>]"
 
         - narrate " "
+
+        - clickable dd_InventoryEditor_PrintData def.relativeLoc:<[relativeLoc]> def.optionsLoc:<[optionsLoc]> def.clickableGroupId:<[clickableGroupId]> usages:1 for:<player> until:5m save:clickPrintData
+        - run dd_Clickable_AddToGroup def.groupId:<[clickableGroupId]> def.clickableId:<entry[clickPrintData].id>
+        - narrate "<blue> * Display Inventory Data <gold>[<element[SHOW].on_click[<entry[clickPrintData].command>].on_hover[<script.data_key[data.hint_PrintData].parsed>]>]"
 
         - clickable dd_InventoryEditor_CopySettings def.relativeLoc:<[relativeLoc]> def.optionsLoc:<[optionsLoc]> def.clickableGroupId:<[clickableGroupId]> usages:1 for:<player> until:5m save:clickCopy
         - run dd_Clickable_AddToGroup def.groupId:<[clickableGroupId]> def.clickableId:<entry[clickCopy].id>
