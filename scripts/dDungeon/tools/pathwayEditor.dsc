@@ -106,7 +106,7 @@ dd_PathwayEditor_MainMenu:
         - clickable dd_PathwayEditor_ToggleAllowIncoming def.relativeLoc:<[relativeLoc]> def.optionsLoc:<[optionsLoc]> def.clickableGroupId:<[clickableGroupId]> usages:1 for:<player> until:5m save:clickEditAllowIncoming
         - run dd_Clickable_AddToGroup def.groupId:<[clickableGroupId]> def.clickableId:<entry[clickEditAllowIncoming].id>
         - define allowIncoming <[optionsData.pathways.<[relativeLoc]>.allowIncoming].if_null[true]>
-        - narrate "<blue>4: Allow Incoming (<[allowIncoming]>) <gold>[<element[EDIT].on_click[<entry[clickEditAllowIncoming].command>].on_hover[<script.data_key[data.hint_AllowIncoming].parsed>]>]"
+        - narrate "<blue>4: Allow Incoming (<[allowIncoming]>) <gold>[<element[TOGGLE].on_click[<entry[clickEditAllowIncoming].command>].on_hover[<script.data_key[data.hint_AllowIncoming].parsed>]>]"
 
 
         - narrate " "
