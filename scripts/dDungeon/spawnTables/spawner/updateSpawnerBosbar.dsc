@@ -26,7 +26,9 @@ dc_SpawnTables_UpdateSpawnerBossbar:
     #Check players who have the spawner's bossbar already, hide if the player isn't within radius anymore
     - define exitedPlayers <[spawnerData.bossbarPlayers].if_null[<list[]>].exclude[<[players]>]>
     - foreach <[exitedPlayers]> as:player:
-        - bossbar remove <[spawnerData.bossbarId]> players:<[player]>
+        #Only try to remove bossbar from player if they're online. Will fail otherwise.
+        - if <[player].is_online>:
+            - bossbar remove <[spawnerData.bossbarId]> players:<[player]>
         #Untrack bossbar's ID for the player
         - flag <[player]> dd_bossbars.<[spawnerData.bossbarId]>:!
 

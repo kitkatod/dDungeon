@@ -7,5 +7,3 @@ dd_SchematicEditor_PrintOptionsData:
 
     - define optionsBlockData <[optionsLoc].flag[dd_SectionOptions]>
     - ~run dd_NarrateObject def.obj:<[optionsBlockData]> "def.message:Options Block Data"
-
-    - run dd_SchematicEditor_MainMenu def.optionsLoc:<[optionsLoc]>

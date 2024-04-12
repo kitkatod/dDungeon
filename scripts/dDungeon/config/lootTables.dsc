@@ -254,18 +254,6 @@ dd_LootTables:
                         - sweeping
                         - vanishing_curse
                         - binding_curse
-            enchanted_book#rareBook:
-                weight: 20
-                max_selection_count: 1
-                modifier_procs:
-                    dd_EnchantItem:
-                        enchantment_level: 1
-                        enchantment_count: 1
-                        allowed_enchantments:
-                        - mending
-                        - organizer
-                        - vein_miner
-                        - tree_feller
 
         library_lectern:
             _selection_count: 1
@@ -283,28 +271,15 @@ dd_LootTables:
             - lb_carwyn
 
         lb_hieroglyphs:
-            hieroglyphs_1: 1
-            hieroglyphs_2: 1
-            hieroglyphs_3: 1
+            book: 1
         lb_monolith:
-            monolith_1: 1
-            monolith_2: 1
-            monolith_3: 1
-            monolith_4: 1
+            book: 1
         lb_creation:
-            creation_1: 1
-            creation_2: 1
-            creation_3: 1
-            creation_4: 1
+            book: 1
         lb_end:
-            end_1: 1
-            end_2: 1
-            end_3: 1
-            end_4: 1
+            book: 1
         lb_carwyn:
-            carwyn_1: 1
-            carwyn_2: 1
-            carwyn_3: 1
+            book: 1
 
         crypt_pot:
             _selection_count: 1

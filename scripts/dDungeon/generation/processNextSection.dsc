@@ -7,6 +7,8 @@ dd_ProcessNextSection:
     - define pathwayQueueSettings <[world].flag[dd_pathway_queue].random>
     - flag <[world]> dd_pathway_queue:<-:<[pathwayQueueSettings]>
 
+    #Get config settings
+    - define debugConfig <script[dd_Config].data_key[debugging].if_null[<map[]>]>
 
     #Get objects from settings
     - define nextSectionLoc <[pathwayQueueSettings.pasteLoc]>
@@ -98,7 +100,9 @@ dd_ProcessNextSection:
             - if <[sectionMaxCount]> > -1:
                 - define currentCount <[world].flag[dd_sections.<[category]>.<[targetType]>.<[schemOptions.nameGroup]>.occurrences]>
                 - if <[currentCount]> >= <[sectionMaxCount]>:
-                    # - narrate "(name:<[schemOptions.name]>) Failed: reached max occurrences"
+                    - if <[debugConfig.output_failed_validation_max_occurrences]>:
+                        - narrate "(name:<[schemOptions.name]>) Failed: reached max occurrences"
+                        - debug LOG "(dDungeon) (name:<[schemOptions.name]>) Failed: reached max occurrences"
                     - while next
 
             #Try different flipping/rotating. Randomize to add variance
@@ -128,23 +132,31 @@ dd_ProcessNextSection:
                         - define pasteLoc <[nextSectionLoc].sub[<[testPathwayKey]>]>
 
                         - if !<[testPathwayOptions.allowIncoming].if_null[true]>:
-                            # - clickable dd_Clickable_Teleport def.loc:<[nextSectionLoc]> until:10m save:clickLoc
-                            # - narrate "(name:<[testOptions.name]> flip:<[flip]> rotate:<[rotate]>) Failed: Pathway allows incoming<reset> ([<element[TP TO LOC].on_click[<entry[clickLoc].command>]>])"
+                            - if <[debugConfig.output_failed_validation_pathway_allows_incoming]>:
+                                - clickable dd_Clickable_Teleport def.loc:<[nextSectionLoc]> until:10m save:clickLoc
+                                - narrate "(name:<[testOptions.name]> flip:<[flip]> rotate:<[rotate]>) Failed: Pathway allows incoming<reset> ([<element[TP TO LOC].on_click[<entry[clickLoc].command>].on_hover[<[nextSectionLoc]>]>])"
+                                - debug LOG "(dDungeon) (name:<[testOptions.name]> flip:<[flip]> rotate:<[rotate]>) Failed: Pathway allows incoming (<[nextSectionLoc]>)"
                             - while next
 
                         - if !<[testOptions].proc[dd_Validate_WithinWorld].context[<[pasteLoc]>]>:
-                            # - clickable dd_Clickable_Teleport def.loc:<[nextSectionLoc]> until:10m save:clickLoc
-                            # - narrate "(name:<[testOptions.name]> flip:<[flip]> rotate:<[rotate]>) Failed: Within World Check<reset> ([<element[TP TO LOC].on_click[<entry[clickLoc].command>]>])"
+                            - if <[debugConfig.output_failed_validation_within_world]>:
+                                - clickable dd_Clickable_Teleport def.loc:<[nextSectionLoc]> until:10m save:clickLoc
+                                - narrate "(name:<[testOptions.name]> flip:<[flip]> rotate:<[rotate]>) Failed: Within World Check<reset> ([<element[TP TO LOC].on_click[<entry[clickLoc].command>].on_hover[<[nextSectionLoc]>]>])"
+                                - debug LOG "(dDungeon) (name:<[testOptions.name]> flip:<[flip]> rotate:<[rotate]>) Failed: Within World Check (<[nextSectionLoc]>)"
                             - while next
 
                         - if !<[pathOptions.direction].proc[dd_Validate_MatchingPathways].context[<[testPathwayOptions.direction]>]>:
-                            # - clickable dd_Clickable_Teleport def.loc:<[nextSectionLoc]> until:10m save:clickLoc
-                            # - narrate "(name:<[testOptions.name]> flip:<[flip]> rotate:<[rotate]>) Failed: Matching Pathways ([<element[TP TO LOC].on_click[<entry[clickLoc].command>]>])"
+                            - if <[debugConfig.output_failed_validation_matching_pathway]>:
+                                - clickable dd_Clickable_Teleport def.loc:<[nextSectionLoc]> until:10m save:clickLoc
+                                - narrate "(name:<[testOptions.name]> flip:<[flip]> rotate:<[rotate]>) Failed: Matching Pathways ([<element[TP TO LOC].on_click[<entry[clickLoc].command>].on_hover[<[nextSectionLoc]>]>])"
+                                - debug LOG "(dDungeon) (name:<[testOptions.name]> flip:<[flip]> rotate:<[rotate]>) Failed: Matching Pathways (<[nextSectionLoc]>)"
                             - while next
 
                         - if !<[testOptions].proc[dd_Validate_NextPathways].context[<[pasteLoc]>|<[testPathwayKey]>]>:
-                            # - clickable dd_Clickable_Teleport def.loc:<[nextSectionLoc]> until:10m save:clickLoc
-                            # - narrate "(name:<[testOptions.name]> flip:<[flip]> rotate:<[rotate]>) Failed: Next Pathways Check<reset> ([<element[TP TO LOC].on_click[<entry[clickLoc].command>]>])"
+                            - if <[debugConfig.output_failed_validation_next_pathways]>:
+                                - clickable dd_Clickable_Teleport def.loc:<[nextSectionLoc]> until:10m save:clickLoc
+                                - narrate "(name:<[testOptions.name]> flip:<[flip]> rotate:<[rotate]>) Failed: Next Pathways Check<reset> ([<element[TP TO LOC].on_click[<entry[clickLoc].command>].on_hover[<[nextSectionLoc]>]>])"
+                                - debug LOG "(dDungeon) (name:<[testOptions.name]> flip:<[flip]> rotate:<[rotate]>) Failed: Next Pathways Check (<[nextSectionLoc]>)"
                             - while next
 
                         # - if !<[previousType].proc[dd_Validate_MatchingHallwayType].context[<[testPathwayOptions.hallwayType].if_null[default]>]>:
@@ -158,9 +170,11 @@ dd_ProcessNextSection:
                         - ~run dd_Schematic_SetOrientation def.schemPath:<[targetSectionSchemPath]> def.flip:<[flip]> def.rotation:<[rotate]>
 
                         - if !<proc[dd_Validate_SchematicPasteLocation].context[<[targetSectionSchemPath]>|<[pasteLoc]>]>:
+                            - if <[debugConfig.output_failed_validation_overlapping]>:
+                                - clickable dd_Clickable_Teleport def.loc:<[nextSectionLoc]> until:10m save:clickLoc
+                                - narrate "(name:<[testOptions.name]> flip:<[flip]> rotate:<[rotate]>) Failed: Overlapping Failure ([<element[TP TO LOC].on_click[<entry[clickLoc].command>].on_hover[<[nextSectionLoc]>]>])"
+                                - debug LOG "(dDungeon) (name:<[testOptions.name]> flip:<[flip]> rotate:<[rotate]>) Failed: Overlapping Failure (<[nextSectionLoc]>)"
                             - ~run dd_Schematic_UndoOrientation def.schemPath:<[targetSectionSchemPath]> def.flip:<[flip]> def.rotation:<[rotate]>
-                            # - clickable dd_Clickable_Teleport def.loc:<[nextSectionLoc]> until:10m save:clickLoc
-                            # - narrate "(name:<[testOptions.name]> flip:<[flip]> rotate:<[rotate]>) Failed: Overlapping Failure ([<element[TP TO LOC].on_click[<entry[clickLoc].command>]>])"
                             - while next
 
 

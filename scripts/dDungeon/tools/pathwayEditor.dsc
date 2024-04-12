@@ -54,11 +54,12 @@ dd_PathwayEditor_MainMenu:
         hint_AddNewPathway: <italic>A new Pathway Connection will be created on the currently select block, for the current Section.<n>You'll be prompted for initial settings.
         hint_CancelNewPathway: <italic>Cancel creating a new Pathway Connection.
         hint_AddNextRoomType: <italic>Add a Section Type for Dungeon Generation to pick from.<n>Will be used to determine the 'Next' non-hallway section off this Pathway.<n>If Dungeon Generation is placing a hallway, this setting will be remembered until it places a non-hallway.<n>Can be left empty, and it won't modify the 'Next' section type.
-        hint_RemoveNextRoomType: <italic>Remove a Section Type from the list of Next Section Types (See 'Add' option for details)
+        hint_RemoveNextRoomType: <italic>Remove this Section Type from the list of Next Section Types
         hint_HallwayType: <italic>Set what type of Hallway should be used when connecting to this Pathway.<n>Can optionally set this to SKIP_HALLWAY to not place any hallways from this Pathway onward in Dungeon Generation.
         hint_ResetHallwayCountEnable: <italic>Force Dungeon Generation to re-roll a Hallway Count starting from this Pathway.<n>For example, if no more Hallways would have been placed,<n>this could make a new set of Hallways appear after the Pathway.
         hint_ResetHallwayCountDisabled: <italic>Do not re-roll a new Hallway Count.
         hint_AllowIncoming: <italic>Disable to disallow existing sections to connect onto this pathway.<n>Do not disable this if it is the only pathway on the section, otherwise the section will never be placed.
+        hint_PrintData: <italic>Show data for this Pathway in chat.
         hint_Delete: <italic>Delete this Pathway Connection and any settings associated to it.<n>This does not delete the Section overall.
     definitions: relativeLoc|optionsLoc|clickableGroupId
     script:
@@ -75,9 +76,18 @@ dd_PathwayEditor_MainMenu:
 
         - clickable dd_PathwayEditor_PromptAddConnectingType def.relativeLoc:<[relativeLoc]> def.optionsLoc:<[optionsLoc]> def.clickableGroupId:<[clickableGroupId]> usages:1 for:<player> until:5m save:clickAddConType
         - run dd_Clickable_AddToGroup def.groupId:<[clickableGroupId]> def.clickableId:<entry[clickAddConType].id>
-        - clickable dd_PathwayEditor_PromptRemoveConnectingType def.relativeLoc:<[relativeLoc]> def.optionsLoc:<[optionsLoc]> def.clickableGroupId:<[clickableGroupId]> usages:1 for:<player> until:5m save:clickRemoveConType
-        - run dd_Clickable_AddToGroup def.groupId:<[clickableGroupId]> def.clickableId:<entry[clickRemoveConType].id>
-        - narrate "<blue>1: Add Next Section Type <gold>[<element[ADD].on_click[<entry[clickAddConType].command>].on_hover[<script.data_key[data.hint_AddNextRoomType].parsed>]>] <reset><blue>| <red>[<element[REMOVE].on_click[<entry[clickRemoveConType].command>].on_hover[<script.data_key[data.hint_RemoveNextRoomType].parsed>]>]"
+        - narrate "<blue>1: Next Section Types"
+        - narrate "<blue>  ** <gold>[<element[ADD A NEXT SECTION TYPE].on_click[<entry[clickAddConType].command>].on_hover[<script.data_key[data.hint_AddNextRoomType].parsed>]>]"
+
+        #List configured "Next Room Types, with chances"
+        - define nextRoomTypes <[optionsData.pathways.<[relativeLoc]>.possible_connections]>
+        - foreach <[nextRoomTypes]> as:nextRoomData key:nextRoomType:
+            - clickable dd_PathwayEditor_PromptRemoveConnectingType_Confirm def.relativeLoc:<[relativeLoc]> def.optionsLoc:<[optionsLoc]> def.type:<[nextRoomType]> def.clickableGroupId:<[clickableGroupId]> usages:1 for:<player> until:5m save:clickRemoveType
+            - run dd_Clickable_AddToGroup def.groupId:<[clickableGroupId]> def.clickableId:<entry[clickAddConType].id>
+
+            - narrate "<blue>  ** <red><element[(-)].on_click[<entry[clickRemoveType].command>].on_hover[<script.data_key[data.hint_RemoveNextRoomType].parsed>]> <blue><[nextRoomType]> (Chance: <[nextRoomData.chance]>)"
+
+        - narrate " "
 
         - clickable dd_PathwayEditor_PromptEditHallwayType def.relativeLoc:<[relativeLoc]> def.optionsLoc:<[optionsLoc]> def.clickableGroupId:<[clickableGroupId]> usages:1 for:<player> until:5m save:clickEditHallwayType
         - run dd_Clickable_AddToGroup def.groupId:<[clickableGroupId]> def.clickableId:<entry[clickEditHallwayType].id>
@@ -94,8 +104,11 @@ dd_PathwayEditor_MainMenu:
         - clickable dd_PathwayEditor_ToggleAllowIncoming def.relativeLoc:<[relativeLoc]> def.optionsLoc:<[optionsLoc]> def.clickableGroupId:<[clickableGroupId]> usages:1 for:<player> until:5m save:clickEditAllowIncoming
         - run dd_Clickable_AddToGroup def.groupId:<[clickableGroupId]> def.clickableId:<entry[clickEditAllowIncoming].id>
         - define allowIncoming <[optionsData.pathways.<[relativeLoc]>.allowIncoming].if_null[true]>
-        - narrate "<blue>4: Allow Incoming (<[allowIncoming]>) <gold>[<element[EDIT].on_click[<entry[clickEditAllowIncoming].command>].on_hover[<script.data_key[data.hint_AllowIncoming].parsed>]>]"
+        - narrate "<blue>4: Allow Incoming (<[allowIncoming]>) <gold>[<element[TOGGLE].on_click[<entry[clickEditAllowIncoming].command>].on_hover[<script.data_key[data.hint_AllowIncoming].parsed>]>]"
 
+        - clickable dd_PathwayEditor_PrintData def.relativeLoc:<[relativeLoc]> def.optionsLoc:<[optionsLoc]> def.clickableGroupId:<[clickableGroupId]> usages:1 for:<player> until:5m save:clickPrintData
+        - run dd_Clickable_AddToGroup def.groupId:<[clickableGroupId]> def.clickableId:<entry[clickPrintData].id>
+        - narrate "<blue>5: Display Pathway Data <gold>[<element[SHOW].on_click[<entry[clickPrintData].command>].on_hover[<script.data_key[data.hint_PrintData].parsed>]>]"
 
         - narrate " "
 
