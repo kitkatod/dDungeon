@@ -44,7 +44,7 @@ dd_SchematicCreator_ExpandCuboidFromLoc:
     - define cuboid <[loc].to_cuboid[<[loc]>]>
     - define cBlocks 0
 
-    - while <[cuboid].blocks[!air].size> != <[cBlocks]> && <[loop_index].if_null[0]> <= 200:
+    - while <[cuboid].blocks[!air].size> != <[cBlocks]> && <[loop_index].if_null[0]> <= 40:
         - define cBlocks <[cuboid].blocks[!air].size>
         - define cuboid <proc[dd_SchematicCreator_ExpandCuboidFromLoc_ExpandIfNewBlocks].context[<[cuboid]>|<location[1,0,0]>]>
         - define cuboid <proc[dd_SchematicCreator_ExpandCuboidFromLoc_ExpandIfNewBlocks].context[<[cuboid]>|<location[-1,0,0]>]>
