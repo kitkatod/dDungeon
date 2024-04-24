@@ -74,3 +74,24 @@ dd_Events:
         - if <player.gamemode> == spectator:
             - stop
         - run dd_ExitDungeon
+
+
+        #Apply/Remove Player Attributes
+        on custom event id:dd_player_exits_dungeon:
+        - define dungeonWorld <context.world>
+        - define dungeonAttributes <[dungeonWorld].flag[dd_dungeonsettings.player_attributes].if_null[<map[]>]>
+        - define attributeUuids <list[]>
+
+        - foreach <[dungeonAttributes]> as:attributeData key:attributeKey:
+            - foreach <[attributeData]> as:attribute:
+                - define attributeUuids:->:<[attribute.id]>
+
+        - if !<[attributeUuids].is_empty>:
+            - adjust <player> remove_attribute_modifiers:<[attributeUuids]>
+
+        on custom event id:dd_player_enters_dungeon:
+        - define dungeonWorld <context.world>
+        - define dungeonAttributes <[dungeonWorld].flag[dd_dungeonsettings.player_attributes].if_null[null]>
+
+        - if <[dungeonAttributes]> != null:
+            - adjust <player> add_attribute_modifiers:<[dungeonAttributes]>

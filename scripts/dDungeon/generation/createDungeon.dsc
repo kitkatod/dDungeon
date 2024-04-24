@@ -48,6 +48,8 @@ dd_Create:
     - flag <[world]> dd_specialLootTables:<map[]>
     - flag <[world]> dd_spawnerLocs:<list[]>
 
+    - run dd_SetupAttributeModifiers def.world:<[world]>
+
     - gamerule <[world]> doMobSpawning false
     - gamerule <[world]> doDaylightCycle false
     - adjust <[world]> time:18000

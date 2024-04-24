@@ -43,6 +43,13 @@ dd_DungeonSettings:
             # global_loot:
             # - special_enchanted_books_for_everyone
 
+            #The below attributes will be applied to players entering the dungeon, and removed after leaving
+            #Attribute ids are randomly generated when the dungeon is created. If "id" is included in an attribute map below it will be overwritten during generation.
+            #(Optional)
+            player_attributes:
+                generic_max_health:
+                - <map[operation=ADD_NUMBER;amount=20]>
+
         StonebrickSmall:
             category: Stonebrick
             section_count_soft_max: 250

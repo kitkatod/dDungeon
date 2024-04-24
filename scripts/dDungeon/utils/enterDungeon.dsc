@@ -23,3 +23,7 @@ dd_EnterDungeon:
 
     #Teleport player to configured point
     - teleport <player> <[world].flag[dd_DungeonSettings.entrancePoint]> cause:PLUGIN
+
+    #Run custom event
+    - define context <map[world=<[world]>;dungeon_key=<[dungeonKey]>]>
+    - customevent id:dd_player_enters_dungeon context:<[context]>
