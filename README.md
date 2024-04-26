@@ -34,8 +34,16 @@ Minecraft Dungeon Generation toolset using Denizen Scripting.
 **Used for Dungeon Section Selection when creating/editing Sections. Not Required.**
 - WorldEdit ([GitHUb](https://github.com/EngineHub/WorldEdit) ([Server Plugin](https://dev.bukkit.org/projects/worldedit))
 
+### Updating Existing Install:
+- **!!! ALWAYS BACKUP YOUR "/plugins/Denizen/scripts" FOLDER BEFORE DELETING ANYTHING !!!**
+- On your server, delete the folder "/plugins/Denizen/scripts/dDungeon"
+- Copy all files from the repository from "scripts/dDungeon"
+- **GENERALLY** don't copy the "scripts/dDungeonData" files when updating. These files are specific for your server - feel free to change the contents!
+
 ### Installation:
 - Save all contents of "scripts" folder to "/plugins/Denizen/scripts" within the Minecraft Server folder.
+  - If updating an existing installation, only the files within "/scripts/dDungeon" need to be updated.
+  - Files within "/scripts/dDungeonData" are example files, and can be modified to fit your server's needs.
 - Configure Denizen in /plugins/Denizen/config.yml (These settings are used to allow Schematic Archiving when a user "deletes" a Dungeon Section Schematic)
   - Commands
     - Delete
