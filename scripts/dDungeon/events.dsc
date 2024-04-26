@@ -109,7 +109,6 @@ dd_Events:
         #Apply/Remove Player Attributes when they enter/leave dungeon worlds
         on custom event id:dd_player_exits_dungeon:
         - ratelimit <player> 1t
-        - narrate "Leaving dungeon."
         - define dungeonWorld <context.world>
         - define dungeonAttributes <[dungeonWorld].flag[dd_dungeonsettings.player_attributes].if_null[<map[]>]>
         - define attributeUuids <list[]>
@@ -123,7 +122,6 @@ dd_Events:
 
         on custom event id:dd_player_enters_dungeon:
         - ratelimit <player> 1t
-        - narrate "Entering dungeon."
         - define dungeonWorld <context.world>
         - define dungeonAttributes <[dungeonWorld].flag[dd_dungeonsettings.player_attributes].if_null[null]>
 
