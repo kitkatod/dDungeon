@@ -16,7 +16,3 @@ dd_ExitDungeon:
     - flag <player> dd_dungeonExit:!
 
     - teleport <player> <[exitLoc]> cause:PLUGIN
-
-    #Run custom event
-    - define context <map[world=<[dungeonWorld]>]>
-    - customevent id:dd_player_exits_dungeon context:<[context]>
