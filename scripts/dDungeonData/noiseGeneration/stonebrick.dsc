@@ -63,19 +63,6 @@ dd_NoiseGeneration_Stonebrick:
                     - ~modifyblock <[blockLoc]> nether_quartz_ore no_physics
 
     - if <[type].ends_with[_crypt]>:
-        - foreach <[cuboid].expand[5].blocks> as:cuboidBlock:
-            - adjust <[cuboidBlock]> biome:<biome[dc:crypt]>
+        - run dd_StandardSectionModifiers_ChangeBiome def.area:<[cuboid]> def.biomeName:dc:crypt
     - else:
-        - foreach <[cuboid].expand[5].blocks> as:cuboidBlock:
-            - adjust <[cuboidBlock]> biome:<biome[dc:sewer]>
-
-    - foreach <[cuboid].expand[5].partial_chunks> as:cuboidChunk:
-        - adjust <[cuboidChunk]> refresh_chunk
-    - foreach <[cuboid].blocks_flagged[dd_fakeBlock]> as:cuboidBlock:
-        - flag <[cuboidBlock]> dd_fakeBlock:!
-        - spawn block_display[material=<[cuboidBlock].material>] <[cuboidBlock].round_down> persistent reason:CUSTOM
-        - ~modifyblock <[cuboidBlock]> cave_air no_physics
-
-    - define replaceBlocks <[cuboid].blocks[air]>
-    - if !<[replaceBlocks].is_empty>:
-        - ~modifyblock <[replaceBlocks]> cave_air delayed no_physics
+        - run dd_StandardSectionModifiers_ChangeBiome def.area:<[cuboid]> def.biomeName:dc:sewer

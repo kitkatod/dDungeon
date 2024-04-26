@@ -93,6 +93,12 @@ dd_Create:
 
     #Get area of pasted section, handle any post transforms
     - define cuboid <[loc].add[<[sectionOptions.pos1]>].to_cuboid[<[loc].add[<[sectionOptions.pos2]>]>]>
+
+    #Run standard post transforms
+    - ~run dd_StandardSectionModifiers_SetupFakeBlocks def.area:<[cuboid]>
+    - ~run dd_StandardSectionModifiers_ChangeAirToCaveair def.area:<[cuboid]>
+
+    #Run dungeon specific custom noise generation if it is specified
     - if <[dungeonSettings.noise_generation_task].exists>:
         - define taskScript <[dungeonSettings.noise_generation_task].as[script].if_null[null]>
         - if <[taskScript]> != null && <[taskScript].data_key[type]> == task:
