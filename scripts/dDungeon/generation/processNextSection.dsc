@@ -47,6 +47,10 @@ dd_ProcessNextSection:
             - define possibleTypes:->:hallway_<[buildVariables.hallwayType]>
             # # - define possibleTypes:->:hallway_<[pathOptions.hallwayType].if_null[default]>
         #If not, build whatever the NextRoomType calls for
+        - else if <[buildVariables.nextRoomType].if_null[<map[]>].is_empty>:
+            - announce "<red> [dDungeon] ERROR - NextRoomType not set. This usually means a Spawn Room had a pathway which doesn't set a <&dq>Next Section Type<&dq>" to_ops
+            - debug ERROR "[dDungeon] Generation Error - [buildVariables.nextRoomType] is not set when it is needed. This usually indicates the Spawn Room has a pathway without setting a <&dq>Next Section Type<&dq>."
+            - stop
         - else:
             - foreach <[buildVariables.nextRoomType].proc[dd_Pathways_RandomWeightedOrder]> as:type:
                 - define possibleTypes:->:<[type]>
