@@ -20,47 +20,17 @@ dd_NoiseGeneration_Stonebrick:
         - if !<[replaceBlocks].is_empty>:
             - ~modifyblock <[replaceBlocks]> stone_bricks|stone|smooth_stone|cobblestone 85|7|6|2 delayed no_physics
 
-    - define cuboidBlocks <[cuboid].blocks[stone_bricks|stone_brick_slab|stone_brick_stairs|netherrack]>
-    - foreach <[cuboidBlocks]> as:blockLoc:
-        #Simplex noise Mossy Stone
-        - if <util.random_simplex[x=<[blockLoc].x.mul[0.25]>;y=<[blockLoc].y.mul[0.25]>;z=<[blockLoc].z.mul[0.25]>;w=1]> > 0.25:
-            - choose <[blockLoc].material.name>:
-                - case stone_bricks:
-                    - ~modifyblock <[blockLoc]> mossy_stone_bricks|cracked_stone_bricks 90|10 no_physics
-                - case stone_brick_slab:
-                    - define bMat <[blockLoc].material>
-                    - ~modifyblock <[blockLoc]> mossy_stone_brick_slab|andesite_slab|stone_slab 90|5|5 no_physics
-                    - adjustblock <[blockLoc]> type:<[bMat].type>
-                    - adjustblock <[blockLoc]> waterlogged:<[bMat].waterlogged>
-                - case stone_brick_stairs:
-                    - define bMat <[blockLoc].material>
-                    - ~modifyblock <[blockLoc]> mossy_stone_brick_stairs|andesite_stairs|stone_stairs 90|5|5 no_physics
-                    - adjustblock <[blockLoc]> shape:<[bMat].shape>
-                    - adjustblock <[blockLoc]> half:<[bMat].half>
-                    - adjustblock <[blockLoc]> direction:<[bMat].direction>
-                    - adjustblock <[blockLoc]> waterlogged:<[bMat].waterlogged>
-                - case netherrack:
-                    - ~modifyblock <[blockLoc]> nether_gold_ore no_physics
+    #Simplex noise Mossy Stone
+    - ~run dd_StandardSectionModifiers_SimplexNoise def.cuboid:<[cuboid]> def.findMaterial:stone_bricks def.replacementMaterial:mossy_stone_bricks|cracked_stone_bricks def.replacementMaterialRates:90|10 def.wValue:1 def.threshold:0.375
+    - ~run dd_StandardSectionModifiers_SimplexNoise def.cuboid:<[cuboid]> def.findMaterial:stone_brick_slab def.replacementMaterial:mossy_stone_brick_slab|andesite_slab|stone_slab def.replacementMaterialRates:90|5|5 def.wValue:1 def.threshold:0.375
+    - ~run dd_StandardSectionModifiers_SimplexNoise def.cuboid:<[cuboid]> def.findMaterial:stone_brick_stairs def.replacementMaterial:mossy_stone_brick_stairs|andesite_stairs|stone_stairs def.replacementMaterialRates:90|5|5 def.wValue:1 def.threshold:0.375
+    - ~run dd_StandardSectionModifiers_SimplexNoise def.cuboid:<[cuboid]> def.findMaterial:netherrack def.replacementMaterial:nether_gold_ore def.wValue:1 def.threshold:0.375
 
-        #Simplex noise Cracked Stone
-        - if <util.random_simplex[x=<[blockLoc].x.mul[0.25]>;y=<[blockLoc].y.mul[0.25]>;z=<[blockLoc].z.mul[0.25]>;w=2]> > 0.25:
-            - choose <[blockLoc].material.name>:
-                - case stone_bricks:
-                    - ~modifyblock <[blockLoc]> cracked_stone_bricks|mossy_stone_bricks 90|10 no_physics
-                - case stone_brick_slab:
-                    - define bMat <[blockLoc].material>
-                    - ~modifyblock <[blockLoc]> andesite_slab|stone_slab|mossy_stone_brick_slab 45|45|10 no_physics
-                    - adjustblock <[blockLoc]> type:<[bMat].type>
-                    - adjustblock <[blockLoc]> waterlogged:<[bMat].waterlogged>
-                - case stone_brick_stairs:
-                    - define bMat <[blockLoc].material>
-                    - ~modifyblock <[blockLoc]> andesite_stairs|stone_stairs|mossy_stone_brick_stairs 45|45|10 no_physics
-                    - adjustblock <[blockLoc]> shape:<[bMat].shape>
-                    - adjustblock <[blockLoc]> half:<[bMat].half>
-                    - adjustblock <[blockLoc]> direction:<[bMat].direction>
-                    - adjustblock <[blockLoc]> waterlogged:<[bMat].waterlogged>
-                - case netherrack:
-                    - ~modifyblock <[blockLoc]> nether_quartz_ore no_physics
+    #Simplex noise Cracked Stone
+    - ~run dd_StandardSectionModifiers_SimplexNoise def.cuboid:<[cuboid]> def.findMaterial:stone_bricks def.replacementMaterial:cracked_stone_bricks|mossy_stone_bricks def.replacementMaterialRates:90|10 def.wValue:2 def.threshold:0.375
+    - ~run dd_StandardSectionModifiers_SimplexNoise def.cuboid:<[cuboid]> def.findMaterial:stone_brick_slab def.replacementMaterial:andesite_slab|stone_slab|mossy_stone_brick_slab def.replacementMaterialRates:45|45|10 def.wValue:2 def.threshold:0.375
+    - ~run dd_StandardSectionModifiers_SimplexNoise def.cuboid:<[cuboid]> def.findMaterial:stone_brick_stairs def.replacementMaterial:andesite_stairs|stone_stairs|mossy_stone_brick_stairs def.replacementMaterialRates:45|45|10 def.wValue:2 def.threshold:0.375
+    - ~run dd_StandardSectionModifiers_SimplexNoise def.cuboid:<[cuboid]> def.findMaterial:netherrack def.replacementMaterial:nether_quartz_ore def.wValue:2 def.threshold:0.375
 
     - if <[type].ends_with[_crypt]>:
         - run dd_StandardSectionModifiers_ChangeBiome def.area:<[cuboid]> def.biomeName:dc:crypt
