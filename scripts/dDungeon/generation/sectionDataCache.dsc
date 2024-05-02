@@ -16,9 +16,9 @@ dd_SectionDataCache_Prepare:
             - if !<[name].ends_with[.yml]>:
                 - foreach next
             #Load the YAML file data
-            - ~yaml id:tmp_template_options_yaml load:schematics/dDungeon/<[category]>/<[type]>/<[name]>
-            - define sectionOptions <yaml[tmp_template_options_yaml].read[SectionOptions]>
-            - ~yaml id:tmp_template_options_yaml unload
+            - ~yaml id:ddungeon_<queue.id> load:schematics/dDungeon/<[category]>/<[type]>/<[name]>
+            - define sectionOptions <yaml[ddungeon_<queue.id>].read[SectionOptions]>
+            - ~yaml id:ddungeon_<queue.id> unload
 
             #Get the section name group and variant
             - define nameGroup <[name].before[.yml].regex[([a-zA-Z_-]*)(_\d*)?$].group[1]>

@@ -36,9 +36,9 @@ dd_LootTables_ValidateConfigs:
 
     #Validate schematic Section Options file configs
     - foreach <[fileList]> as:fileName:
-        - ~yaml id:tmp_template_options_yaml load:schematics/dDungeon/<[fileName]>.yml
-        - define sectionOptions <yaml[tmp_template_options_yaml].read[SectionOptions]>
-        - ~yaml id:tmp_template_options_yaml unload
+        - ~yaml id:ddungeon_<queue.id> load:schematics/dDungeon/<[fileName]>.yml
+        - define sectionOptions <yaml[ddungeon_<queue.id>].read[SectionOptions]>
+        - ~yaml id:ddungeon_<queue.id> unload
 
         - if <[sectionOptions.schematic_data_version].if_null[1.0]> != <[dataVersion]>:
             - define outOfDateSchematics:++
