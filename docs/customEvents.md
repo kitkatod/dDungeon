@@ -4,7 +4,7 @@ The below Denizen Custom Events are available to listen to in your own scripts w
 * [dd_player_enters_dungeon](#dd_player_enters_dungeon)
 * [dd_player_exits_dungeon](#dd_player_exits_dungeon)
 * [dd_dungeon_spawner_destroyed](#dd_dungeon_spawner_destroyed)
-* [dd_dungeon_spawner_entity_killed](#dd_dungeon_spawner_entity_killed)
+* [dd_dungeon_spawned_entity_killed](#dd_dungeon_spawned_entity_killed)
 
 ---
 
