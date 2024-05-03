@@ -30,3 +30,10 @@ dd_SpawnTables_Events:
                 - flag <[spawnLoc]> dd_spawner.currentlySpawnedPoints:-:<context.entity.flag[dd_spawnPoints].if_null[0]>
                 - if <[spawnLoc].flag[dd_spawner.bossbar_enabled].if_null[false]>:
                     - run dc_SpawnTables_UpdateSpawnerBossbar def.spawnerLoc:<[spawnLoc]>
+
+        # Track players that have damaged spawned entities from any given Dungeon Spawner
+        on entity_flagged:dd_spawner_location damaged by player in:world_flagged:dd_DungeonSettings:
+        - define spawnerLoc <context.entity.flag[dd_spawner_location]>
+        # If player isn't already in the list of assisting players then add them
+        - if !<[spawnerLoc].flag[dd_spawner.assisting_players].if_null[<list[]>].contains[<context.damager>]>:
+            - flag <[spawnerLoc]> dd_spawner.assisting_players:->:<context.damager>
