@@ -44,7 +44,7 @@ The below context data is passed when the event fires.
 | --- | --- | --- |
 | location | Location of the Spawner being destroyed | *LocationTag* |
 | players | List of Players who have damaged at least one Entity spawned from this Spawner | *ListTag\<PlayerTag\>* |
-| spawn_table | Name of Spawn Table the destroyed Spawner used <br/>*Spawn tables are defined in the script* _**dd_SpawnTables**_ | library_guardians<br/>ambient_stonebrick<br/>etc.....
+| spawn_table | Name of Spawn Table the destroyed Spawner used <br/>*Spawn tables are defined in the script* _**dd_SpawnTables**_ | *element*<br/>library_guardians<br/>ambient_stonebrick<br/>etc..... |
 
 ---
 
