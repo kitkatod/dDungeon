@@ -21,7 +21,7 @@ dd_BackfillSections:
 
         #Flood fill from each corner
         - foreach <[cuboidMember].outline> as:outlinePoint:
-            - if <[outlinePoint].material> matches *air && !<[cornerTestCuboid].contains[<[outlinePoint]>]>:
+            - if <[outlinePoint]> matches *air && !<[cornerTestCuboid].contains[<[outlinePoint]>]>:
                 - ~run dd_FloodfillArea def.area:<[cuboidMember]> def.location:<[outlinePoint]> def.matcher:*air def.material:stone
 
         #Slowing down just a bit when it places blocks. Have seen some massive lag/server crash otherwise
