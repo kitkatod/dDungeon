@@ -4,6 +4,7 @@ The below Denizen Custom Events are available to listen to in your own scripts w
 * [dd_player_enters_dungeon](#dd_player_enters_dungeon)
 * [dd_player_exits_dungeon](#dd_player_exits_dungeon)
 * [dd_dungeon_spawner_destroyed](#dd_dungeon_spawner_destroyed)
+* [dd_dungeon_spawner_entity_killed](#dd_dungeon_spawner_entity_killed)
 
 ---
 
@@ -35,7 +36,7 @@ The below context data is passed when the event fires.
 ---
 
 ### dd_dungeon_spawner_destroyed
-- Fired when a Dungeon Spawner is destroyed (ie, players have killed enough Entities spawned from it)
+- Fired when a Dungeon Spawner is destroyed (ie, players have killed enough Entities spawned from it).
 
 The below context data is passed when the event fires.
 
@@ -44,3 +45,17 @@ The below context data is passed when the event fires.
 | location | Location of the Spawner being destroyed | *LocationTag* |
 | players | List of Players who have damaged at least one Entity spawned from this Spawner | *ListTag\<PlayerTag\>* |
 | spawn_table | Name of Spawn Table the destroyed Spawner used <br/>*Spawn tables are defined in the script* _**dd_SpawnTables**_ | library_guardians<br/>ambient_stonebrick<br/>etc.....
+
+---
+
+### dd_dungeon_spawner_entity_killed
+- Fired when an entity that was spawned by a Dungeon Spawner is killed by a player.
+- Has `player` linked to the player that the server considered killed the entity.
+
+The below context data is passed when the event fires.
+
+| Key | Description | Values |
+| --- | --- | --- |
+| spawner_location | Location of the Spawner this Entity was spawned from. | *LocationTag* |
+| entity | Entity that was killed. | *EntityTag* |
+| assisting_players | List of players who have damaged this Entity | *ListTag\<PlayerTag\>*
