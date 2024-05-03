@@ -59,3 +59,4 @@ The below context data is passed when the event fires.
 | spawner_location | Location of the Spawner this Entity was spawned from. | *LocationTag* |
 | entity | Entity that was killed. | *EntityTag* |
 | assisting_players | List of players who have damaged this Entity | *ListTag\<PlayerTag\>*
+| spawn_table | Name of Spawn Table used by the Spawner this Entity was spawned from | *element*<br/>library_guardians<br/>ambient_stonebrick<br/>etc..... |

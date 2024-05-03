@@ -45,5 +45,10 @@ dd_SpawnTables_Events:
         #Fire event that a spawner entity was killed
         on entity_flagged:dd_spawner_location killed by player in:world_flagged:dd_DungeonSettings:
         - define spawnerLoc <context.entity.flag[dd_spawner_location]>
-        - definemap context spawner_location:<[spawnerLoc]> entity:<context.entity> assisting_players:<context.entity.flag[dd_spawner_assisting_players].if_null[<list[]>]>
+        #Load spawner locatio chunk if it isn't already
+        - if !<[spawnerLoc].chunk.is_loaded>:
+            - chunkload <[spawnerLoc].chunk> duration:5s
+
+        #Fire event
+        - definemap context spawner_location:<[spawnerLoc]> entity:<context.entity> assisting_players:<context.entity.flag[dd_spawner_assisting_players].if_null[<list[]>]> spawn_table:<[spawnerLoc].flag[dd_spawner.spawn_table]>
         - customevent id:dd_dungeon_spawner_entity_killed context:<[context]>
