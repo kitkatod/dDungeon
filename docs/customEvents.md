@@ -48,15 +48,15 @@ The below context data is passed when the event fires.
 
 ---
 
-### dd_dungeon_spawner_entity_killed
-- Fired when an entity that was spawned by a Dungeon Spawner is killed by a player.
+### dd_dungeon_spawned_entity_killed
+- Fired when an entity that was spawned by either a Dungeon Spawner or by Dungeon Ambient spawning is killed by a player.
 - Has `player` linked to the player that the server considered killed the entity.
 
 The below context data is passed when the event fires.
 
 | Key | Description | Values |
 | --- | --- | --- |
-| spawner_location | Location of the Spawner this Entity was spawned from. | *LocationTag* |
+| spawner_location | Location of the Spawner this Entity was spawned from, if it was spawned by a Spawner.<br/>If spawned through ambient spawning this will be null. | *LocationTag*<br/>`null` |
 | entity | Entity that was killed. | *EntityTag* |
 | assisting_players | List of players who have damaged this Entity | *ListTag\<PlayerTag\>*
-| spawn_table | Name of Spawn Table used by the Spawner this Entity was spawned from | *element*<br/>library_guardians<br/>ambient_stonebrick<br/>etc..... |
+| spawn_table | Name of Spawn Table used to spawn this Entity | *element*<br/>library_guardians<br/>ambient_stonebrick<br/>etc..... |

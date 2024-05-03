@@ -31,24 +31,23 @@ dd_SpawnTables_Events:
                 - if <[spawnLoc].flag[dd_spawner.bossbar_enabled].if_null[false]>:
                     - run dc_SpawnTables_UpdateSpawnerBossbar def.spawnerLoc:<[spawnLoc]>
 
-        # Track players that have damaged spawned entities from any given Dungeon Spawner
-        on entity_flagged:dd_spawner_location damaged by player in:world_flagged:dd_DungeonSettings:
-        - define spawnerLoc <context.entity.flag[dd_spawner_location]>
-        # If player isn't already in the list of assisting players for the spawner then add them
-        - if !<[spawnerLoc].flag[dd_spawner.assisting_players].if_null[<list[]>].contains[<context.damager>]>:
-            - flag <[spawnerLoc]> dd_spawner.assisting_players:->:<context.damager>
-
+        #Track players that have damaged an entity spawned from some kind of Dungeon Spawning
+        on entity_flagged:dd_spawn_table damaged by player in:world_flagged:dd_DungeonSettings:
         # If player isn't already in the list of assisting players for the entity then add them
-        - if !<context.entity.flag[dd_spawner_assisting_players].if_null[<list[]>].contains[<player>]>:
-            - flag <context.entity> dd_spawner_assisting_players:->:<player>
+        - if !<context.entity.flag[dd_assisting_players].if_null[<list[]>].contains[<player>]>:
+            - flag <context.entity> dd_assisting_players:->:<player>
+
+        #If entity was spawned from a specific spawner, also track assisting players on the spawner itself
+        - if <context.entity.has_flag[dd_spawner_location]>:
+            - define spawnerLoc <context.entity.flag[dd_spawner_location]>
+            # If player isn't already in the list of assisting players for the spawner then add them
+            - if !<[spawnerLoc].flag[dd_spawner.assisting_players].if_null[<list[]>].contains[<context.damager>]>:
+                - flag <[spawnerLoc]> dd_spawner.assisting_players:->:<context.damager>
 
         #Fire event that a spawner entity was killed
-        on entity_flagged:dd_spawner_location killed by player in:world_flagged:dd_DungeonSettings:
-        - define spawnerLoc <context.entity.flag[dd_spawner_location]>
-        #Load spawner locatio chunk if it isn't already
-        - if !<[spawnerLoc].chunk.is_loaded>:
-            - chunkload <[spawnerLoc].chunk> duration:5s
+        on entity_flagged:dd_spawn_table killed by player in:world_flagged:dd_DungeonSettings:
+        - define spawnerLoc <context.entity.flag[dd_spawner_location].if_null[null]>
 
         #Fire event
-        - definemap context spawner_location:<[spawnerLoc]> entity:<context.entity> assisting_players:<context.entity.flag[dd_spawner_assisting_players].if_null[<list[]>]> spawn_table:<[spawnerLoc].flag[dd_spawner.spawn_table]>
-        - customevent id:dd_dungeon_spawner_entity_killed context:<[context]>
+        - definemap context spawner_location:<[spawnerLoc]> entity:<context.entity> assisting_players:<context.entity.flag[dd_assisting_players].if_null[<list[]>]> spawn_table:<context.entity.flag[dd_spawn_table]>
+        - customevent id:dd_dungeon_spawned_entity_killed context:<[context]>
