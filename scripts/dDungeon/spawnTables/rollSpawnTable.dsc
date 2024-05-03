@@ -71,6 +71,7 @@ dd_RollSpawnTable:
                     - define entity <entry[entity].spawned_entity>
                     - adjust <[entity]> persistent:true
                     - flag <[entity]> dd_spawnPoints:<[spawnPoints]>
+                    - flag <[entity]> dd_spawn_table:<[spawnTable]>
 
                     - define lootTableName <[spawnData._loot_table].if_null[null]>
                     - if <[lootTableName]> == null:
