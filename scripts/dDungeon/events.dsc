@@ -77,17 +77,17 @@ dd_Events:
 
         #Fire custom events for players leaving/entering dungeon worlds
         on player dies in:world_flagged:dd_DungeonSettings:
-        - define context <map[world=<player.location.world>]>
+        - define context <map[location=<player.location>;reason=PLAYER_DIES]>
         - customevent id:dd_player_exits_dungeon context:<[context]>
 
         on player resurrected in:world_flagged:dd_DungeonSettings:
-        - define context <map[world=<player.location.world>]>
+        - define context <map[location=<player.location>;reason=PLAYER_RESURRECTED]>
         - customevent id:dd_player_enters_dungeon context:<[context]>
 
         on player respawns:
         - if !<context.location.world.has_flag[dd_DungeonSettings]>:
             - stop
-        - define context <map[world=<player.location.world>]>
+        - define context <map[location=<context.location>;reason=PLAYER_RESPAWNS]>
         - customevent id:dd_player_enters_dungeon context:<[context]>
 
         on player teleports:
@@ -97,19 +97,19 @@ dd_Events:
 
         #Fire event for leaving dungeon
         - if <context.origin.world.has_flag[dd_DungeonSettings]>:
-            - define context <map[world=<context.origin.world>]>
+            - define context <map[location=<context.origin>;reason=PLAYER_TELEPORTS]>
             - customevent id:dd_player_exits_dungeon context:<[context]>
 
         #Fire event for entering dungeon
         - if <context.destination.world.has_flag[dd_DungeonSettings]>:
-            - define context <map[world=<context.destination.world>]>
+            - define context <map[location=<context.destination>;reason=PLAYER_TELEPORTS]>
             - customevent id:dd_player_enters_dungeon context:<[context]>
 
 
         #Apply/Remove Player Attributes when they enter/leave dungeon worlds
         on custom event id:dd_player_exits_dungeon:
         - ratelimit <player> 1t
-        - define dungeonWorld <context.world>
+        - define dungeonWorld <context.location.world>
         - define dungeonAttributes <[dungeonWorld].flag[dd_dungeonsettings.player_attributes].if_null[<map[]>]>
         - define attributeUuids <list[]>
 
@@ -122,7 +122,7 @@ dd_Events:
 
         on custom event id:dd_player_enters_dungeon:
         - ratelimit <player> 1t
-        - define dungeonWorld <context.world>
+        - define dungeonWorld <context.location.world>
         - define dungeonAttributes <[dungeonWorld].flag[dd_dungeonsettings.player_attributes].if_null[null]>
 
         - if <[dungeonAttributes]> != null:
