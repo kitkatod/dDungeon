@@ -1,8 +1,9 @@
 # Custom Events
 The below Denizen Custom Events are available to listen to in your own scripts without modification to dDungeon.
 
-* [dd_player_enters_dungeon]()
-* [dd_player_exits_dungeon]()
+* [dd_player_enters_dungeon](#dd_player_enters_dungeon)
+* [dd_player_exits_dungeon](#dd_player_exits_dungeon)
+* [dd_dungeon_spawner_destroyed](#dd_dungeon_spawner_destroyed)
 
 ---
 
