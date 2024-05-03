@@ -23,7 +23,7 @@ dd_SpawnTables_RunSpawner:
         - flag <[spawnerLoc].world> dd_spawnerLocs:<-:<[spawnerLoc]>
 
         # Spawner is about to be deleted. Fire custom event before spawner is gone.
-        - definemap context location:<[spawnerLoc]> players:<[spawnerData.assisting_players].if_null[<list[]>]>
+        - definemap context location:<[spawnerLoc]> players:<[spawnerData.assisting_players].if_null[<list[]>]> spawn_table:<[spawnerData.spawn_table]>
         - customevent id:dd_dungeon_spawner_destroyed context:<[context]>
 
         # Remove the spawner
