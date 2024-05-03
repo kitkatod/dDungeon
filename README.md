@@ -17,6 +17,7 @@ Minecraft Dungeon Generation toolset using Denizen Scripting.
 * Multiple Dungeon Settings can be defined to generate the same Category of Dungeon, but with different settings
 * Support for creating "sub-dungeons" - Areas that can be designed differently from the rest of the dungeon
 * Automatically Apply/Remove player attributes as they enter and exit a Dungeon. Configured per Dungeon
+* [Custom Events!](docs/customEvents.md)
 
 ![image](https://github.com/kitkatod/dDungeon/assets/100255227/302db807-985f-4996-976b-8f2540bb184d)
 
