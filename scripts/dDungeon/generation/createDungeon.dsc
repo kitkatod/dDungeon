@@ -140,52 +140,16 @@ dd_Create:
 
     - flag <[world]> "dd_currentGenerationStep:Processing Pathways"
 
+    #Process all pathways
     - define maxSections <[dungeonSettings.section_count_hard_max].if_null[500]>
-
-    #Save a timestamp to compare against. Pause for a tick if we're spending more than 1 tick doing this.
-    - define checkTime <util.time_now>
-
-    #Process each queued section
-    - while !<[world].flag[dd_pathway_queue].is_empty>:
-        #Failsafe - if we loop through this more than preconfigured count, just stop.
-        - if <[loop_index]> >= <[maxSections]>:
-            - narrate "<red><bold> *** STOPPING - Dungeon passed <[maxSections]> sections."
-            - while stop
-        - flag <[world]> dd_sectionCount:++
-
-        #Process the next section
-        - ~run dd_ProcessNextSection def.world:<[world]>
-
-        #If we're spending too much time, wait a tick to slow down a bit
-        - if <util.time_now.duration_since[<[checkTime]>].in_milliseconds> >= 40:
-            - wait 1t
-            - define checkTime <util.time_now>
-
-        # - if <[loop_index].mod[5]> == 0 && <[loop_index]> <= 60:
-        #     - flag <[world]> dd_allowedArea:<[world].flag[dd_allowedArea].expand[5,0,5]>
+    - ~run dd_Create_Pathways def.world:<[world]> def.maxSections:<[maxSections]>
 
     #Cleanup loaded schematics in memory
     - ~run dd_Schematic_UnloadAll def.world:<[world]>
     - flag <[world]> "dd_currentGenerationStep:Processing Inventories"
 
-    #Process each queued inventory
-    - while !<[world].flag[dd_inventory_queue].is_empty>:
-        - if <[loop_index]> >= 1000:
-            - narrate "<red><bold> *** STOPPING - Processed 1000 inventories"
-            - while stop
-        - ~run dd_ProcessNextInventory def.world:<[world]>
-        - flag <[world]> dd_inventoryCount:++
-
-
-    #Process each special loot table
-    - while !<[world].flag[dd_specialLootTables].keys.is_empty>:
-        - if <[loop_index]> >= 1000:
-            - narrate "<red><bold> *** STOPPING - Processed 1000 special inventory loot tables (somehow)"
-            - while stop
-        - ~run dd_ProcessNextSpecialLootTable def.world:<[world]>
-
-    #Process additional global loot tables
-    - ~run dd_ProcessDungeonGlobalLoot def.world:<[world]>
+    #Process all queued inventories
+    - ~run dd_Create_Inventories def.world:<[world]>
 
     - flag <[world]> "dd_currentGenerationStep:Backfilling Sections"
     - ~run dd_BackfillSections def.world:<[world]>
