@@ -85,7 +85,7 @@ dd_SpawnTables_RunSpawner:
     - run dd_SpawnTables_SpawnerEffects def.loc:<[spawnerLoc]>
 
     #Track each entity that has spawned
-    - foreach <[spawningResults.entities]> as:entity:
+    - foreach <[spawningResults.entities].if_null[<list[]>]> as:entity:
         - flag <[entity]> dd_spawner_location:<[spawnerLoc]>
         - flag <[spawnerLoc]> dd_spawner.entities:->:<[entity]>
         - flag <[spawnerLoc]> dd_spawner.currentlySpawnedPoints:+:<[entity].flag[dd_spawnPoints].if_null[0]>
