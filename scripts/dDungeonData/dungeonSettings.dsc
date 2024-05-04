@@ -10,9 +10,15 @@ dd_DungeonSettings:
             section_count_soft_max: 450
             #Cap of sections to place. Generation process will fully stop after this many sections have been placed.
             section_count_hard_max: 500
+
+
+            ##noise_generation_task functionality is deprecated and will be removed in a future update.
+            ##Prefer using the custom event "dd_dungeon_section_placed". See /docs/customEvents.md for details on this event.
             #Task specified here will be triggered for each section placed
             #Definitions are expected to be [cuboid] and [type] (ex: "definitions: cuboid|type")
-            noise_generation_task: dd_NoiseGeneration_Stonebrick
+            ##noise_generation_task: dd_NoiseGeneration_Stonebrick
+
+
             #Buffer around the spawn room to allow sections to be placed within.
             #This just helps restrict the generation process from sprawling into open space when it doesn't need to.
             #To disable this just set it to a very high number
@@ -54,6 +60,7 @@ dd_DungeonSettings:
             category: Stonebrick
             section_count_soft_max: 250
             section_count_hard_max: 300
-            noise_generation_task: dd_NoiseGeneration_Stonebrick
+            # # See comments regarding noise_generation_task above
+            # # noise_generation_task: dd_NoiseGeneration_Stonebrick
             allowed_build_space: 40
             ambient_spawn_points_per_player: 10

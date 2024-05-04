@@ -1,10 +1,29 @@
 # Custom Events
 The below Denizen Custom Events are available to listen to in your own scripts without modification to dDungeon.
 
+* [dd_dungeon_section_placed](#dd_dungeon_section_placed)
 * [dd_player_enters_dungeon](#dd_player_enters_dungeon)
 * [dd_player_exits_dungeon](#dd_player_exits_dungeon)
 * [dd_dungeon_spawner_destroyed](#dd_dungeon_spawner_destroyed)
 * [dd_dungeon_spawned_entity_killed](#dd_dungeon_spawned_entity_killed)
+
+---
+
+### dd_dungeon_section_placed
+- Fired for every Dungeon Section as it is placed.
+- Useful for making modifications to dungeons after it is created.
+- You may want to include an event switch to limit when your event is actually listening.
+    - Such as `dungeon_key:{my_cool_key_here}` or `dungeon_category:stonebrick`
+
+The below context data is passed when the event fires.
+
+| Key | Description | Values |
+| --- | --- | --- |
+| area | Area containing the Section that was just placed | *AreaTag* |
+| dungeon_key | Dungeon Key for the Dungeon this Section is in | *ElementTag* |
+| dungeon_category | Dungeon Category used to create the Dungeon this Section is in | *ElementTag* |
+| dungeon_section_type | Dungeon Section Type of this Section | *ElementTag* |
+| dungeon_section_name | Name of this Dungeon Section | *ElementTag* |
 
 ---
 

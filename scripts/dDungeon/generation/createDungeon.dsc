@@ -98,6 +98,10 @@ dd_Create:
     - ~run dd_StandardSectionModifiers_SetupFakeBlocks def.area:<[cuboid]>
     - ~run dd_StandardSectionModifiers_ChangeAirToCaveair def.area:<[cuboid]>
 
+    #Fire custom event for Section being placed
+    - definemap context area:<[cuboid]> dungeon_key:<[dungeonKey]> dungeon_category:<[dungeonSettings.category]> dungeon_section_type:spawn_room dungeon_section_name:<[sectionOptions.name]>
+    - customevent id:dd_dungeon_section_placed context:<[context]>
+
     #Run dungeon specific custom noise generation if it is specified
     - if <[dungeonSettings.noise_generation_task].exists>:
         - define taskScript <[dungeonSettings.noise_generation_task].as[script].if_null[null]>

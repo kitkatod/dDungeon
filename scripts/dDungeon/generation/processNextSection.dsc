@@ -18,6 +18,7 @@ dd_ProcessNextSection:
     - define dungeonSettings <[world].flag[dd_DungeonSettings]>
     - define category <[dungeonSettings.category]>
     - define sectionCountSoftCapReached <[dungeonSettings.section_count_soft_max].if_null[450].is_less_than_or_equal_to[<[world].flag[dd_sectionCount]>]>
+    - define dungeonKey <[world].flag[dd_DungeonKey].if_null[null]>
 
     #Make sure the area is loaded incase we move far away from the origin
     - ~run dd_LoadAreaChunks def:<[nextSectionLoc].chunk>|4|15s
@@ -222,6 +223,12 @@ dd_ProcessNextSection:
                         - ~run dd_StandardSectionModifiers_SetupFakeBlocks def.area:<[cuboid]>
                         - ~run dd_StandardSectionModifiers_ChangeAirToCaveair def.area:<[cuboid]>
 
+                        #Fire custom event for Section being placed
+                        - definemap context area:<[cuboid]> dungeon_key:<[dungeonKey]> dungeon_category:<[category]> dungeon_section_type:<[targetType]> dungeon_section_name:<[testOptions.name]>
+                        - customevent id:dd_dungeon_section_placed context:<[context]>
+
+                        # TODO - Remove this logic in favor of just firing a Custom Event (already added)
+                        # TODO -      Custom Events allow easier control as to firing multiple tasks, and switching what runs based on section type etc.
                         #Run dungeon specific custom noise generation if it is specified
                         - if <[dungeonSettings.noise_generation_task].exists>:
                             - define taskScript <[dungeonSettings.noise_generation_task].as[script].if_null[null]>
