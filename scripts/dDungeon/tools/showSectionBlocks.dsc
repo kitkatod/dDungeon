@@ -80,7 +80,8 @@ dd_ShowSectionBlocks_Player:
         - foreach <[user].location.find_blocks_flagged[dd_spawner].within[20]> as:block:
             - if <[block].flag[dd_spawner.spawn_table]> == NULL_TABLE:
                 - define glowColor red
+                - run dd_ShowSectionBlocks_SpawnMarkerTitle def.markerBlock:<[block]> "def.title:<bold><red>Spawn Blocker"
             - else:
                 - define glowColor green
+                - run dd_ShowSectionBlocks_SpawnMarkerTitle def.markerBlock:<[block]> def.title:<bold><green>Spawner
             - fakespawn block_display[material=spawner;glowing=true;glow_color=<[glowColor]>;scale=1.02,1.02,1.02] <[block].round_down> d:3.25s
-            - run dd_ShowSectionBlocks_SpawnMarkerTitle def.markerBlock:<[block]> def.title:<bold><&color[<[glowColor]>]>Spawner
