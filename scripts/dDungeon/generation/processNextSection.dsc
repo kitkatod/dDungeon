@@ -201,7 +201,7 @@ dd_ProcessNextSection:
                         # # - narrate "Placing section (<[targetFile]>) at <[pasteLoc]>"
 
                         #Paste the section
-                        - ~schematic paste noair name:<[targetSectionSchemPath]> <[pasteLoc]> entities delayed
+                        - ~schematic paste noair name:<[targetSectionSchemPath]> <[pasteLoc]> entities
                         - ~run dd_Schematic_UndoOrientation def.schemPath:<[targetSectionSchemPath]> def.flip:<[flip]> def.rotation:<[rotate]>
 
 
