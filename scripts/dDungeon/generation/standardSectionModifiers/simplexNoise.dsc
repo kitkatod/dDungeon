@@ -1,7 +1,7 @@
 dd_StandardSectionModifiers_SimplexNoise:
     debug: false
     type: task
-    definitions: cuboid[AreaTag to run noise generation over]|findMaterial[MaterialTag matcher for blocks to replace]|replacementMaterial[Material or list of Materials to use for replacement]|replacementMaterialRates[Rates passed to ModifyBlock for replacementMaterial]|wValue[w value used in random_simplex]|threshold[random_simplex threshold for a block to be changed. Between 0 and 1.]|scale[Value to multiply location coordinates by to get scaled simplex map location]
+    definitions: area[AreaTag to run noise generation over]|findMaterial[MaterialTag matcher for blocks to replace]|replacementMaterial[Material or list of Materials to use for replacement]|replacementMaterialRates[Rates passed to ModifyBlock for replacementMaterial]|wValue[w value used in random_simplex]|threshold[random_simplex threshold for a block to be changed. Between 0 and 1.]|scale[Value to multiply location coordinates by to get scaled simplex map location]
     script:
     #If scale isn't passed, just give a default
     - if !<[scale].exists>:
@@ -11,9 +11,13 @@ dd_StandardSectionModifiers_SimplexNoise:
     - if !<[threshold].exists>:
         - define threshold 0.375
 
+    #If wValue wasn't passed, just give a default
+    - if !<[wValue].exists>:
+        - define wValue 1
+
     #Loop through each matching block
-    - define cuboidBlocks <[cuboid].blocks[<[findMaterial]>]>
-    - foreach <[cuboidBlocks]> as:blockLoc:
+    - define areaBlocks <[area].blocks[<[findMaterial]>]>
+    - foreach <[areaBlocks]> as:blockLoc:
         #Simplex noise Mossy Stone
         - if <util.random_simplex[x=<[blockLoc].x.mul[<[scale]>]>;y=<[blockLoc].y.mul[<[scale]>]>;z=<[blockLoc].z.mul[<[scale]>]>;w=<[wValue]>].abs> >= <[threshold]>:
             - define bMat <[blockLoc].material>
