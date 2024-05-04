@@ -4,7 +4,7 @@ dd_LootTables_ValidateConfigs:
     script:
     #Validate items in Loot Tables
     - foreach <script[dd_LootTables].data_key[lootTables]> as:lootTableData key:lootTableName:
-        - foreach <[lootTableData].keys> as:itemEntryKey:
+        - foreach <[lootTableData]> key:itemEntryKey as:itemEntryData:
             - if <[itemEntryKey].starts_with[_]>:
                 - foreach next
 
@@ -14,7 +14,9 @@ dd_LootTables_ValidateConfigs:
             - if <[itemInput]> == dd_LootTables_SingleItemFromLootTable:
                 - foreach next
 
-            - define item <[itemInput].proc[dd_LootTables_ItemFromInput]>
+            - define context <[itemEntryData.item_proc_args].if_null[null]>
+
+            - define item <[itemInput].proc[dd_LootTables_ItemFromInput].context[<[context]>]>
             - if <[item]> == null || <[item].object_type> != item:
                 - narrate "<red>(dDungeon): LootTable Configuration Error, invalid item input on LootTable <[lootTableName]>. Input: <[itemEntryKey]>" targets:<server.online_ops>
 
