@@ -219,10 +219,6 @@ dd_ProcessNextSection:
                         #Get area of pasted section, handle any post transforms
                         - define cuboid <[pasteLoc].add[<[testOptions.pos1]>].to_cuboid[<[pasteLoc].add[<[testOptions.pos2]>]>]>
 
-                        #Run standard post transforms
-                        - ~run dd_StandardSectionModifiers_SetupFakeBlocks def.area:<[cuboid]>
-                        - ~run dd_StandardSectionModifiers_ChangeAirToCaveair def.area:<[cuboid]>
-
                         #Fire custom event for Section being placed
                         - definemap context area:<[cuboid]> dungeon_key:<[dungeonKey]> dungeon_category:<[category]> dungeon_section_type:<[targetType]> dungeon_section_name:<[testOptions.name]>
                         - customevent id:dd_dungeon_section_placed context:<[context]>

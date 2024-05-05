@@ -94,10 +94,6 @@ dd_Create:
     #Get area of pasted section, handle any post transforms
     - define cuboid <[loc].add[<[sectionOptions.pos1]>].to_cuboid[<[loc].add[<[sectionOptions.pos2]>]>]>
 
-    #Run standard post transforms
-    - ~run dd_StandardSectionModifiers_SetupFakeBlocks def.area:<[cuboid]>
-    - ~run dd_StandardSectionModifiers_ChangeAirToCaveair def.area:<[cuboid]>
-
     #Fire custom event for Section being placed
     - definemap context area:<[cuboid]> dungeon_key:<[dungeonKey]> dungeon_category:<[dungeonSettings.category]> dungeon_section_type:spawn_room dungeon_section_name:<[sectionOptions.name]>
     - customevent id:dd_dungeon_section_placed context:<[context]>
