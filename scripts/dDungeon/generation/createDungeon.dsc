@@ -33,6 +33,10 @@ dd_Create:
     #Get Dungeon Settings
     - define dungeonSettings <script[dd_DungeonSettings].data_key[dungeons].get[<[dungeonType]>]>
 
+    #Fire custom event for world created
+    - definemap context world:<[world]> dungeon_key:<[dungeonKey]> dungeon_category:<[dungeonSettings.category]>
+    - customevent id:dd_dungeon_world_created context:<[context]>
+
     #Setup processing flags
     - flag <[world]> dd_DungeonKey:<[dungeonKey]>
     - flag server dd_DungeonWorlds.<[dungeonKey]>:<[worldName]>
@@ -190,3 +194,7 @@ dd_Create:
     - note remove as:<[world].name>_dcarea
     - flag <[world]> dd_generationRunning:false
     - flag <[world]> dd_startTime:!
+
+    #Fire custom event for Dungeon Generation Complete
+    - definemap context world:<[world]> dungeon_key:<[dungeonKey]> dungeon_category:<[dungeonSettings.category]>
+    - customevent id:dd_dungeon_generation_complete context:<[context]>

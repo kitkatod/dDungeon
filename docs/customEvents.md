@@ -1,11 +1,41 @@
 # Custom Events
 The below Denizen Custom Events are available to listen to in your own scripts without modification to dDungeon.
 
+* [dd_dungeon_world_created](#dd_dungeon_world_created)
+* [dd_dungeon_generation_complete](#dd_dungeon_generation_complete)
 * [dd_dungeon_section_placed](#dd_dungeon_section_placed)
 * [dd_player_enters_dungeon](#dd_player_enters_dungeon)
 * [dd_player_exits_dungeon](#dd_player_exits_dungeon)
 * [dd_dungeon_spawner_destroyed](#dd_dungeon_spawner_destroyed)
 * [dd_dungeon_spawned_entity_killed](#dd_dungeon_spawned_entity_killed)
+
+---
+
+### dd_dungeon_world_created
+- Fired *before* Dungeon sections have started to be placed.
+- Useful for changing any settings/flags of the world before generation starts.
+
+The below context data is passed when the event fires.
+
+| Key | Description | Values |
+| --- | --- | --- |
+| world | World that was created for the Dungeon | *WorldTag* |
+| dungeon_key | Dungeon Key for the Dungeon this World was created for | *ElementTag* |
+| dungeon_category | Dungeon Category for the Dungeon this World was created for | *ElementTag* |
+
+---
+
+### dd_dungeon_generation_complete
+- Fired after all Dungeon sections have been placed, and all cleanup tasks have finished.
+- This is the last custom event to fire during Dungeon Generation.
+
+The below context data is passed when the event fires.
+
+| Key | Description | Values |
+| --- | --- | --- |
+| world | World the Dungeon is in | *WorldTag* |
+| dungeon_key | Dungeon Key for the Dungeon created | *ElementTag* |
+| dungeon_category | Dungeon Category for the Dungeon created | *ElementTag* |
 
 ---
 
