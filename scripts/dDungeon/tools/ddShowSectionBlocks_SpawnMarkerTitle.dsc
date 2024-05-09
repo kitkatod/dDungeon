@@ -8,9 +8,7 @@ dd_ShowSectionBlocks_SpawnMarkerTitle:
     - else:
         - define titleLoc <[markerBlock].up[1].center>
 
-
-    - fakespawn dd_ShowSectionBlocks_TitleDisplay[text=<[title]>] <[titleLoc]> duration:3.25s save:displayEntity
-    # - adjust <entry[displayEntity].faked_entity> text:<[title]>
+    - fakespawn dd_ShowSectionBlocks_TitleDisplay[text=<[title]>] <[titleLoc]> duration:3.25s
 
 dd_ShowSectionBlocks_TitleDisplay:
     debug: false
