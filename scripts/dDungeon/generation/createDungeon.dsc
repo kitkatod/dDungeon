@@ -27,19 +27,19 @@ dd_Create:
 
     #Waiting another couple seconds... Bukkit sometimes freaks out saying the referenced world is null... An aditional slight pause seems to help...
     - wait 2s
+    - define world <world[<[worldName]>]>
+    - flag <[world]> "dd_currentGenerationStep:Creating World"
 
     #Get Dungeon Settings
     - define dungeonSettings <script[dd_DungeonSettings].data_key[dungeons].get[<[dungeonType]>]>
 
-    #Get World Reference
-    - define world <world[<[worldName]>]>
+    #Setup processing flags
     - flag <[world]> dd_DungeonKey:<[dungeonKey]>
     - flag server dd_DungeonWorlds.<[dungeonKey]>:<[worldName]>
     - flag <[world]> sectionCounts:<map[]>
     - flag <[world]> dd_DungeonSettings:<[dungeonSettings]>
     - flag <[world]> dd_generationRunning:true
     - flag <[world]> dd_allowSpawning:false
-    - flag <[world]> "dd_currentGenerationStep:Creating World"
     - flag <[world]> dd_startTime:<[startTime]>
     - flag <[world]> dd_loadedSchematics:<list[]>
     - flag <[world]> dd_pathway_queue:<list[]>
@@ -48,12 +48,13 @@ dd_Create:
     - flag <[world]> dd_specialLootTables:<map[]>
     - flag <[world]> dd_spawnerLocs:<list[]>
 
+    #Do basic setup of new world
     - run dd_SetupAttributeModifiers def.world:<[world]>
-
     - gamerule <[world]> doMobSpawning false
     - gamerule <[world]> doDaylightCycle false
     - adjust <[world]> time:18000
 
+    #Run monitor task in background if it was requested
     - if <[monitor].if_null[false]>:
         - run dd_create_monitorgeneration def.world:<[world]> def.players:<player>
 
@@ -146,19 +147,22 @@ dd_Create:
 
     #Cleanup loaded schematics in memory
     - ~run dd_Schematic_UnloadAll def.world:<[world]>
-    - flag <[world]> "dd_currentGenerationStep:Processing Inventories"
 
     #Process all queued inventories
+    - flag <[world]> "dd_currentGenerationStep:Processing Inventories"
     - ~run dd_Create_Inventories def.world:<[world]>
 
+    #Backfill Sections
     - flag <[world]> "dd_currentGenerationStep:Backfilling Sections"
     - ~run dd_BackfillSections def.world:<[world]>
 
+    #Prepare world for possible player use
     - flag <[world]> dd_area:<cuboid[<[world].name>_dcarea]>
     - gamerule <[world]> doMobSpawning true
     - flag <[world]> dd_allowSpawning:true
     - flag <[world]> dd_spawnerLocs:<list[]>
 
+    #Get references to all dungeon spawners
     - foreach <[world].flag[dd_area].blocks_flagged[dd_spawner]> as:spawnerLoc:
         - flag <[spawnerLoc]> dd_spawner.currentBank:<[spawnerLoc].flag[dd_spawner.bank]>
         - flag <[spawnerLoc]> dd_spawner.bossbarId:<util.random_uuid>
@@ -174,15 +178,15 @@ dd_Create:
     - announce "<gold> *** Rolled loot for <[world].flag[dd_inventoryCount]> inventories"
     - announce "<gold> *** Dungeon can now be considered ready for use. Backfill will continue but should not impact players."
 
+    #Bulk backfill space outside dungeon
     - define backfillStartTime <util.time_now>
     - flag <[world]> "dd_currentGenerationStep:Backfilling World"
     - ~run dd_BackfillWorld def.world:<[world]>
     - announce "<gold> *** World backfill completed in additional <util.time_now.duration_since[<[backfillStartTime]>].formatted>"
     - announce "<gold> *** Total generation took <util.time_now.duration_since[<[startTime]>].formatted> "
 
-
+    #Cleanup any remaining data
     - ~run dd_SectionDataCache_Unload def.world:<[world]>
     - note remove as:<[world].name>_dcarea
-
     - flag <[world]> dd_generationRunning:false
     - flag <[world]> dd_startTime:!
