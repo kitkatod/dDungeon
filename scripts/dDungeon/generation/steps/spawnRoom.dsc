@@ -25,6 +25,9 @@ dd_Create_SpawnRoom:
 
     #Paste the spawn section and undo orientation
     - ~schematic paste name:<[sectionName]> <[loc]>
+
+    #Apply modified section options back to origin
+    - flag <[loc]> dd_SectionOptions:<[sectionOptions]>
     - flag <[loc]> dd_SectionOptions.readonly:true
     - ~run dd_Schematic_UndoOrientation def.schemPath:<[sectionName]> def.flip:<[flip]> def.rotation:0
 
