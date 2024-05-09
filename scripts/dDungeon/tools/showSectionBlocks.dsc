@@ -58,7 +58,7 @@ dd_ShowSectionBlocks_Player:
 
             - if <[optionsData.entrancePoint].exists>:
                 - fakespawn block_display[material=green_stained_glass;glowing=true;glow_color=green;scale=1.02,1.02,1.02] <[optionsLoc].add[<[optionsData.entrancePoint]>].sub[0.5,0,0.5]> d:3.25s
-                - run dd_ShowSectionBlocks_SpawnMarkerTitle def.markerBlock:<[optionsData.entrancePoint]> "def.title:<bold><green>Dungeon Entrance Spawn Point"
+                - run dd_ShowSectionBlocks_SpawnMarkerTitle def.markerBlock:<[optionsLoc].add[<[optionsData.entrancePoint]>]> "def.title:<bold><green>Dungeon Entrance Spawn Point"
 
     - if <[showDungeonEntrances]>:
         - foreach <[user].location.find_blocks_flagged[dd_entrance].within[20]> as:block:
