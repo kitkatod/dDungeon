@@ -213,12 +213,3 @@ dd_Create_MonitorGeneration:
         - wait 1s
     - sidebar remove players:<[players]>
 
-
-
-dd_ContinuousGeneration:
-    debug: false
-    type: task
-    script:
-    - while !<player.has_flag[dd_stop]>:
-        - ~run dd_Create def.category:Stonebrick def.monitor:true
-        - wait 10s
