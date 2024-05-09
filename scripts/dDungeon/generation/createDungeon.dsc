@@ -54,7 +54,7 @@ dd_Create:
     - gamerule <[world]> doDaylightCycle false
     - adjust <[world]> time:18000
 
-    - if <[monitor]>:
+    - if <[monitor].if_null[false]>:
         - run dd_create_monitorgeneration def.world:<[world]> def.players:<player>
 
     #Start loading all schematics
