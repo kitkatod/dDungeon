@@ -28,7 +28,11 @@ dd_Create_SpawnRoom:
 
     #Apply modified section options back to origin
     - flag <[loc]> dd_SectionOptions:<[sectionOptions]>
+
+    #Mark read-only so section can't be saved
     - flag <[loc]> dd_SectionOptions.readonly:true
+
+    #Undo flip/rotate as needed. (Is this really needed for the Spawn Room?)
     - ~run dd_Schematic_UndoOrientation def.schemPath:<[sectionName]> def.flip:<[flip]> def.rotation:0
 
     #Get area of pasted section, handle any post transforms
