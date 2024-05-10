@@ -9,7 +9,8 @@ dd_SpawnTables_ConvertToSentinel:
         - dd_spawn_table
         - dd_lootTable
     script:
-    - create <npc[<[npcId]>]> <[entity].name> save:entityNpc
+    - define npc <npc[<[npcId]>]>
+    - create <[npc]> <[npc].name> save:entityNpc
     - adjust <queue> linked_npc:<entry[entityNpc].created_npc>
 
     #Add NPC to world's NPC list
