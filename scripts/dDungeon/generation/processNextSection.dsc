@@ -231,6 +231,10 @@ dd_ProcessNextSection:
                             - if <[taskScript]> != null && <[taskScript].data_key[type]> == task:
                                 - run <[taskScript]> def.cuboid:<[cuboid]> def.type:<[targetType]>
 
+                        #Run any modifiers on section area that should always take place
+                        - ~run dd_StandardSectionModifiers_SetupFakeBlocks def.area:<[cuboid]>
+                        - ~run dd_StandardSectionModifiers_ChangeAirToCaveair def.area:<[cuboid]>
+
                         #Queue other pathways from this section
                         - ~run dd_QueuePathways def.loc:<[pasteLoc]> def.sectionOptions:<[testOptions]> def.buildVariables:<[buildVariables]>
 
