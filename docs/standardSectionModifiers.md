@@ -1,8 +1,8 @@
 # Standard Section Modifiers
 
-Section Modifiers are Task Scripts which run after a Dungeon Section is placed. These tasks can change anything about the section.
+Section Modifiers are Task Scripts which are usually run after a Dungeon Section is placed using the Custom Event [dd_dungeon_section_placed](/docs/customEvents.md#dd_dungeon_section_placed). These tasks can change anything about the section after it has been placed.
 
-The below Tasks are generalized for use in different Dungeons.
+The below Tasks are generalized for use in different Dungeons as needed.
 
 * [dd_StandardSectionModifiers_ChangeBiome](#dd_StandardSectionModifiers_ChangeBiome)
 * [dd_StandardSectionModifiers_SimplexNoise](#dd_StandardSectionModifiers_SimplexNoise)
