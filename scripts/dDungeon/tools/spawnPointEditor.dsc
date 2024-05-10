@@ -13,7 +13,7 @@ dd_SpawnerEditor:
     flags:
         dd_show_sectionOptions: true
         dd_show_spawners: true
-        dd_toolswap_nexttool: dd_PathwayEditor
+        dd_toolswap_nexttool: dd_SchematicEditor
         dd_toolswap_previoustool: dd_DungeonEntranceEditor
 
 
