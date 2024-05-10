@@ -216,9 +216,6 @@ dd_ProcessNextSection:
                         #Remove this pathway from pathway options (since we just used it...)
                         - define testOptions.pathways.<[testPathwayKey]>:!
 
-                        #Get area of pasted section, handle any post transforms
-                        - define cuboid <[pasteLoc].add[<[testOptions.pos1]>].to_cuboid[<[pasteLoc].add[<[testOptions.pos2]>]>]>
-
                         #Fire custom event for Section being placed
                         - definemap context area:<[cuboid]> dungeon_key:<[dungeonKey]> dungeon_category:<[category]> dungeon_section_type:<[targetType]> dungeon_section_name:<[testOptions.name]>
                         - customevent id:dd_dungeon_section_placed context:<[context]>
