@@ -204,7 +204,6 @@ dd_ProcessNextSection:
                         - ~schematic paste noair name:<[targetSectionSchemPath]> <[pasteLoc]> entities
                         - ~run dd_Schematic_UndoOrientation def.schemPath:<[targetSectionSchemPath]> def.flip:<[flip]> def.rotation:<[rotate]>
 
-
                         #Flag options block with "transformed" section options data
                         - flag <[pasteLoc]> dd_SectionOptions:<[testOptions]>
                         - flag <[pasteLoc]> dd_SectionOptions.readonly:true
@@ -237,8 +236,3 @@ dd_ProcessNextSection:
 
                         #Queue inventories to be processed later
                         - ~run dd_QueueInventories def.loc:<[pasteLoc]> def.sectionOptions:<[testOptions]>
-
-    # TODO remove if not needed. Seems it shouldn't be needed now that the world gets backfilled with stone at the end of generation.
-    # #If we didn't place SOMETHING by this point, just put in a big ugly sphere to block up the hole
-    # - if !<[sectionFound]>:
-    #     - modifyblock <[nextSectionLoc].to_ellipsoid[6,6,6].blocks[*air]> bedrock
