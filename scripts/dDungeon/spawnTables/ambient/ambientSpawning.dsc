@@ -28,9 +28,6 @@ dd_SpawnTables_AmbientSpawning:
         #Get SpawnPoint max for the dungeon the player is in
         - define spawnPointsMax <[dungeonSettings.ambient_spawn_points_per_player].if_null[10]>
 
-        #Modify SpawnPoint max based on the number of players nearby
-        - define spawnPointsMax:+:<[player].location.find_players_within[10].size.sub[1].mul[0.5]>
-
         #Check current mob points total around player
         - define nearbySpawnPoints <[player].location.find.living_entities.within[15].filter_tag[<[filter_value].has_flag[dd_spawnPoints].if_null[false]>].parse_tag[<[parse_value].flag[dd_spawnPoints]>].if_null[0].sum>
 
