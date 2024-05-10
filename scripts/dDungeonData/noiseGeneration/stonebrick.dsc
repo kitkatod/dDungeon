@@ -29,11 +29,11 @@ dd_NoiseGeneration_Stonebrick:
         - if !<[replaceBlocks].is_empty>:
             - ~modifyblock <[replaceBlocks]> obsidian|crying_obsidian 65|35 delayed no_physics
 
-        - run dd_StandardSectionModifiers_ChangeBiome def.area:<context.area> def.biomeName:dc:crypt
+        - ~run dd_StandardSectionModifiers_ChangeBiome def.cuboid:<context.area> def.biomeName:dc:crypt
 
         on custom event id:dd_dungeon_section_placed data:dungeon_category:stonebrick data:dungeon_section_type:!*_crypt:
         - define replaceBlocks <context.area.blocks[stone_bricks]>
         - if !<[replaceBlocks].is_empty>:
             - ~modifyblock <[replaceBlocks]> stone_bricks|stone|smooth_stone|cobblestone 85|7|6|2 delayed no_physics
 
-        - run dd_StandardSectionModifiers_ChangeBiome def.area:<context.area> def.biomeName:dc:sewer
+        - ~run dd_StandardSectionModifiers_ChangeBiome def.cuboid:<context.area> def.biomeName:dc:sewer

@@ -17,7 +17,7 @@ Changes the biome of all blocks within the section. A buffer area of 5 blocks is
 
 | Definition | Description | Value |
 | --- | --- | --- |
-| area | Area representing the section to be modified | *AreaTag* |
+| cuboid | Cuboid representing the section to be modified | *CuboidTag* |
 | biomeName | Name of the biome to apply to the section<br/>Note, if using a custom biome then include the namespace of the biome. | *ElementTag* |
 
 ---
