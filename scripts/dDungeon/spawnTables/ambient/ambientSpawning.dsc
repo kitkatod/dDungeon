@@ -54,7 +54,7 @@ dd_SpawnTables_AmbientSpawning:
         #Exclude points that are too close to any player (don't spawn on top of them)
         #, or outside dungeon area
         - foreach <[spawningLocs]> as:spawnLoc:
-            - if !<[spawnLoc].find_players_within[10].is_empty>:
+            - if !<[spawnLoc].find_players_within[5].is_empty>:
                 - define spawningLocs:<-:<[spawnLoc]>
             - if !<[world].flag[dd_area].contains[<[spawnLoc]>]>:
                 - define spawningLocs:<-:<[spawnLoc]>
