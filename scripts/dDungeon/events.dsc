@@ -9,6 +9,11 @@ dd_Events:
                 - foreach next
             - createworld <[worldName]> generator:denizen:void
 
+        #Validate configs on script reload
+        after reload scripts:
+        - if <script[dd_Config].data_key[validate_config_on_reload].if_null[false]>:
+            - run dd_ValidateConfigs
+
         #Prevent TNT/Creeper griefs
         on block destroyed by explosion in:world_flagged:dd_DungeonSettings:
         - determine cancelled

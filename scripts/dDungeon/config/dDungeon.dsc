@@ -9,6 +9,11 @@ dd_Config:
     #Will be tagged to schematics as they are saved.
     dd_schematic_data_version: 1.0
 
+    #If true, dDungeon validation will run after every Denizen script reload (using /ex reload)
+    #You can manually run the Validation using /ddValidate
+    #Defaults to false if missing
+    validate_config_on_reload: false
+
     #Settings used by scripts to hide/show debugging information
     debugging:
         #Whether to output to user creating a dungeon when Schematic Placement Validation Fails for a specific reason

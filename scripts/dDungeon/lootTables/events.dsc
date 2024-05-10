@@ -8,7 +8,3 @@ dd_LootTables_Events:
             - stop
         - determine cancelled passively
         - adjust <context.arrow> pickup_status:DISALLOWED
-
-        #Validate Loot Table configs on script reload
-        after reload scripts:
-        - run dd_LootTables_ValidateConfigs
