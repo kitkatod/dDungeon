@@ -36,9 +36,42 @@ TODO - Documentation page for Spawn Tables. For now, see comments within example
 
 ### Dungeon Settings
 
-Information about configured Dungeons that can be generated, and are configured with [dd_DungeonSettings](/scripts/dDungeonData/dungeonSettings.dsc).
+Information about configured Dungeons that can be generated, and are configured with [dd_DungeonSettings](/scripts/dDungeonData/dungeonSettings.dsc). Dungeon Keys are specified here, and act as a way to specify what set of settings to use during generation.
 
-TODO - Documentation page for Dungeon Settings. For now, see comments within example configured dungeon.
+**Expected Script Format:**
+```
+dd_DungeonSettings:
+    debug: false
+    type: data
+    dungeons:
+        my_cool_dungeon_key_here:
+            category: Stonebrick
+            section_count_soft_max: 450
+            section_count_hard_max: 500
+            ## [Additional config options here]
+```
+
+| Config Key | Required | Type | Description | Default |
+| --- | --- | --- | --- | --- |
+| category | REQUIRED | *ElementTag* | Category of Dungeon Sections to use for this Dungeon | N/A |
+| section_count_soft_max | OPTIONAL | *ElementTag(Integer)* | Cap of sections to place. Pathways after this cap will only attempt to place deadend section types | 450 |
+| section_count_hard_max | OPTIONAL | *ElementTag(Integer)* | Absolute max number of sections to place. Pathways after this count has been reached will be skipped entirely. | 500 |
+| allowed_build_space | OPTIONAL | *ElementTag(Integer)* | Number of blocks around the Spawn Room to allow the Dungeon to be generated within.<br/>This just helps restrict the generation process from sprawling when not needed.<br/>Disable this by setting to a very high number such as 1000. | 40 |
+| ambient_spawn_table | OPTIONAL | *ElementTag* | Name of the Spawn Table to use for Ambient Spawning logic.<br/>This will periodically spawn mobs from the Spawn Table around players within the Dungeon. | *NULL* |
+| ambient_spawn_points_per_player | OPTIONAL | *ElementTag(Decimal)* | Sum of Spawn Points allowed to be spawned around a player.<br/>Ambient Spawning will continue to spawn mobs to try to reach this value. | 10 |
+| ambient_spawn_points_per_grid_section_max | OPTIONAL | *ElementTag(Decimal)* | Maximum number of Spawn Points worth of mobs to for Ambient Spawning to ever spawn in a 8x8x8 grid section of the Dungeon.<br/>Once this value is reached Ambient Spawning will not spawn mobs in that grid section of the Dungeon. | 50 |
+| ambient_spawn_player_delay_period | OPTIONAL | *DurationTag* | After Ambient Spawning spawns mobs for a specific player, it will not trigger again for this duration of time.<br/>NOTE: If there are multiple players in an area, it will still continue trying to spawn for the other players. | 10s |
+| special_loot_tables | OPTIONAL | *ListTag(Element)* | Any loot table names specified here will only have loot calculated once for the entire Dungeon. Items will be distributed among any chest/inventory configured with this Loot Table | *NULL* |
+| global_loot | OPTIONAL | *ListTag(Element)* | Similar to special_loot_tables, however items are instead distributed among ALL chest/inventories, instead of only ones configured with the Loot Table.<br/>Useful for placing item(s) SOMEWHERE in the Dungeon, without needing to configure every chest. | *NULL* |
+| player_attributes | OPTIONAL | *MapTag* | Attributes to apply to players that are in the Dungeon. Attributes will automatically be applied/removed as needed when players enter/teleport/respawn/die/etc.<br/> | *NULL* |
+
+**player_attributes Example:**
+```
+player_attributes:
+    generic_max_health:
+    - <map[operation=ADD_NUMBER;amount=20]>
+```
+
 
 ---
 
