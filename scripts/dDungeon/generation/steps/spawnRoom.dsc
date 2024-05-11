@@ -48,6 +48,10 @@ dd_Create_SpawnRoom:
         - if <[taskScript]> != null && <[taskScript].data_key[type]> == task:
             - ~run <[taskScript]> def.cuboid:<[cuboid]> def.type:spawn_room
 
+    #Run any modifiers on section area that should always take place
+    - ~run dd_StandardSectionModifiers_SetupFakeBlocks def.area:<[cuboid]>
+    - ~run dd_StandardSectionModifiers_ChangeAirToCaveair def.area:<[cuboid]>
+
     #Save noted area of entire dungeon
     - note <[cuboid]> as:<[world].name>_dcarea
 
