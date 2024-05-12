@@ -54,16 +54,6 @@ dd_Schematic_LoadAll:
             - define queueList:->:<entry[loadQueue].created_queue>
     - wait 1s
 
-    # #Loop and check all listed load queues until they all finish
-    # - while !<[queueList].is_empty>:
-    #     - foreach <[queueList]> as:queue:
-    #         #Remove the queue once it has completed
-    #         - if <[queue].is_valid.if_null[null]> == null:
-    #             - debug LOG <[queue].state>
-    #         - if !<[queue].is_valid>:
-    #             - define queueList:<-:<[queue]>
-    #     - wait 10t
-
 dd_Schematic_UnloadAll:
     debug: false
     type: task
