@@ -52,7 +52,6 @@ dd_Schematic_LoadAll:
             - define schemPath <[category]>/<[type]>/<[file].before[.schem]>
             - run dd_Schematic_Load def.world:<[world]> def.schemPath:<[schemPath]> save:loadQueue
             - define queueList:->:<entry[loadQueue].created_queue>
-    - wait 1s
 
 dd_Schematic_UnloadAll:
     debug: false
