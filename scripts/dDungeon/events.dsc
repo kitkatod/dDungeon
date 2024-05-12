@@ -9,6 +9,11 @@ dd_Events:
                 - foreach next
             - createworld <[worldName]> generator:denizen:void
 
+        #Validate configs on script reload
+        after reload scripts:
+        - if <script[dd_Config].data_key[validate_config_on_reload].if_null[false]>:
+            - run dd_ValidateConfigs
+
         #Prevent TNT/Creeper griefs
         on block destroyed by explosion in:world_flagged:dd_DungeonSettings:
         - determine cancelled
@@ -74,3 +79,56 @@ dd_Events:
         - if <player.gamemode> == spectator:
             - stop
         - run dd_ExitDungeon
+
+        #Fire custom events for players leaving/entering dungeon worlds
+        on player dies in:world_flagged:dd_DungeonSettings:
+        - define context <map[location=<player.location>;reason=PLAYER_DIES]>
+        - customevent id:dd_player_exits_dungeon context:<[context]>
+
+        on player resurrected in:world_flagged:dd_DungeonSettings:
+        - define context <map[location=<player.location>;reason=PLAYER_RESURRECTED]>
+        - customevent id:dd_player_enters_dungeon context:<[context]>
+
+        on player respawns:
+        - if !<context.location.world.has_flag[dd_DungeonSettings]>:
+            - stop
+        - define context <map[location=<context.location>;reason=PLAYER_RESPAWNS]>
+        - customevent id:dd_player_enters_dungeon context:<[context]>
+
+        on player teleports:
+        #Skip if not changing worlds
+        - if <context.origin.world> matches <context.destination.world>:
+            - stop
+
+        #Fire event for leaving dungeon
+        - if <context.origin.world.has_flag[dd_DungeonSettings]>:
+            - define context <map[location=<context.origin>;reason=PLAYER_TELEPORTS]>
+            - customevent id:dd_player_exits_dungeon context:<[context]>
+
+        #Fire event for entering dungeon
+        - if <context.destination.world.has_flag[dd_DungeonSettings]>:
+            - define context <map[location=<context.destination>;reason=PLAYER_TELEPORTS]>
+            - customevent id:dd_player_enters_dungeon context:<[context]>
+
+
+        #Apply/Remove Player Attributes when they enter/leave dungeon worlds
+        on custom event id:dd_player_exits_dungeon:
+        - ratelimit <player> 1t
+        - define dungeonWorld <context.location.world>
+        - define dungeonAttributes <[dungeonWorld].flag[dd_dungeonsettings.player_attributes].if_null[<map[]>]>
+        - define attributeUuids <list[]>
+
+        - foreach <[dungeonAttributes]> as:attributeData key:attributeKey:
+            - foreach <[attributeData]> as:attribute:
+                - define attributeUuids:->:<[attribute.id]>
+
+        - if !<[attributeUuids].is_empty>:
+            - adjust <player> remove_attribute_modifiers:<[attributeUuids]>
+
+        on custom event id:dd_player_enters_dungeon:
+        - ratelimit <player> 1t
+        - define dungeonWorld <context.location.world>
+        - define dungeonAttributes <[dungeonWorld].flag[dd_dungeonsettings.player_attributes].if_null[null]>
+
+        - if <[dungeonAttributes]> != null:
+            - adjust <player> add_attribute_modifiers:<[dungeonAttributes]>

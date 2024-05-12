@@ -21,6 +21,12 @@ dd_SpawnTables_RunSpawner:
     #Remove references if spawner is no longer needed.
     - if <[spawnerData.bank]> != null && <[spawnerData.currentBank]> <= 0 && <[spawnerData.spawnedSpawnPoints].if_null[0]> <= 0 && <[spawnerData.bossbarPlayers].is_empty>:
         - flag <[spawnerLoc].world> dd_spawnerLocs:<-:<[spawnerLoc]>
+
+        # Spawner is about to be deleted. Fire custom event before spawner is gone.
+        - definemap context location:<[spawnerLoc]> players:<[spawnerData.assisting_players].if_null[<list[]>]> spawn_table:<[spawnerData.spawn_table]>
+        - customevent id:dd_dungeon_spawner_destroyed context:<[context]>
+
+        # Remove the spawner
         - flag <[spawnerLoc]> dd_spawner:!
         - stop
 
@@ -79,7 +85,7 @@ dd_SpawnTables_RunSpawner:
     - run dd_SpawnTables_SpawnerEffects def.loc:<[spawnerLoc]>
 
     #Track each entity that has spawned
-    - foreach <[spawningResults.entities]> as:entity:
+    - foreach <[spawningResults.entities].if_null[<list[]>]> as:entity:
         - flag <[entity]> dd_spawner_location:<[spawnerLoc]>
         - flag <[spawnerLoc]> dd_spawner.entities:->:<[entity]>
         - flag <[spawnerLoc]> dd_spawner.currentlySpawnedPoints:+:<[entity].flag[dd_spawnPoints].if_null[0]>

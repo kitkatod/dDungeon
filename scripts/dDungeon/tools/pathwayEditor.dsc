@@ -14,7 +14,7 @@ dd_PathwayEditor:
         dd_show_sectionOptions: true
         dd_show_pathways: true
         dd_toolswap_nexttool: dd_InventoryEditor
-        dd_toolswap_previoustool: dd_SpawnerEditor
+        dd_toolswap_previoustool: dd_SchematicEditor
 
 
 dd_PathwayEditor_Events:

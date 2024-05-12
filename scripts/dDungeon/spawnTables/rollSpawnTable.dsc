@@ -4,8 +4,8 @@ dd_RollSpawnTable:
     definitions: loc|spawnTable|targetSpawnPoints|spawnRadius
     script:
     #Get Spawn Table data
-    - define spawnTable <script[dd_SpawnTables].data_key[spawnTables].get[<[spawnTable]>].if_null[null]>
-    - if <[spawnTable]> == null:
+    - define spawnTableData <script[dd_SpawnTables].data_key[spawnTables].get[<[spawnTable]>].if_null[null]>
+    - if <[spawnTableData]> == null:
         - stop
 
     #Fill in default values if needed
@@ -14,7 +14,7 @@ dd_RollSpawnTable:
     - define spawnedSpawnPoints 0
 
     #Determine number of entity entries to select
-    - define selectionCount <[spawnTable._selection_count].if_null[1]>
+    - define selectionCount <[spawnTableData._selection_count].if_null[1]>
     - if <[selectionCount].escaped.contains_all_text[&pipe]>:
         - define selectionCount <[selectionCount].proc[dd_TrangularDistroRandomInt]>
 
@@ -25,7 +25,7 @@ dd_RollSpawnTable:
     #Will be used for doing weighted random selection
     - define selectionTotalWeight 0
     - define spawnTableEntries <list[]>
-    - foreach <[spawnTable]> key:spawnKey as:spawnEntry:
+    - foreach <[spawnTableData]> key:spawnKey as:spawnEntry:
         #Skip loot table keys that are loot table settings, not loot entries
         - if <[spawnKey].starts_with[_]>:
             - foreach next
@@ -47,7 +47,7 @@ dd_RollSpawnTable:
 
             #If the selected value is below the target chance of the item then we have a winner!
             - if <[spawnEntry.target_weight]> >= <[selectedValue]>:
-                - define spawnData <[spawnTable.<[spawnEntry.item_key]>]>
+                - define spawnData <[spawnTableData.<[spawnEntry.item_key]>]>
                 #Get item name (remove any comments/details at end of name)
                 - define entityName <[spawnEntry.item_key].before_last[#]>
                 #Get count to spawn
@@ -71,10 +71,11 @@ dd_RollSpawnTable:
                     - define entity <entry[entity].spawned_entity>
                     - adjust <[entity]> persistent:true
                     - flag <[entity]> dd_spawnPoints:<[spawnPoints]>
+                    - flag <[entity]> dd_spawn_table:<[spawnTable]>
 
                     - define lootTableName <[spawnData._loot_table].if_null[null]>
                     - if <[lootTableName]> == null:
-                        - define lootTableName <[spawnTable._loot_table].if_null[null]>
+                        - define lootTableName <[spawnTableData._loot_table].if_null[null]>
                     - if <[lootTableName]> != null:
                         - flag <[entity]> dd_lootTable:<[lootTableName]>
 

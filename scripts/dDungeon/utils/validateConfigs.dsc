@@ -1,10 +1,13 @@
-dd_LootTables_ValidateConfigs:
+dd_ValidateConfigs:
     debug: false
     type: task
     script:
+    #Show version
+    - narrate "<gold>(dDungeon): Running Validation. v<script[dd_Config].data_key[dd_version].if_null[NO VERSION]>"
+
     #Validate items in Loot Tables
     - foreach <script[dd_LootTables].data_key[lootTables]> as:lootTableData key:lootTableName:
-        - foreach <[lootTableData].keys> as:itemEntryKey:
+        - foreach <[lootTableData]> key:itemEntryKey as:itemEntryData:
             - if <[itemEntryKey].starts_with[_]>:
                 - foreach next
 
@@ -14,7 +17,9 @@ dd_LootTables_ValidateConfigs:
             - if <[itemInput]> == dd_LootTables_SingleItemFromLootTable:
                 - foreach next
 
-            - define item <[itemInput].proc[dd_LootTables_ItemFromInput]>
+            - define context <[itemEntryData.item_proc_args].if_null[null]>
+
+            - define item <[itemInput].proc[dd_LootTables_ItemFromInput].context[<[context]>]>
             - if <[item]> == null || <[item].object_type> != item:
                 - narrate "<red>(dDungeon): LootTable Configuration Error, invalid item input on LootTable <[lootTableName]>. Input: <[itemEntryKey]>" targets:<server.online_ops>
 
@@ -36,9 +41,9 @@ dd_LootTables_ValidateConfigs:
 
     #Validate schematic Section Options file configs
     - foreach <[fileList]> as:fileName:
-        - ~yaml id:tmp_template_options_yaml load:schematics/dDungeon/<[fileName]>.yml
-        - define sectionOptions <yaml[tmp_template_options_yaml].read[SectionOptions]>
-        - ~yaml id:tmp_template_options_yaml unload
+        - ~yaml id:ddungeon_<queue.id> load:schematics/dDungeon/<[fileName]>.yml
+        - define sectionOptions <yaml[ddungeon_<queue.id>].read[SectionOptions]>
+        - ~yaml id:ddungeon_<queue.id> unload
 
         - if <[sectionOptions.schematic_data_version].if_null[1.0]> != <[dataVersion]>:
             - define outOfDateSchematics:++

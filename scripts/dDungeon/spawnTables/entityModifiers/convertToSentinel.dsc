@@ -2,8 +2,15 @@ dd_SpawnTables_ConvertToSentinel:
     debug: false
     type: task
     definitions: entity|npcId
+    data:
+        #List of flags to copy from the original entity if it exists
+        copy_flags:
+        - dd_spawnPoints
+        - dd_spawn_table
+        - dd_lootTable
     script:
-    - create <npc[<[npcId]>]> <[entity].name> save:entityNpc
+    - define npc <npc[<[npcId]>]>
+    - create <[npc]> <[npc].name> save:entityNpc
     - adjust <queue> linked_npc:<entry[entityNpc].created_npc>
 
     #Add NPC to world's NPC list
@@ -21,10 +28,9 @@ dd_SpawnTables_ConvertToSentinel:
     - adjust <npc> item_in_offhand:<[entity].item_in_offhand>
 
     #Copy flags
-    - flag <npc> dd_spawnPoints:<[entity].flag[dd_spawnPoints]>
-
-    - if <[entity].has_flag[dd_lootTable]>:
-        - flag <npc> dd_lootTable:<[entity].flag[dd_lootTable]>
+    - foreach <script.data_key[data.copy_flags]> as:flag:
+        - if <[entity].has_flag[<[flag]>]>:
+            - flag <npc> <[flag]>:<[entity].flag[<[flag]>]>
 
     #Remove original entity
     - remove <[entity]>

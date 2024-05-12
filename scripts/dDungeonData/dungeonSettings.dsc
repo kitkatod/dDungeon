@@ -10,9 +10,22 @@ dd_DungeonSettings:
             section_count_soft_max: 450
             #Cap of sections to place. Generation process will fully stop after this many sections have been placed.
             section_count_hard_max: 500
+
+
+            ##noise_generation_task functionality is deprecated and will be removed in a future update.
+            ##Prefer using the custom event "dd_dungeon_section_placed". See /docs/customEvents.md for details on this event.
             #Task specified here will be triggered for each section placed
             #Definitions are expected to be [cuboid] and [type] (ex: "definitions: cuboid|type")
-            noise_generation_task: dd_NoiseGeneration_Stonebrick
+            ##noise_generation_task: dd_NoiseGeneration_Stonebrick
+
+            #Whether to backfill dungeon after generation has completed
+            #Default true
+            backfill_dungeon: true
+
+            #If backfill_dungeon is true, optionally specify material or list of materials to backfill with.
+            #Default stone
+            backfill_dungeon_material: stone
+
             #Buffer around the spawn room to allow sections to be placed within.
             #This just helps restrict the generation process from sprawling into open space when it doesn't need to.
             #To disable this just set it to a very high number
@@ -43,10 +56,18 @@ dd_DungeonSettings:
             # global_loot:
             # - special_enchanted_books_for_everyone
 
+            #The below attributes will be applied to players entering the dungeon, and removed after leaving
+            #Attribute ids are randomly generated when the dungeon is created. If "id" is included in an attribute map below it will be overwritten during generation.
+            #(Optional)
+            player_attributes:
+                generic_max_health:
+                - <map[operation=ADD_NUMBER;amount=20]>
+
         StonebrickSmall:
             category: Stonebrick
             section_count_soft_max: 250
             section_count_hard_max: 300
-            noise_generation_task: dd_NoiseGeneration_Stonebrick
+            # # See comments regarding noise_generation_task above
+            # # noise_generation_task: dd_NoiseGeneration_Stonebrick
             allowed_build_space: 40
             ambient_spawn_points_per_player: 10

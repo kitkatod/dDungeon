@@ -10,6 +10,8 @@ dd_ExitDungeon:
         - stop
     - flag <player> dd_enterExitCooldown expire:5s
 
+    - define dungeonWorld <player.location.world>
+
     - define exitLoc <player.flag[dd_dungeonExit].if_null[<player.bed_spawn.if_null[<world[world].spawn_location>]>]>
     - flag <player> dd_dungeonExit:!
 

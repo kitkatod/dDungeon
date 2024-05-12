@@ -18,6 +18,7 @@ dd_ProcessNextSection:
     - define dungeonSettings <[world].flag[dd_DungeonSettings]>
     - define category <[dungeonSettings.category]>
     - define sectionCountSoftCapReached <[dungeonSettings.section_count_soft_max].if_null[450].is_less_than_or_equal_to[<[world].flag[dd_sectionCount]>]>
+    - define dungeonKey <[world].flag[dd_DungeonKey].if_null[null]>
 
     #Make sure the area is loaded incase we move far away from the origin
     - ~run dd_LoadAreaChunks def:<[nextSectionLoc].chunk>|4|15s
@@ -47,6 +48,10 @@ dd_ProcessNextSection:
             - define possibleTypes:->:hallway_<[buildVariables.hallwayType]>
             # # - define possibleTypes:->:hallway_<[pathOptions.hallwayType].if_null[default]>
         #If not, build whatever the NextRoomType calls for
+        - else if <[buildVariables.nextRoomType].if_null[<map[]>].is_empty>:
+            - announce "<red> [dDungeon] ERROR - NextRoomType not set. This usually means a Spawn Room had a pathway which doesn't set a <&dq>Next Section Type<&dq>" to_ops
+            - debug ERROR "[dDungeon] Generation Error - [buildVariables.nextRoomType] is not set when it is needed. This usually indicates the Spawn Room has a pathway without setting a <&dq>Next Section Type<&dq>."
+            - stop
         - else:
             - foreach <[buildVariables.nextRoomType].proc[dd_Pathways_RandomWeightedOrder]> as:type:
                 - define possibleTypes:->:<[type]>
@@ -196,9 +201,8 @@ dd_ProcessNextSection:
                         # # - narrate "Placing section (<[targetFile]>) at <[pasteLoc]>"
 
                         #Paste the section
-                        - ~schematic paste noair name:<[targetSectionSchemPath]> <[pasteLoc]> entities delayed
+                        - ~schematic paste noair name:<[targetSectionSchemPath]> <[pasteLoc]> entities
                         - ~run dd_Schematic_UndoOrientation def.schemPath:<[targetSectionSchemPath]> def.flip:<[flip]> def.rotation:<[rotate]>
-
 
                         #Flag options block with "transformed" section options data
                         - flag <[pasteLoc]> dd_SectionOptions:<[testOptions]>
@@ -211,20 +215,24 @@ dd_ProcessNextSection:
                         #Remove this pathway from pathway options (since we just used it...)
                         - define testOptions.pathways.<[testPathwayKey]>:!
 
-                        #Get area of pasted section, handle any post transforms
-                        - define cuboid <[pasteLoc].add[<[testOptions.pos1]>].to_cuboid[<[pasteLoc].add[<[testOptions.pos2]>]>]>
+                        #Fire custom event for Section being placed
+                        - definemap context area:<[cuboid]> dungeon_key:<[dungeonKey]> dungeon_category:<[category]> dungeon_section_type:<[targetType]> dungeon_section_name:<[testOptions.name]>
+                        - customevent id:dd_dungeon_section_placed context:<[context]>
+
+                        # TODO - Remove this logic in favor of just firing a Custom Event (already added)
+                        # TODO -      Custom Events allow easier control as to firing multiple tasks, and switching what runs based on section type etc.
+                        #Run dungeon specific custom noise generation if it is specified
                         - if <[dungeonSettings.noise_generation_task].exists>:
                             - define taskScript <[dungeonSettings.noise_generation_task].as[script].if_null[null]>
                             - if <[taskScript]> != null && <[taskScript].data_key[type]> == task:
                                 - run <[taskScript]> def.cuboid:<[cuboid]> def.type:<[targetType]>
+
+                        #Run any modifiers on section area that should always take place
+                        - ~run dd_StandardSectionModifiers_SetupFakeBlocks def.area:<[cuboid]>
+                        - ~run dd_StandardSectionModifiers_ChangeAirToCaveair def.area:<[cuboid]>
 
                         #Queue other pathways from this section
                         - ~run dd_QueuePathways def.loc:<[pasteLoc]> def.sectionOptions:<[testOptions]> def.buildVariables:<[buildVariables]>
 
                         #Queue inventories to be processed later
                         - ~run dd_QueueInventories def.loc:<[pasteLoc]> def.sectionOptions:<[testOptions]>
-
-    # TODO remove if not needed. Seems it shouldn't be needed now that the world gets backfilled with stone at the end of generation.
-    # #If we didn't place SOMETHING by this point, just put in a big ugly sphere to block up the hole
-    # - if !<[sectionFound]>:
-    #     - modifyblock <[nextSectionLoc].to_ellipsoid[6,6,6].blocks[*air]> bedrock

@@ -9,8 +9,11 @@ dd_SchematicEditor:
         hides: ENCHANTS
     lore:
     - <reset><green>Use <gold><&keybind[key.use]> <green>to mark a new Dungeon Section, or edit an existing Section
+    - <reset><green>Press <gold><&keybind[key.swapOffhand]> <green>to swap to Inventory Editor
     flags:
         dd_show_sectionOptions: true
+        dd_toolswap_nexttool: dd_PathwayEditor
+        dd_toolswap_previoustool: dd_SpawnerEditor
 
 dd_SchematicEditor_Events:
     debug: false

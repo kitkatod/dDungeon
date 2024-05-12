@@ -3,11 +3,16 @@ dd_Config:
     type: data
     #Version number for dDungeon Scripts
     #This will change as new updates are out of dev
-    dd_version: 1.1
+    dd_version: 1.2.0
     #Version number for data format of saved Schematics.
     #This should only change when there is a breaking data structure change for schematics. Should be RARE.
     #Will be tagged to schematics as they are saved.
     dd_schematic_data_version: 1.0
+
+    #If true, dDungeon validation will run after every Denizen script reload (using /ex reload)
+    #You can manually run the Validation using /ddValidate
+    #Defaults to false if missing
+    validate_config_on_reload: false
 
     #Settings used by scripts to hide/show debugging information
     debugging:
