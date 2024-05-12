@@ -54,9 +54,11 @@ dd_SpawnTables_Events:
         #If entity was spawned from a specific spawner, also track assisting players on the spawner itself
         - if <context.entity.has_flag[dd_spawner_location]>:
             - define spawnerLoc <context.entity.flag[dd_spawner_location]>
-            # If player isn't already in the list of assisting players for the spawner then add them
-            - if !<[spawnerLoc].flag[dd_spawner.assisting_players].if_null[<list[]>].contains[<context.damager>]>:
-                - flag <[spawnerLoc]> dd_spawner.assisting_players:->:<context.damager>
+            #Make sure spawner data flag still exists before modifying it
+            - if <[spawnerLoc].has_flag[dd_spawner]>:
+                # If player isn't already in the list of assisting players for the spawner then add them
+                - if !<[spawnerLoc].flag[dd_spawner.assisting_players].if_null[<list[]>].contains[<context.damager>]>:
+                    - flag <[spawnerLoc]> dd_spawner.assisting_players:->:<context.damager>
 
         #Fire event that a spawner entity was killed
         on entity_flagged:dd_spawn_table killed by player in:world_flagged:dd_DungeonSettings:
