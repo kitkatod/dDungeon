@@ -68,9 +68,47 @@ dd_LootTables:
 
 ### Spawn Tables
 
-Information for Spawn Tables used by dDungeon scripts are configured within [dd_SpawnTables](/scripts/dDungeonData/spawnTables.dsc).
+Information for Spawn Tables used by dDungeon scripts are configured within [dd_SpawnTables](/scripts/dDungeonData/spawnTables.dsc) and control logic for spawning mobs for either Ambient Spawning or Dungeon Spawners.
 
-TODO - Documentation page for Spawn Tables. For now, see comments within example spawn table configuration.
+**Expected Script Format:**
+- [Spawn Table Name]: Identifier for the Spawn Table - can be anything as long as it is not used more than once.
+- [Spawn Table Settings]: Is always prefixed with `_`, see below for available options. Controls options for the Spawn Table.
+- [Spawn Table Mob]: Cannot start with `_`. Must be the name of an Entity Type, or the script name of a Denizen Entity Script. Determines what mobs can be spawned for the table.
+
+```
+dd_SpawnTables:
+    debug: false
+    type: data
+    spawnTables:
+        [Spawn Table Name]:
+            [Spawn Table Settings]:
+            [Spawn Table Mob]:
+```
+
+
+**Spawn Table Settings**
+
+| Config Key | Required | Type | Description | Default |
+| --- | --- | --- | --- | --- |
+| _selection_count | OPTIONAL | *ElementTag(Integer)* | Number of Mob Entries to pick from this Spawn Table when it is run. | 1 |
+| _loot_table | OPTIONAL | *ElementTag* | Default setting to apply to all Mob Entries in this Spawn Table | NO_DROPS |
+
+**Spawn Table Mob Settings**
+
+| Config Key | Required | Type | Description | Default |
+| --- | --- | --- | --- | --- |
+| _loot_table | OPTIONAL | *ElementTag* | Name of a Loot Table from [dd_LootTables](/scripts/dDungeonData/lootTables.dsc). Loot Table will be run when this entity dies and the items from the Loot Table will be dropped. | NO_DROPS |
+| spawn_count | OPTIONAL | *ElementTag(Integer)* | Number of entities of this type to spawn. | 1 |
+| weight | OPTIONAL | *ElementTag(Integer)* | Weight value for this Mob on the Spawn Table to be randomly picked.<br/>Higher weight values are more likely to be picked than lower weight values. | 100 |
+| spawn_points | OPTIONAL | *ElementTag(Decimal)* | The base number of Spawn Points this entity should be "worth" when it is spawned. Number of Spawn Points allowed to be spawned per run is controlled by [Dungeon Settings](#dungeon-settings) for Ambient Spawning and the [Dungeon Spawner Tool](/docs/tools.md#dungeon-spawner-tool) for Dungeon Spawners. | 1 |
+| modifier_tasks | OPTIONAL | *MapTag* | Tasks that should be run after the mob has been spawned.<br/>Key should be the name of a Task Script to be run, and any values will be passed to that Task. See below for additional configuration options available. | *NULL* |
+
+**Mob Modifier Tasks**
+- Specified tasks will always be passed a reference to the spawned entity with the "entity" definition.
+- If a Map of values are specified for the task then all keys/values will be passed to the task with matching names.
+    - For example, if `myCoolParameter: 12345` is specified, then the definition `myCoolParameter` on the Task script will be given the value `12345`.
+- If there is a `_chance` specified for the Task entry, then the task will only be run that percentage of the time. Default is to always run the task if specified.
+- If for some reason the task needs to kill/replace the mob entirely, you may determine the new entity within the Task using `- determine entity:<EntityTag>`.
 
 ---
 
