@@ -2,6 +2,16 @@ dd_SpawnTables_Events:
     debug: false
     type: world
     events:
+        #Run Ambient spawning and Spawner spawning
+        on delta time secondly every:5:
+        - ~run dd_SpawnTables_CleanupSpawnerBossbars
+        - foreach <server.worlds> as:world:
+            - if !<[world].has_flag[dd_DungeonSettings]> || !<[world].flag[dd_allowSpawning].if_null[false]>:
+                - foreach next
+
+            - ~run dd_SpawnTables_AmbientSpawning def.world:<[world]>
+            - ~run dd_SpawnTables_SpawnerSpawning def.world:<[world]>
+
         #Roll Loot Tables for entities
         on entity dies in:world_flagged:dd_DungeonSettings:
         - if !<context.entity.has_flag[dd_lootTable]>:
