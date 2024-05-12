@@ -18,6 +18,13 @@ dd_DungeonSettings:
             #Definitions are expected to be [cuboid] and [type] (ex: "definitions: cuboid|type")
             ##noise_generation_task: dd_NoiseGeneration_Stonebrick
 
+            #Whether to backfill dungeon after generation has completed
+            #Default true
+            backfill_dungeon: true
+
+            #If backfill_dungeon is true, optionally specify material or list of materials to backfill with.
+            #Default stone
+            backfill_dungeon_material: stone
 
             #Buffer around the spawn room to allow sections to be placed within.
             #This just helps restrict the generation process from sprawling into open space when it doesn't need to.

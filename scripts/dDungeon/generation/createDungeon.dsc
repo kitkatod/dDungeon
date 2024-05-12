@@ -94,8 +94,9 @@ dd_Create:
     - ~run dd_Create_Inventories def.world:<[world]>
 
     #Backfill Sections
-    - flag <[world]> "dd_currentGenerationStep:Backfilling Sections"
-    - ~run dd_BackfillSections def.world:<[world]>
+    - if <[dungeonSettings.backfill_dungeon].if_null[true]>:
+        - flag <[world]> "dd_currentGenerationStep:Backfilling Sections"
+        - ~run dd_BackfillSections def.world:<[world]> def.material:<[dungeonSettings.backfill_dungeon_material].if_null[stone]>
 
     #Prepare world for possible player use
     - flag <[world]> dd_area:<cuboid[<[world].name>_dcarea]>
@@ -117,20 +118,23 @@ dd_Create:
     - announce "<gold> *** Generation completed in <util.time_now.duration_since[<[startTime]>].formatted>"
     - announce "<gold> *** Placed <[world].flag[dd_sectionCount]> sections"
     - announce "<gold> *** Rolled loot for <[world].flag[dd_inventoryCount]> inventories"
-    - announce "<gold> *** Dungeon can now be considered ready for use. Backfill will continue but should not impact players."
 
     #Bulk backfill space outside dungeon
-    - define backfillStartTime <util.time_now>
-    - flag <[world]> "dd_currentGenerationStep:Backfilling World"
-    - ~run dd_BackfillWorld def.world:<[world]>
-    - announce "<gold> *** World backfill completed in additional <util.time_now.duration_since[<[backfillStartTime]>].formatted>"
-    - announce "<gold> *** Total generation took <util.time_now.duration_since[<[startTime]>].formatted> "
+    - if <[dungeonSettings.backfill_dungeon].if_null[true]>:
+        - announce "<gold> *** Dungeon can now be considered ready for use. Backfill will continue but should not impact players."
+        - define backfillStartTime <util.time_now>
+        - flag <[world]> "dd_currentGenerationStep:Backfilling World"
+        - ~run dd_BackfillWorld def.world:<[world]> def.material:<[dungeonSettings.backfill_dungeon_material].if_null[stone]>
+        - announce "<gold> *** World backfill completed in additional <util.time_now.duration_since[<[backfillStartTime]>].formatted>"
 
     #Cleanup any remaining data
     - ~run dd_SectionDataCache_Unload def.world:<[world]>
     - note remove as:<[world].name>_dcarea
     - flag <[world]> dd_generationRunning:false
     - flag <[world]> dd_startTime:!
+
+    #Announce completion
+    - announce "<gold> *** Total generation took <util.time_now.duration_since[<[startTime]>].formatted> "
 
     #Fire custom event for Dungeon Generation Complete
     - definemap context world:<[world]> dungeon_key:<[dungeonKey]> dungeon_category:<[dungeonSettings.category]>

@@ -1,7 +1,7 @@
 dd_BackfillWorld:
     debug: false
     type: task
-    definitions: world
+    definitions: world|material
     script:
     #Get cuboid of entire dungeon area
     - define totalCuboid <[world].flag[dd_totalAreaCuboid]>
@@ -18,7 +18,7 @@ dd_BackfillWorld:
         #Get list of blocks to modify
         - define fillBlocks <[fillArea].blocks[air]>
         - if !<[fillBlocks].is_empty>:
-            - ~modifyblock <[fillBlocks]> stone delayed max_delay_ms:40
+            - ~modifyblock <[fillBlocks]> <[material]> delayed max_delay_ms:40
 
         #Wait a tick after every chunk
         - wait 1t

@@ -1,7 +1,7 @@
 dd_BackfillSections:
     debug: false
     type: task
-    definitions: world
+    definitions: world|material
     script:
     #Get "dungeon" cuboid (cuboid with many subcuboids, one for each section)
     - define dcArea <cuboid[<[world].name>_dcarea]>
@@ -32,7 +32,7 @@ dd_BackfillSections:
                     - if <util.time_now.duration_since[<[checkTime]>].in_milliseconds> >= 40:
                         - wait 1t
                         - define checkTime <util.time_now>
-                    - ~run dd_FloodfillArea def.area:<[cuboidMember]> def.location:<[outlinePoint]> def.matcher:*air def.material:stone
+                    - ~run dd_FloodfillArea def.area:<[cuboidMember]> def.location:<[outlinePoint]> def.matcher:*air def.material:<[material]>
 
         #Slowing down just a bit when it places blocks. Have seen some massive lag/server crash otherwise
         - if <[loop_index].mod[10]> == 0:
