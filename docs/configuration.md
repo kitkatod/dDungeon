@@ -20,9 +20,49 @@ This file can usually be left with their defaults, however it may be useful to m
 
 ### Loot Tables
 
-Information for Loot Tables used by dDungeon scripts are configured within [dd_LootTables](/scripts/dDungeonData/lootTables.dsc).
+Information for Loot Tables used by dDungeon scripts are configured within [dd_LootTables](/scripts/dDungeonData/lootTables.dsc). Loot Tables can be used to define what loot generates in blocks with an inventory such as Chests, Barrels, Furnaces, etc. Loot Tables can also be used to define what loot drops for an entity spawned from a Spawn Table when they die. 
 
-TODO - Documentation page for Loot Tables. For now, see comments within example loot table configuration.
+Inventories are configured with a Loot Table using the [Dungeon Inventory Tool](/docs/tools.md#dungeon-inventory-tool). See [Spawn Tables Configuration](#spawn-tables) for details on using Loot Tables with Spawn Tables.
+
+
+
+**Expected Script Format:**
+- [Loot Table Name]: Can be any name as long as it is not used more than once.
+- [Loot Table Settings]: Is always prefixed with `_`, see below for available options
+- [Loot Table Item]: Cannot start with `_`. Must be either the name of an item or a procedure script which returns an item. If `#` is specified in the item name then anything after `#` is ignored
+
+```
+dd_LootTables:
+    debug: false
+    type: data
+    lootTables:
+        [Loot Table Name]:
+            [Loot Table Settings]:
+            [Loot Table Item]:
+                [Loot Table Item Settings]
+```
+
+**Loot Table Settings**
+
+| Config Key | Required | Type | Description | Default |
+| --- | --- | --- | --- | --- |
+| _selection_count | OPTIONAL | *ElementTag(Integer)*<br/>*ListTag(ElementTag(Integer))* | Determines the number of item entries to pick when this Loot Table is called.<br/>Can also specify a range using the format `min\|max` and a number will be randomly picked each time within the range. | 1 |
+| _import_from | OPTIONAL | *ListTag(ElementTag)* | When specified, all Item entries from another Loot Table will be imported to this Loot Table. <br/>NOTE: This does not allow import chaining. Item keys must also still be unique or will be ignored. Loot Table Settings are not imported from other Loot Tables. | *NULL* |
+| _allow_split_stack | OPTIONAL | *ElementTag(Boolean)* | Applies a default `allow_split_stack` setting to all Item entries in this Loot Table | *NULL* |
+| _flags | OPTIONAL | *MapTag* | Applies a default `_flags` settings to all Item entries in this Loot Table. | *NULL* |
+
+
+**Loot Table Item Settings**
+| Config Key | Required | Type | Description | Default |
+| --- | --- | --- | --- | --- |
+| quantity | OPTIONAL | *ElementTag(Integer)* | Quantity of the item to give.<br/>May be a range using the format `min\|max`, in which case a random value will be selected each time within the range. | 1 |
+| allow_split_stack | OPTIONAL | *ElementTag(Boolean)* | When `quantity` is greater than 1 and the item allows stacking, this will split the item quantity into multiple not-full item stacks.<br/>Max stack size for an item is always respected regardless settings. | true |
+| weight | OPTIONAL | *ElementTag(Decimal)* | Weight value for this Item entry on the Loot Table.<br/>Higher weight values are more likely to be picked than lower weight values. | 100 |
+| max_selection_count | OPTIONAL | *ElementTag(Integer)* | Sets the maximum number of times this entry can be picked when the Loot Table is called.<br/>Only has an effect if the Loot Table Setting `_selection_count` is greater than 1.<br/>Use the value -1 to allow this to be picked an unlimited number of times. | -1 |
+| randomize_durability | OPTIONAL | *ElementTag(Boolean)* | Randomize the durability of the resultant item if possible, weighted towards the lower end of durability. | true |
+| _flags | OPTIONAL | *MapTag* | Map of flags to apply to the item. | *NULL* |
+| item_proc_args | OPTIONAL | *ElementTag*<br/>*ListTag*<br/>*MapTag*<br/>*etc....* | If the Loot Table Entry key is the name of a Procedure Script, optionally pass data to the Procedure when it is executed. | *NULL* |
+| modifier_procs | OPTIONAL | *MapTag* | Procedures defined here will be passed the item and can make changes to the item based on custom logic.<br/>Map keys here should be the name of a procedure script. The value of the entry will be passed to the procedure as context. | *NULL* |
 
 ---
 
