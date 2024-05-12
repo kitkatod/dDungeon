@@ -10,7 +10,11 @@ dd_SpawnTables_Events:
                 - foreach next
 
             - ~run dd_SpawnTables_AmbientSpawning def.world:<[world]>
-            - ~run dd_SpawnTables_SpawnerSpawning def.world:<[world]>
+
+            #Run spawning on each spawner in the world
+            - define spawnerLocs <[world].flag[dd_spawnerLocs]>
+            - foreach <[spawnerLocs]> as:spawnerLoc:
+                - ~run dd_SpawnTables_RunSpawner def.spawnerLoc:<[spawnerLoc]>
 
         #Roll Loot Tables for entities
         on entity dies in:world_flagged:dd_DungeonSettings:
