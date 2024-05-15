@@ -55,6 +55,7 @@ dd_SpawnerEditor_MainMenu:
         hint_SetSpawnerRadius: <italic><gold>Change the Spawner's Spawn radius.<n>Controls area mobs will spawn within.<n>Also controls area which applies to 'Prevent Dungeon Spawning' setting (within 30 blocks of players max).
         hint_SetActivationRadius: <italic><gold>Change the Spawner's Activation radius.<n>Spawner will become active while any player is within this radius.<n>Set to -1 to make spawner always active if any player is in the world.
         hint_PreventGenericDungeonSpawning: <italic><gold>Prevent the Dungeon's Generic Spawning nearby this point.<n>This prevents normal generic mobs from utilizing all the Spawn Points available for the area.
+        hint_ToggleDoSpawnEffect: <italic><gold>Toggle showing particle effects around the Spawner anytime it spawns new mobs.
 
         hint_SetBossbarEnable: <italic><gold>When enabled, players within the Bossbar Radius will be shown a Bossbar.<n>Bossbar's progress will be based on remaining Bank value in the Spawner.
         hint_SetBossbarRadius: <italic><gold>Show players within this radius of the Spawner a Bossbar
@@ -128,11 +129,15 @@ dd_SpawnerEditor_MainMenu:
             - run dd_Clickable_AddToGroup def.groupId:<[clickableGroupId]> def.clickableId:<entry[clickToggleBossbarFog].id>
             - narrate "<blue>8.4: Toggle Bossbar Fog (<[spawnerData.bossbar_fog_enabled].if_null[true]>) <gold>[<element[TOGGLE].on_click[<entry[clickToggleBossbarFog].command>].on_hover[<script.data_key[data.hint_SetBossbarFog].parsed>]>]"
 
+        - clickable dd_SpawnerEditor_ToggleSpawnEffects def.loc:<[loc]> def.clickableGroupId:<[clickableGroupId]> usages:1 for:<player> until:5m save:clickToggleDoSpawnEffects
+        - run dd_Clickable_AddToGroup def.groupId:<[clickableGroupId]> def.clickableId:<entry[clickToggleDoSpawnEffects].id>
+        - narrate "<blue>9: Toggle Spawn Effects (<[spawnerData.do_spawn_effects].if_null[true]>) <gold>[<element[TOGGLE].on_click[<entry[clickToggleDoSpawnEffects].command>].on_hover[<script.data_key[data.hint_ToggleDoSpawnEffect].parsed>]>]"
+
         - narrate " "
 
         - clickable dd_SpawnerEditor_Delete def.loc:<[loc]> def.clickableGroupId:<[clickableGroupId]> usages:1 for:<player> until:5m save:clickDelete
         - run dd_Clickable_AddToGroup def.groupId:<[clickableGroupId]> def.clickableId:<entry[clickDelete].id>
-        - narrate "<blue>9: <red>[<element[DELETE].on_click[<entry[clickDelete].command>].on_hover[<script.data_key[data.hint_DeleteSpawner].parsed>]>]"
+        - narrate "<blue>10: <red>[<element[DELETE].on_click[<entry[clickDelete].command>].on_hover[<script.data_key[data.hint_DeleteSpawner].parsed>]>]"
 
         - clickable dd_SpawnerEditor_CopySettings def.loc:<[loc]> def.clickableGroupId:<[clickableGroupId]> usages:1 for:<player> until:5m save:clickCopy
         - run dd_Clickable_AddToGroup def.groupId:<[clickableGroupId]> def.clickableId:<entry[clickCopy].id>

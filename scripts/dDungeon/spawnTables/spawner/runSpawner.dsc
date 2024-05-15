@@ -82,7 +82,8 @@ dd_SpawnTables_RunSpawner:
         - stop
 
     #Run particle effects
-    - run dd_SpawnTables_SpawnerEffects def.loc:<[spawnerLoc]>
+    - if <[spawnerData.do_spawn_effects].if_null[true]>:
+        - run dd_SpawnTables_SpawnerEffects def.loc:<[spawnerLoc]>
 
     #Track each entity that has spawned
     - foreach <[spawningResults.entities].if_null[<list[]>]> as:entity:
