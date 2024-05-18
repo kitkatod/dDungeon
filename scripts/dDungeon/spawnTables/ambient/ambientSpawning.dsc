@@ -36,8 +36,11 @@ dd_SpawnTables_AmbientSpawning:
         - if <[allowedSpawnPoints]> <= 0:
             - foreach next
 
-        #Find nearby spawnable points
-        - define spawningLocs <[player].location.find_spawnable_blocks_within[15]>
+        #Pick a random offset location around the player to look for spawnable blocks near
+        - define randomOffsetLoc <[player].location.random_offset[15].center>
+
+        #Find nearby spawnable points near random offset location
+        - define spawningLocs <[randomOffsetLoc].find_spawnable_blocks_within[5]>
 
         #Ignore spawnable points that are within a spawning blocker, or nearby a spawner preventing normal dungeon spawning
         - define nearbySpawners <[player].location.find_blocks_flagged[dd_spawner].within[30]>
