@@ -15,6 +15,7 @@ dd_SpawnTables_Events:
             - define spawnerLocs <[world].flag[dd_spawnerLocs]>
             - foreach <[spawnerLocs]> as:spawnerLoc:
                 - ~run dd_SpawnTables_RunSpawner def.spawnerLoc:<[spawnerLoc]>
+                - wait 1t
 
         #Roll Loot Tables for entities
         on entity dies in:world_flagged:dd_DungeonSettings:
