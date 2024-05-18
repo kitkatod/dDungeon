@@ -56,24 +56,32 @@ dd_SpawnTables_RunSpawner:
     - if <[spawnPointsMax]> <= 0:
         - stop
 
-    #Find nearby spawnable points
-    - define spawningLocs <[spawnerLoc].center.find_spawnable_blocks_within[<[spawnerData.spawn_radius]>]>
+
+    #Pick a random offset within the spawn_radius, then find spawnable blocks nearby that offset.
+    #This is done to reduce the performance hit if spawn_radius is high enough to be searching a large area (40 seems to cause TPS hits)
+    - define randomOffsetLoc <[spawnerLoc].center.random_offset[<[spawnerData.spawn_radius]>].center>
+
+    #Find nearby spawnable points within the spawn_radius, or within 5 if spawn_radius is more than 5
+    - define spawningLocs <[randomOffsetLoc].find_spawnable_blocks_within[<[spawnerData.spawn_radius].min[5]>]>
+
+    #Exclude points that are outside dungeon area
+    - foreach <[spawningLocs]> as:spawnLoc:
+        - if !<[spawnerLoc].world.flag[dd_area].contains[<[spawnLoc]>]>:
+            - define spawningLocs:<-:<[spawnLoc]>
+
+    #Exclude points that are too close to any player (don't spawn on top of them)
+    - if !<[randomOffsetLoc].find_players_within[4].filter_tag[<[filter_value].gamemode.advanced_matches[survival|adventure]>].is_empty>:
+        - foreach <[spawningLocs]> as:spawnLoc:
+            - if !<[spawnLoc].find_players_within[2].is_empty>:
+                - define spawningLocs:<-:<[spawnLoc]>
 
     #Ignore spawnable points that are within a spawning blocker (specifcally only NULL_TABLE spawn table spawners)
-    - define nearbySpawners <[spawnerLoc].find_blocks_flagged[dd_spawner].within[30].exclude[<[spawnerLoc]>]>
+    - define nearbySpawners <[spawnerLoc].find_blocks_flagged[dd_spawner].within[<[spawnerData.spawn_radius]>].exclude[<[spawnerLoc]>]>
     - foreach <[nearbySpawners]> as:spawnerLoc:
         - if <[spawnerLoc].flag[dd_spawner.spawn_table]> == NULL_TABLE:
             - foreach <[spawningLocs]> as:spawnLoc:
                 - if <[spawnerLoc].distance[<[spawnLoc]>]> <= <[spawnerLoc].flag[dd_spawner.spawn_radius]>:
                     - define spawningLocs:<-:<[spawnLoc]>
-
-    #Exclude points that are too close to any player (don't spawn on top of them)
-    #, or outside dungeon area
-    - foreach <[spawningLocs]> as:spawnLoc:
-        - if !<[spawnLoc].find_players_within[2].is_empty>:
-            - define spawningLocs:<-:<[spawnLoc]>
-        - if !<[spawnerLoc].world.flag[dd_area].contains[<[spawnLoc]>]>:
-            - define spawningLocs:<-:<[spawnLoc]>
 
     #Skip spawning if there aren't valid points
     - if <[spawningLocs].is_empty>:
