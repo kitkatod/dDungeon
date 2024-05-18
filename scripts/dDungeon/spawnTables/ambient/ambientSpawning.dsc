@@ -8,14 +8,15 @@ dd_SpawnTables_AmbientSpawning:
     - define dungeonSettings <[world].flag[dd_DungeonSettings]>
 
     - define players <[world].players>
-    - foreach <[players]> as:player:
-        #Check if we've spawned for the player recently
-        - if <[player].has_flag[dd_SpawnTables_spawnedRecently]>:
-            - foreach next
 
-        #Only spawn for players in target gamemodes
-        - if <[player].gamemode> != survival:
-            - foreach next
+    #Exclude non-survival players
+    - define players <[players].filter_tag[<[filter_value].gamemode.advanced_matches[survival|adventure]>]>
+
+    #Exclude players that we've spawned for recently
+    - define players <[players].filter_tag[<[filter_value].has_flag[dd_SpawnTables_spawnedRecently].not>]>
+    - foreach <[players]> as:player:
+        #Add slight wait for each player being checked
+        - wait 1t
 
         #Randomly just don't spawn anything
         - if <util.random_chance[20]>:
