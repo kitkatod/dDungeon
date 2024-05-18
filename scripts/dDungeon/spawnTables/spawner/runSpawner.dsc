@@ -19,7 +19,7 @@ dd_SpawnTables_RunSpawner:
         - ~run dc_SpawnTables_UpdateSpawnerBossbar def.spawnerLoc:<[spawnerLoc]>
 
     #Remove references if spawner is no longer needed.
-    - if <[spawnerData.bank]> != null && <[spawnerData.currentBank]> <= 0 && <[spawnerData.spawnedSpawnPoints].if_null[0]> <= 0 && <[spawnerData.bossbarPlayers].is_empty>:
+    - if <[spawnerData.bank]> != null && <[spawnerData.currentBank]> <= 0 && <[spawnerData.currentlySpawnedPoints].if_null[0]> <= 0 && <[spawnerData.bossbarPlayers].is_empty>:
         - flag <[spawnerLoc].world> dd_spawnerLocs:<-:<[spawnerLoc]>
 
         # Spawner is about to be deleted. Fire custom event before spawner is gone.
