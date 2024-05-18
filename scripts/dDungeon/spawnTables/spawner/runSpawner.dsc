@@ -48,6 +48,9 @@ dd_SpawnTables_RunSpawner:
     - if <[spawnerData.currentBank]> != null && <[spawnerData.currentBank]> < <[spawnPointsMax]>:
         - define spawnPointsMax <[spawnerData.currentBank]>
 
+    #Skip if allowed spawn points is zero
+    - if <[spawnPointsMax]> <= 0:
+        - stop
 
     #Find nearby spawnable points
     - define spawningLocs <[spawnerLoc].center.find_spawnable_blocks_within[<[spawnerData.spawn_radius]>]>
