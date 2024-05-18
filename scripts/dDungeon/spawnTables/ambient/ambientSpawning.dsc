@@ -22,7 +22,7 @@ dd_SpawnTables_AmbientSpawning:
             - foreach next
 
         #Skip player if they are currently in a chunk that has met the spawn threshold
-        - if <player.location.chunk.flag[dd_spawnPointsUsed].if_null[0]> >= <[dungeonSettings.ambient_spawn_points_per_grid_section_max].if_null[50]>:
+        - if <player.location.proc[dc_SpawnTables_AmbientSpawnLocationGrid].flag[dd_spawnPointsUsed].if_null[0]> >= <[dungeonSettings.ambient_spawn_points_per_grid_section_max].if_null[50]>:
             - foreach next
 
         #Get SpawnPoint max for the dungeon the player is in
