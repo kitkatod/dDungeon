@@ -48,6 +48,9 @@ dd_ValidateConfigs:
         - if <[sectionOptions.schematic_data_version].if_null[1.0]> != <[dataVersion]>:
             - define outOfDateSchematics:++
 
+        - if <[sectionOptions.pathways].if_null[<map[]>].is_empty>:
+            - narrate "<red>[dDungeon] Config Error - Section has no pathways in (<[fileName]>)"
+
         - foreach <[sectionOptions.inventories].if_null[<map[]>]> as:invData:
             - foreach <[invData].if_null[<map[]>]> as:invGroupData:
                 - foreach <[invGroupData].if_null[<map[]>]> as:chance key:lootTableName:
