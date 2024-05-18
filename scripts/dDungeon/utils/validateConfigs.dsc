@@ -3,7 +3,7 @@ dd_ValidateConfigs:
     type: task
     script:
     #Show version
-    - narrate "<gold>(dDungeon): Running Validation. v<script[dd_Config].data_key[dd_version].if_null[NO VERSION]>"
+    - narrate "<gold>[dDungeon] Running Validation. v<script[dd_Config].data_key[dd_version].if_null[NO VERSION]>"
 
     #Validate items in Loot Tables
     - foreach <script[dd_LootTables].data_key[lootTables]> as:lootTableData key:lootTableName:
@@ -21,7 +21,7 @@ dd_ValidateConfigs:
 
             - define item <[itemInput].proc[dd_LootTables_ItemFromInput].context[<[context]>]>
             - if <[item]> == null || <[item].object_type> != item:
-                - narrate "<red>(dDungeon): LootTable Configuration Error, invalid item input on LootTable <[lootTableName]>. Input: <[itemEntryKey]>" targets:<server.online_ops>
+                - narrate "<red>[dDungeon] LootTable Configuration Error, invalid item input on LootTable <[lootTableName]>. Input: <[itemEntryKey]>" targets:<server.online_ops>
 
     #Get list of all Schematic files
     - define fileList <list[]>
@@ -55,7 +55,9 @@ dd_ValidateConfigs:
             - foreach <[invData].if_null[<map[]>]> as:invGroupData:
                 - foreach <[invGroupData].if_null[<map[]>]> as:chance key:lootTableName:
                     - if !<[lootTableName].proc[dd_LootTables_Exists]>:
-                        - narrate "<red>(dDungeon): Schematic Section Configuration Error, Configured Loot Table not found (<[lootTableName]>) in (<[fileName]>)" targets:<server.online_ops>
+                        - narrate "<red>[dDungeon] Schematic Section Configuration Error, Configured Loot Table not found (<[lootTableName]>) in (<[fileName]>)" targets:<server.online_ops>
 
     - if <[outOfDateSchematics]> > 0:
-        - narrate "<red>(dDungeon): There are Schematic Data files out of date. Consider resaving schematics to update format."
+        - narrate "<red>[dDungeon] There are Schematic Data files out of date. Consider resaving schematics to update format."
+
+    - narrate "<gold>[dDungeon] Validation Finished"
