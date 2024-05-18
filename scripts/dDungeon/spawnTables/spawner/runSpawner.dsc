@@ -8,7 +8,11 @@ dd_SpawnTables_RunSpawner:
         - stop
 
     #Get spawner's data
-    - define spawnerData <[spawnerLoc].flag[dd_spawner]>
+    - define spawnerData <[spawnerLoc].flag[dd_spawner].if_null[null]>
+
+    #Check if block doesn't have spawner flag
+    - if <[spawnerData]> == null:
+        - stop
 
     #Skip if it's a null spawner
     - if <[spawnerLoc].flag[dd_spawner.spawn_table]> == NULL_TABLE:
