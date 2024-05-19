@@ -74,6 +74,14 @@ dd_Create:
     - waituntil !<entry[queuePrepareData].created_queue.is_valid> rate:5t max:1m
     - waituntil !<entry[queueLoadSchematics].created_queue.is_valid> rate:5t max:1m
 
+    #Generate a backfill schematic if world backfill is enabled
+    - if <[dungeonSettings.backfill_dungeon].if_null[true]>:
+        - define backfillCuboid <location[0,0,0].with_world[<[world]>]>
+        - define backfillCuboid <[backfillCuboid].to_cuboid[<[backfillCuboid].add[15,15,15]>]>
+        - ~modifyblock <[backfillCuboid]> <[dungeonSettings.backfill_dungeon_material].if_null[stone]>
+        - ~schematic create name:dd_worldbackfill_<[world].name> <[backfillCuboid].min> area:<[backfillCuboid]>
+        - ~modifyblock <[backfillCuboid]> air
+
     #Place a Spawn Room
     - ~run dd_Create_SpawnRoom def.world:<[world]>
 
@@ -124,7 +132,7 @@ dd_Create:
         - announce "<gold> *** Dungeon can now be considered ready for use. Backfill will continue but should not impact players."
         - define backfillStartTime <util.time_now>
         - flag <[world]> "dd_currentGenerationStep:Backfilling World"
-        - ~run dd_BackfillWorld def.world:<[world]> def.material:<[dungeonSettings.backfill_dungeon_material].if_null[stone]>
+        - ~run dd_BackfillWorld def.world:<[world]>
         - announce "<gold> *** World backfill completed in additional <util.time_now.duration_since[<[backfillStartTime]>].formatted>"
 
     #Cleanup any remaining data
