@@ -11,6 +11,10 @@ dd_FloodfillArea:
     - if !<[matcher].exists>:
         - define matcher <[location].material.name>
 
+    #Check that location matches matcher
+    - if <[matcher]> !matches <[matcher]>:
+        - stop
+
     #List of what still needs to be checked
     - define checkQueue <list[<[location]>]>
 
