@@ -23,8 +23,8 @@ dd_BackfillWorld:
             - schematic paste name:<[backfillSchematicName]> <[chunkCorner]> mask:air
             - define chunkCorner <[chunkCorner].add[0,16,0]>
 
-        #Wait a tick after every chunk
-        - wait 1t
+        # #Wait a tick after every chunk
+        # #- wait 1t
 
     - wait 1t
     - ~schematic unload name:<[backfillSchematicName]>
