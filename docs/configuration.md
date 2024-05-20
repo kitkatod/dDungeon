@@ -136,7 +136,6 @@ dd_DungeonSettings:
 | section_count_hard_max | OPTIONAL | *ElementTag(Integer)* | Absolute max number of sections to place. Pathways after this count has been reached will be skipped entirely. | 500 |
 | backfill_dungeon | OPTIONAL | *ElementTag(Boolean)* | Whether to fill in outside air blocks around the Dungeon Sections with a solid block. | true |
 | backfill_dungeon_material | OPTIONAL | *ElementTag*<br/>*ListTag(ElementTag)* | If `backfill_dungeon` is true, controls what material(s) to backfill the Dungeon with. | stone |
-| allowed_build_space | OPTIONAL | *ElementTag(Integer)* | Number of blocks around the Spawn Room to allow the Dungeon to be generated within.<br/>This just helps restrict the generation process from sprawling when not needed.<br/>Disable this by setting to a very high number such as 1000. | 40 |
 | ambient_spawn_table | OPTIONAL | *ElementTag* | Name of the Spawn Table to use for Ambient Spawning logic.<br/>This will periodically spawn mobs from the Spawn Table around players within the Dungeon. | *NULL* |
 | ambient_spawn_points_per_player | OPTIONAL | *ElementTag(Decimal)* | Sum of Spawn Points allowed to be spawned around a player.<br/>Ambient Spawning will continue to spawn mobs to try to reach this value. | 10 |
 | ambient_spawn_points_per_grid_section_max | OPTIONAL | *ElementTag(Decimal)* | Maximum number of Spawn Points worth of mobs to for Ambient Spawning to ever spawn in a 8x8x8 grid section of the Dungeon.<br/>Once this value is reached Ambient Spawning will not spawn mobs in that grid section of the Dungeon. | 50 |

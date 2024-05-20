@@ -76,7 +76,3 @@ dd_Create_SpawnRoom:
 
     #Queue inventories in spawn area
     - ~run dd_QueueInventories def.loc:<[loc]> def.sectionOptions:<[sectionOptions]>
-
-    #Setup allowed build area
-    - define buildBuffer <[dungeonSettings.allowed_build_space].if_null[40]>
-    - flag <[world]> dd_allowedArea:<[cuboid].with_min[<[cuboid].min.with_y[-30]>].with_max[<[cuboid].max.with_y[280]>].expand[<[buildBuffer]>,0,<[buildBuffer]>]>

@@ -26,10 +26,6 @@ dd_DungeonSettings:
             #Default stone
             backfill_dungeon_material: stone
 
-            #Buffer around the spawn room to allow sections to be placed within.
-            #This just helps restrict the generation process from sprawling into open space when it doesn't need to.
-            #To disable this just set it to a very high number
-            allowed_build_space: 140
             #Spawn Table to use when spawning in ambient mobs for this dungeon
             ambient_spawn_table: ambient_stonebrick
             #Per-Player max sum of spawn-points currently alive around a player
@@ -69,5 +65,4 @@ dd_DungeonSettings:
             section_count_hard_max: 300
             # # See comments regarding noise_generation_task above
             # # noise_generation_task: dd_NoiseGeneration_Stonebrick
-            allowed_build_space: 40
             ambient_spawn_points_per_player: 10

@@ -95,8 +95,6 @@ dd_Validate_NextPathways:
         - define cuboid <[pathLoc].add[<[pos1]>].to_cuboid[<[pathLoc].add[<[pos2]>]>]>
         - if !<[cuboid].blocks[!*air].is_empty>:
             - determine false
-        - if !<[pasteOrigin].world.flag[dd_allowedArea].contains_cuboid[<[cuboid]>]>:
-            - determine false
 
     - determine true
 
@@ -108,8 +106,6 @@ dd_Validate_WithinWorld:
     script:
     - define cuboid <[pasteOrigin].add[<[sectionData.pos1]>].to_cuboid[<[pasteOrigin].add[<[sectionData.pos2]>]>]>
     - if <[cuboid].min.y> < -30 || <[cuboid].max.y> > 300:
-        - determine false
-    - if !<[pasteOrigin].world.flag[dd_allowedArea].contains_cuboid[<[cuboid]>]>:
         - determine false
     - determine true
 
