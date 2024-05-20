@@ -106,7 +106,22 @@ dd_Create:
         - flag <[world]> "dd_currentGenerationStep:Backfilling Sections"
         - ~run dd_BackfillSections def.world:<[world]> def.material:<[dungeonSettings.backfill_dungeon_material].if_null[stone]>
 
-    #Prepare world for possible player use
+
+    #Bulk backfill space outside dungeon
+    - if <[dungeonSettings.backfill_dungeon].if_null[true]>:
+        - define backfillStartTime <util.time_now>
+        - flag <[world]> "dd_currentGenerationStep:Backfilling World"
+        #Kick player out of dungeon world while it generates real quick
+        - ~run dd_ExitDungeon
+        - ~run dd_BackfillWorld def.world:<[world]>
+        - ~run dd_EnterDungeon def.dungeonKey:<[dungeonKey]> def.exitLocation:<player.location>
+        - announce "<gold> *** World backfilled in <util.time_now.duration_since[<[backfillStartTime]>].formatted>"
+
+    #Announce stats
+    - announce "<gold> *** Placed <[world].flag[dd_sectionCount]> sections"
+    - announce "<gold> *** Rolled loot for <[world].flag[dd_inventoryCount]> inventories"
+
+    #Prepare world for player use
     - flag <[world]> dd_area:<cuboid[<[world].name>_dcarea]>
     - gamerule <[world]> doMobSpawning true
     - flag <[world]> dd_allowSpawning:true
@@ -120,24 +135,6 @@ dd_Create:
         - flag <[spawnerLoc]> dd_spawner.bossbarPlayers:<list[]>
         - flag <[world]> dd_spawnerLocs:->:<[spawnerLoc]>
 
-    #At this point we can consider the dungeon "ready".
-    #Backfilling the larger area takes a bit of time, but everything else should be ready for players, and filling in the world shouldn't impact normal players
-    #Announce stats
-    - announce "<gold> *** Generation completed in <util.time_now.duration_since[<[startTime]>].formatted>"
-    - announce "<gold> *** Placed <[world].flag[dd_sectionCount]> sections"
-    - announce "<gold> *** Rolled loot for <[world].flag[dd_inventoryCount]> inventories"
-
-    #Bulk backfill space outside dungeon
-    - if <[dungeonSettings.backfill_dungeon].if_null[true]>:
-        - announce "<gold> *** Dungeon can now be considered ready for use. Backfill will continue but should not impact players."
-        - define backfillStartTime <util.time_now>
-        - flag <[world]> "dd_currentGenerationStep:Backfilling World"
-        #Kick player out of dungeon world while it generates real quick
-        - ~run dd_ExitDungeon
-        - ~run dd_BackfillWorld def.world:<[world]>
-        - ~run dd_EnterDungeon def.dungeonKey:<[dungeonKey]> def.exitLocation:<player.location>
-        - announce "<gold> *** World backfill completed in additional <util.time_now.duration_since[<[backfillStartTime]>].formatted>"
-
     #Cleanup any remaining data
     - ~run dd_SectionDataCache_Unload def.world:<[world]>
     - note remove as:<[world].name>_dcarea
@@ -145,7 +142,7 @@ dd_Create:
     - flag <[world]> dd_startTime:!
 
     #Announce completion
-    - announce "<gold> *** Total generation took <util.time_now.duration_since[<[startTime]>].formatted> "
+    - announce "<gold> *** Dungeon Generation completed in <util.time_now.duration_since[<[startTime]>].formatted> "
 
     #Fire custom event for Dungeon Generation Complete
     - definemap context world:<[world]> dungeon_key:<[dungeonKey]> dungeon_category:<[dungeonSettings.category]>
