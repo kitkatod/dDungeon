@@ -132,7 +132,10 @@ dd_Create:
         - announce "<gold> *** Dungeon can now be considered ready for use. Backfill will continue but should not impact players."
         - define backfillStartTime <util.time_now>
         - flag <[world]> "dd_currentGenerationStep:Backfilling World"
+        #Kick player out of dungeon world while it generates real quick
+        - ~run dd_ExitDungeon
         - ~run dd_BackfillWorld def.world:<[world]>
+        - ~run dd_EnterDungeon def.dungeonKey:<[dungeonKey]> def.exitLocation:<player.location>
         - announce "<gold> *** World backfill completed in additional <util.time_now.duration_since[<[backfillStartTime]>].formatted>"
 
     #Cleanup any remaining data
