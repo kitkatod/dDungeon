@@ -2,6 +2,7 @@
 The below Denizen Custom Events are available to listen to in your own scripts without modification to dDungeon.
 
 * [dd_dungeon_world_created](#dd_dungeon_world_created)
+* [dd_dungeon_world_destroyed](#dd_dungeon_spawner_destroyed)
 * [dd_dungeon_generation_complete](#dd_dungeon_generation_complete)
 * [dd_dungeon_section_placed](#dd_dungeon_section_placed)
 * [dd_player_enters_dungeon](#dd_player_enters_dungeon)
