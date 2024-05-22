@@ -26,16 +26,6 @@ The below context data is passed when the event fires.
 
 ---
 
-### dd_dungeon_world_destroyed
-- Fired as a Dungeon world is being destroyed by either [/ddDestroy](/docs/commands.md#dddestroy-dungeonkey) or recreated by [/ddCreate](/docs/commands.md#ddcreate-dungeontype-dungeonkey).
-
-| Key | Description | Values |
-| --- | --- | --- |
-| world | Dungeon World that is being destroyed | *WorldTag* |
-| dungeon_key | Dungeon Key for the Dungeon this World was created for | *ElementTag* |
-
----
-
 ### dd_dungeon_generation_complete
 - Fired after all Dungeon sections have been placed, and all cleanup tasks have finished.
 - This is the last custom event to fire during Dungeon Generation.
@@ -47,6 +37,16 @@ The below context data is passed when the event fires.
 | world | World the Dungeon is in | *WorldTag* |
 | dungeon_key | Dungeon Key for the Dungeon created | *ElementTag* |
 | dungeon_category | Dungeon Category for the Dungeon created | *ElementTag* |
+
+---
+
+### dd_dungeon_world_destroyed
+- Fired as a Dungeon world is being destroyed by either [/ddDestroy](/docs/commands.md#dddestroy-dungeonkey) or recreated by [/ddCreate](/docs/commands.md#ddcreate-dungeontype-dungeonkey).
+
+| Key | Description | Values |
+| --- | --- | --- |
+| world | Dungeon World that is being destroyed | *WorldTag* |
+| dungeon_key | Dungeon Key for the Dungeon this World was created for | *ElementTag* |
 
 ---
 
