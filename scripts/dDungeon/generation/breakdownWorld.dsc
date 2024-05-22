@@ -3,6 +3,10 @@ dd_BreakdownWorld:
     type: task
     definitions: world
     script:
+    #Fire custom event for breaking down world
+    - definemap context world:<[world]> dungeon_key:<[world].flag[dd_DungeonKey]>
+    - customevent id:dd_dungeon_world_destroyed context:<[context]>
+
     #Teleport all players in the world out of the dungeon
     - foreach <[world].players> as:player:
         - ~run dd_ExitDungeon def.player:<[player]>
