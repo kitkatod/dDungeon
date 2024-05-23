@@ -12,9 +12,9 @@ Configuration options are set in different locations depending on the process ar
 
 ### Global Options
 
-Global options are configured within the script [dd_Config](/scripts/dDungeon/config/dDungeon.dsc), and control overall behavior of dDungeon scripts. This holds information like scripts version number and several debug toggles. 
+Global options are configured within the script [dd_Config](/scripts/dDungeon/config/dDungeon.dsc), and control overall behavior of dDungeon scripts. This holds information like saving configurations and several debug toggles. 
 
-This file can usually be left with their defaults, however it may be useful to modify for locating issues with Dungeon Sections.
+This file can usually be left with their defaults, however it may be useful to modify for locating issues with Dungeon Sections, or if you use custom flags within dungeon sections.
 
 ---
 
