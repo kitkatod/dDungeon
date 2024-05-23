@@ -1,9 +1,6 @@
 dd_Config:
     debug: false
     type: data
-    #Version number for dDungeon Scripts
-    #This will change as new updates are out of dev
-    dd_version: 1.2.0
     #Version number for data format of saved Schematics.
     #This should only change when there is a breaking data structure change for schematics. Should be RARE.
     #Will be tagged to schematics as they are saved.
@@ -13,6 +10,13 @@ dd_Config:
     #You can manually run the Validation using /ddValidate
     #Defaults to false if missing
     validate_config_on_reload: false
+
+    #The way Schematics are pasted, flags saved to an air block are lost during Dungeon Generation.
+    #To work around this, flags listed here will be found when saving Dungeons, and will be copied to the .yml file saved alongside the Schematic.
+    #Additional flags can be added as needed and they'll be recreated during generation, even if on an air block.
+    schematic_copy_flags:
+    - dd_spawner
+    - dd_fakeBlock
 
     #Settings used by scripts to hide/show debugging information
     debugging:

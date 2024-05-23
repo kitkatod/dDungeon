@@ -2,13 +2,6 @@ dd_SchematicEditor_SaveSchematic:
     debug: false
     type: task
     definitions: optionsLoc|clickableGroupId
-    data:
-        #The way Schematics are pasted, flags saved to an air block are lost during Dungeon Generation.
-        #To work around this, flags listed here will be found when saving Dungeons, and will be copied to the .yml file saved alongside the Schematic.
-        #Additional flags can be added as needed and they'll be recreated during generation, even if on an air block.
-        copy_flags:
-        - dd_spawner
-        - dd_fakeBlock
     script:
     - if <[clickableGroupId].if_null[no_value]> != no_value:
         - run dd_Clickable_CancelGroup def.groupId:<[clickableGroupId]>
@@ -33,7 +26,7 @@ dd_SchematicEditor_SaveSchematic:
     - define optionsBlockData.flags:!
 
     #Get flags that need to be saved to .yml
-    - foreach <script.data_key[data.copy_flags]> as:flag_name:
+    - foreach <script[dd_Config].data_key[schematic_copy_flags].if_null[<list[]>]> as:flag_name:
         - foreach <[cuboid].blocks_flagged[<[flag_name]>]> as:flagged_loc:
             - define offset <[flagged_loc].round.sub[<[optionsLoc]>].proc[dd_LocationToKey]>
             - define optionsBlockData.flags.<[offset]>.<[flag_name]> <[flagged_loc].flag[<[flag_name]>]>

@@ -1,9 +1,11 @@
 dd_ValidateConfigs:
     debug: false
     type: task
+    data:
+        dd_version: 1.2.0
     script:
     #Show version
-    - narrate "<gold>[dDungeon] Running Validation. v<script[dd_Config].data_key[dd_version].if_null[NO VERSION]>"
+    - narrate "<gold>[dDungeon] Running Validation. v<script.data_key[dd_version]>"
 
     #Validate items in Loot Tables
     - foreach <script[dd_LootTables].data_key[lootTables]> as:lootTableData key:lootTableName:
