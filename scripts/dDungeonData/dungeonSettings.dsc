@@ -39,6 +39,12 @@ dd_DungeonSettings:
             #Delay ambient dungeon spawning for a given player for this amount of time after spawning for the player
             #May still spawn mobs for other players nearby
             ambient_spawn_player_delay_period: 3m
+            #For Ambient Dungeon Spawning, where in relation to a player spawning should be allowed
+            #    FORWARD: Allow spawning in front of players, disallow spawning behind players
+            #    BEHIND: Allow spawning behind players, disallow spawning in front of players
+            #    BOTH: Disregard relative position to players - allow spawning in front of and behind players
+            #Default: BOTH
+            ambient_spawn_relative_to_player: BEHIND
 
             #Any loot tables listed here will be rolled only once for the entire dungeon
             #Items returned for the loot table will be spread out among each of the chests flagged with the loot table

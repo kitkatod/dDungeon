@@ -11,9 +11,13 @@ dd_SpawnTables_AmbientSpawning:
 
     #Exclude non-survival players
     - define players <[players].filter_tag[<[filter_value].gamemode.advanced_matches[survival|adventure]>]>
-
     #Exclude players that we've spawned for recently
     - define players <[players].filter_tag[<[filter_value].has_flag[dd_SpawnTables_spawnedRecently].not>]>
+
+    #Just stop if no valid players
+    - if <[players].is_empty>:
+        - stop
+
     - foreach <[players]> as:player:
         #Add slight wait for each player being checked
         - wait 1t
@@ -55,14 +59,39 @@ dd_SpawnTables_AmbientSpawning:
         #Exclude points that are too close to any player (don't spawn on top of them)
         #, or outside dungeon area
         - foreach <[spawningLocs]> as:spawnLoc:
+            - define validLoc true
             - if !<[spawnLoc].find_players_within[5].is_empty>:
-                - define spawningLocs:<-:<[spawnLoc]>
-            - if !<[world].flag[dd_area].contains[<[spawnLoc]>]>:
-                - define spawningLocs:<-:<[spawnLoc]>
-            - if <[spawnLoc].light> > 0:
-                - define spawningLocs:<-:<[spawnLoc]>
+                - define validLoc false
+                - foreach next
+            - if <[validLoc]> && !<[world].flag[dd_area].contains[<[spawnLoc]>]>:
+                - define validLoc false
+                - foreach next
+            - if <[validLoc]> && <[spawnLoc].light> > 0:
+                - define validLoc false
+                - foreach next
+
+            #If relative position checking for ambient spawning is enabled for the dungeon, check whether the spawn location is forward/behind relative to any nearby player
+            - if <[validLoc]> && <[dungeonSettings.ambient_spawn_relative_to_player].if_null[BOTH]> != BOTH:
+                - foreach <[spawnLoc].find_players_within[10]> as:iPlayer:
+                    #Check if location is behind a solid block - if so just allow it
+                    - if <[spawnLoc].points_between[<[iPlayer.location]>].distance[0.75].filter_tag[<[filter_value].material.is_solid>].any>:
+                        - foreach next
+
+                    #Check relative angle
+                    - define relativeAngle <[iPlayer].proc[dd_Util_TargetDegreesFromEntityDirection].context[<[spawnLoc]>]>
+                    - if <[dungeonSettings.ambient_spawn_relative_to_player]> == BEHIND && <[relativeAngle]> < 90:
+                        - define validLoc false
+                        - foreach stop
+                    - if <[dungeonSettings.ambient_spawn_relative_to_player]> == FORWARD && <[relativeAngle]> > 90:
+                        - define validLoc false
+                        - foreach stop
+
             #Skip if grid section has met the spawn threshold
-            - if <[spawnLoc].proc[dc_SpawnTables_AmbientSpawnLocationGrid].flag[dd_spawnPointsUsed].if_null[0]> >= <[dungeonSettings.ambient_spawn_points_per_grid_section_max].if_null[50]>:
+            - if <[validLoc]> && <[spawnLoc].proc[dc_SpawnTables_AmbientSpawnLocationGrid].flag[dd_spawnPointsUsed].if_null[0]> >= <[dungeonSettings.ambient_spawn_points_per_grid_section_max].if_null[50]>:
+                - define validLoc false
+                - foreach next
+
+            - if !<[validLoc]>:
                 - define spawningLocs:<-:<[spawnLoc]>
 
 
