@@ -89,7 +89,7 @@ dd_SchematicEditor_MainMenu:
         - run dd_Clickable_AddToGroup def.groupId:<[clickableGroupId]> def.clickableId:<entry[clickAutoSetArea].id>
         - define text "<blue>1: Update Section Area "
         #If WorldEdit is installed, show an option to use the selection from it
-        - if <plugin[WorldEdit].if_null[NOT_INSTALLED]> != NOT_INSTALLED:
+        - if <plugin[WorldEdit].if_null[NOT_INSTALLED]> != NOT_INSTALLED && <plugin[Depenizen].if_null[NOT_INSTALLED]> != NOT_INSTALLED:
             - define text "<[text]><gold>[<element[APPLY FROM WORLD EDIT].on_click[<entry[clickUpdateAreaFromWorldEdit].command>].on_hover[<script.data_key[data.hint_UpdateAreaWorldEdit].parsed>]>] <blue>| "
         - define text <[text]><gold>[<element[AUTO SET].on_click[<entry[clickAutoSetArea].command>].on_hover[<script.data_key[data.hint_UpdateAreaAuto].parsed>]>]
         - narrate <[text]>
