@@ -3,6 +3,7 @@ dd_ValidateConfigs:
     type: task
     data:
         dd_version: 1.2.0
+        dd_schematic_data_version: 1.0
     script:
     #Show version
     - narrate "<gold>[dDungeon] Running Validation. v<script.data_key[data.dd_version]>"
@@ -50,7 +51,7 @@ dd_ValidateConfigs:
             - foreach <proc[dd_GetFilesList].context[<[category]>|<[type]>]> as:file:
                 - define fileList:->:<[file]>
 
-    - define dataVersion <script[dd_Config].data_key[dd_schematic_data_version]>
+    - define dataVersion <script.data_key[data.dd_schematic_data_version]>
     - define outOfDateSchematics 0
 
     #Validate schematic Section Options file configs
