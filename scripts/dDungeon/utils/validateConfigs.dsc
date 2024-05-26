@@ -7,6 +7,18 @@ dd_ValidateConfigs:
     #Show version
     - narrate "<gold>[dDungeon] Running Validation. v<script.data_key[data.dd_version]>"
 
+    #Check plugins installed
+    - if !<plugin[WorldEdit].exists>:
+        - narrate "<yellow>[dDungeon] WorldEdit plugin is not installed. This is not required, however does enable additional tools."
+    - else if !<plugin[Depenizen].exists>:
+        - narrate "<green>[dDungeon] WorldEdit is installed - v<plugin[WorldEdit].version>"
+        - narrate "<yellow>[dDungeon] Depenizen Plugin is not installed. This is not required, however WorldEdit options will be disabled within dDungeon."
+    - else:
+        - narrate "<green>[dDungeon] WorldEdit is installed - v<plugin[WorldEdit].version>"
+
+    - if <plugin[Depenizen].exists>:
+        - narrate "<green>[dDungeon] Depenizen is installed - v<plugin[Depenizen].version>"
+
     #Validate items in Loot Tables
     - foreach <script[dd_LootTables].data_key[lootTables]> as:lootTableData key:lootTableName:
         - foreach <[lootTableData]> key:itemEntryKey as:itemEntryData:
