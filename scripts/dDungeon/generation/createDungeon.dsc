@@ -123,7 +123,6 @@ dd_Create:
 
     #Prepare world for player use
     - flag <[world]> dd_area:<cuboid[<[world].name>_dcarea]>
-    - gamerule <[world]> doMobSpawning true
     - flag <[world]> dd_allowSpawning:true
     - flag <[world]> dd_spawnerLocs:<list[]>
 
