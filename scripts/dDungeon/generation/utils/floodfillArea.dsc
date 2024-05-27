@@ -1,30 +1,27 @@
 dd_FloodfillArea:
     debug: false
     type: task
-    definitions: area|location|matcher|material
+    definitions: area|backfillLocation|matcher|material|checkTime
     script:
     #Dummy check, stop if location isn't in the area
-    - if !<[area].contains[<[location]>]>:
+    - if !<[area].contains[<[backfillLocation]>]>:
         - stop
 
     #Default parameter fill if material wasn't passed
     - if !<[matcher].exists>:
-        - define matcher <[location].material.name>
+        - define matcher <[backfillLocation].material.name>
 
     #Check that location matches matcher
     - if <[matcher]> !matches <[matcher]>:
         - stop
 
     #List of what still needs to be checked
-    - define checkQueue <list[<[location]>]>
+    - define checkQueue <list[<[backfillLocation]>]>
 
     #This feels hacky, but maintaining a list of checked locations quickly crashes the server...
     #Map is in the form of checkedMap.X.Y.Z
     #If a coordinate-key exists, it's been checked already and doesn't need to be checked again
     - define checkedMap <map[]>
-
-    #Save a timestamp to compare against. Pause for a tick if we're spending more than 1 tick doing this.
-    - define checkTime <util.time_now>
 
     #Keep checking locations on the queue until we've run the queue empty
     - while !<[checkQueue].is_empty>:
