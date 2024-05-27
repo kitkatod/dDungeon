@@ -3,6 +3,9 @@ dd_BreakdownWorld:
     type: task
     definitions: world
     script:
+    #Disable dungeon spawning in world
+    - flag <[world]> dd_allowSpawning:false
+
     #Fire custom event for breaking down world
     - definemap context world:<[world]> dungeon_key:<[world].flag[dd_DungeonKey]>
     - customevent id:dd_dungeon_world_destroyed context:<[context]>
