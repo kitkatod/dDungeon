@@ -29,8 +29,8 @@ dd_BreakdownWorld:
     #Remove reference of the world from the server
     - flag server dd_DungeonWorlds.<[world].flag[dd_DungeonKey]>:!
 
-    #Brief pause between cleaning up everything (mainly teleporting players) before destroying
-    - wait 5t
+    #Brief pause between cleaning up everything (mainly teleporting players, and allowing any dungeon mob spawning to finish) before destroying
+    - wait 2s
 
     #Destroy the world
     - adjust <[world]> destroy
