@@ -55,10 +55,9 @@ dd_Validate_SchematicPasteLocation:
         - if <[currentMat].name> != <[newBlock].material.name>:
             - determine false
 
-        - choose <[newBlock].material.name>:
-            - case ladder:
-                - if <[newBlock].material.direction> != <[currentMat].direction>:
-                    - determine false
+        #Check ladder direction
+        - if <[newBlock]> matches ladder && <[newBlock].material.direction> != <[currentMat].direction>:
+            - determine false
 
     - determine true
 
