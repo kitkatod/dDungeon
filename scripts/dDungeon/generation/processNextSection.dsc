@@ -69,6 +69,9 @@ dd_ProcessNextSection:
     # If we can't place SOMETHING, at least we can try to block off the giant hole in the wall...
     - define possibleTypes:->:deadend_<[buildVariables.hallwayType]>
 
+    #Remove any potential duplicate types
+    - define possibleTypes <[possibleTypes].deduplicate>
+
     #Try each targeted possible section types in the order given
     - define sectionFound false
 
