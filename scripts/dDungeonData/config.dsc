@@ -35,3 +35,5 @@ dd_Config:
         #Checks whether each block of the new section would be placed on either AIR, or an exactly matching material
         #(Will not fail if stone is placed on stone, ladder on ladder if the direction matches, etc.)
         output_failed_validation_overlapping: false
+        #Output schematic name and orientation anytime a schematic section is placed
+        output_successful_section_placed: false

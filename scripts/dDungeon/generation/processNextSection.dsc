@@ -108,134 +108,135 @@ dd_ProcessNextSection:
             - if <[sectionMaxCount]> > -1:
                 - define currentCount <[world].flag[dd_sections.<[category]>.<[targetType]>.<[schemOptions.nameGroup]>.occurrences]>
                 - if <[currentCount]> >= <[sectionMaxCount]>:
-                    - if <[debugConfig.output_failed_validation_max_occurrences]>:
+                    - if <[debugConfig.output_failed_validation_max_occurrences].if_null[false]>:
                         - narrate "(name:<[schemOptions.name]>) Failed: reached max occurrences"
                         - debug LOG "(dDungeon) (name:<[schemOptions.name]>) Failed: reached max occurrences"
                     - while next
 
-            #Try different flipping/rotating. Randomize to add variance
-            - define flipList <list[false|true].random[2]>
-            - while !<[flipList].is_empty> && !<[sectionFound]>:
-                - define flip <[flipList].first>
-                - define flipList:<-:<[flip]>
+            #Try different flipping/rotating. Proc will determine what combinations would even potentially work based on bathway combinations.
+            - define transformationPermutations <[pathOptions.direction].proc[dd_Generation_TransofrmationPermutations].context[<list_single[<[schemOptions.pathway_directions]>]>]>
+            - while !<[transformationPermutations].is_empty> && !<[sectionFound]>:
+                - define transform <[transformationPermutations].random>
+                - define transformationPermutations:<-:<[transform]>
 
-                - define rotationList <list[0|90|180|270].random[4]>
-                - while !<[rotationList].is_empty> && !<[sectionFound]>:
-                    - define rotate <[rotationList].first>
-                    - define rotationList:<-:<[rotate]>
+                - define testOptions <[schemOptions]>
+                - if <[transform.flip]>:
+                    - define testOptions <[testOptions].proc[dd_Transform_FlipOverX]>
+                - define testOptions <[testOptions].proc[dd_Transform_RotateAroundY].context[<[transform.radians]>]>
 
-                    - define testOptions <[schemOptions]>
-                    - if <[flip]>:
-                        - define testOptions <[testOptions].proc[dd_Transform_FlipOverX]>
-                    - define testOptions <[testOptions].proc[dd_Transform_RotateAroundY].context[<[rotate]>]>
+                #Try to determine if one of the pathways will work
+                - define testPathwaysList <[testOptions.pathways].keys>
+                - while !<[testPathwaysList].is_empty> && !<[sectionFound]>:
+                    - define testPathwayKey <[testPathwaysList].first>
+                    - define testPathwaysList:<-:<[testPathwayKey]>
+                    - define testPathwayOptions <[testOptions.pathways.<[testPathwayKey]>]>
 
-                    #Try to determine if one of the pathways will work
-                    - define testPathwaysList <[testOptions.pathways].keys>
-                    - while !<[testPathwaysList].is_empty> && !<[sectionFound]>:
-                        - define testPathwayKey <[testPathwaysList].first>
-                        - define testPathwaysList:<-:<[testPathwayKey]>
-                        - define testPathwayOptions <[testOptions.pathways.<[testPathwayKey]>]>
+                    #PasteLoc would be the origin of this schematic
+                    - define pasteLoc <[nextSectionLoc].sub[<[testPathwayKey]>]>
 
-                        #PasteLoc would be the origin of this schematic
-                        - define pasteLoc <[nextSectionLoc].sub[<[testPathwayKey]>]>
+                    - if !<[testPathwayOptions.allowIncoming].if_null[true]>:
+                        - if <[debugConfig.output_failed_validation_pathway_allows_incoming].if_null[false]>:
+                            - clickable dd_Clickable_Teleport def.loc:<[nextSectionLoc]> until:10m save:clickLoc
+                            - narrate "(name:<[testOptions.name]> flip:<[transform.flip]> rotate:<[transform.angle]>) Failed: Pathway allows incoming<reset> ([<element[TP TO LOC].on_click[<entry[clickLoc].command>].on_hover[<[nextSectionLoc]>]>])"
+                            - debug LOG "(dDungeon) (name:<[testOptions.name]> flip:<[transform.flip]> rotate:<[transform.angle]>) Failed: Pathway allows incoming (<[nextSectionLoc]>)"
+                        - while next
 
-                        - if !<[testPathwayOptions.allowIncoming].if_null[true]>:
-                            - if <[debugConfig.output_failed_validation_pathway_allows_incoming]>:
-                                - clickable dd_Clickable_Teleport def.loc:<[nextSectionLoc]> until:10m save:clickLoc
-                                - narrate "(name:<[testOptions.name]> flip:<[flip]> rotate:<[rotate]>) Failed: Pathway allows incoming<reset> ([<element[TP TO LOC].on_click[<entry[clickLoc].command>].on_hover[<[nextSectionLoc]>]>])"
-                                - debug LOG "(dDungeon) (name:<[testOptions.name]> flip:<[flip]> rotate:<[rotate]>) Failed: Pathway allows incoming (<[nextSectionLoc]>)"
-                            - while next
+                    - if !<[testOptions].proc[dd_Validate_WithinWorld].context[<[pasteLoc]>]>:
+                        - if <[debugConfig.output_failed_validation_within_world].if_null[false]>:
+                            - clickable dd_Clickable_Teleport def.loc:<[nextSectionLoc]> until:10m save:clickLoc
+                            - narrate "(name:<[testOptions.name]> flip:<[transform.flip]> rotate:<[transform.angle]>) Failed: Within World Check<reset> ([<element[TP TO LOC].on_click[<entry[clickLoc].command>].on_hover[<[nextSectionLoc]>]>])"
+                            - debug LOG "(dDungeon) (name:<[testOptions.name]> flip:<[transform.flip]> rotate:<[transform.angle]>) Failed: Within World Check (<[nextSectionLoc]>)"
+                        - while next
 
-                        - if !<[testOptions].proc[dd_Validate_WithinWorld].context[<[pasteLoc]>]>:
-                            - if <[debugConfig.output_failed_validation_within_world]>:
-                                - clickable dd_Clickable_Teleport def.loc:<[nextSectionLoc]> until:10m save:clickLoc
-                                - narrate "(name:<[testOptions.name]> flip:<[flip]> rotate:<[rotate]>) Failed: Within World Check<reset> ([<element[TP TO LOC].on_click[<entry[clickLoc].command>].on_hover[<[nextSectionLoc]>]>])"
-                                - debug LOG "(dDungeon) (name:<[testOptions.name]> flip:<[flip]> rotate:<[rotate]>) Failed: Within World Check (<[nextSectionLoc]>)"
-                            - while next
+                    - if !<[pathOptions.direction].proc[dd_Validate_MatchingPathways].context[<[testPathwayOptions.direction]>]>:
+                        - if <[debugConfig.output_failed_validation_matching_pathway].if_null[false]>:
+                            - clickable dd_Clickable_Teleport def.loc:<[nextSectionLoc]> until:10m save:clickLoc
+                            - narrate "(name:<[testOptions.name]> flip:<[transform.flip]> rotate:<[transform.angle]>) Failed: Matching Pathways ([<element[TP TO LOC].on_click[<entry[clickLoc].command>].on_hover[<[nextSectionLoc]>]>])"
+                            - debug LOG "(dDungeon) (name:<[testOptions.name]> flip:<[transform.flip]> rotate:<[transform.angle]>) Failed: Matching Pathways (<[nextSectionLoc]>)"
+                        - while next
 
-                        - if !<[pathOptions.direction].proc[dd_Validate_MatchingPathways].context[<[testPathwayOptions.direction]>]>:
-                            - if <[debugConfig.output_failed_validation_matching_pathway]>:
-                                - clickable dd_Clickable_Teleport def.loc:<[nextSectionLoc]> until:10m save:clickLoc
-                                - narrate "(name:<[testOptions.name]> flip:<[flip]> rotate:<[rotate]>) Failed: Matching Pathways ([<element[TP TO LOC].on_click[<entry[clickLoc].command>].on_hover[<[nextSectionLoc]>]>])"
-                                - debug LOG "(dDungeon) (name:<[testOptions.name]> flip:<[flip]> rotate:<[rotate]>) Failed: Matching Pathways (<[nextSectionLoc]>)"
-                            - while next
+                    - if !<[testOptions].proc[dd_Validate_NextPathways].context[<[pasteLoc]>|<[testPathwayKey]>]>:
+                        - if <[debugConfig.output_failed_validation_next_pathways].if_null[false]>:
+                            - clickable dd_Clickable_Teleport def.loc:<[nextSectionLoc]> until:10m save:clickLoc
+                            - narrate "(name:<[testOptions.name]> flip:<[transform.flip]> rotate:<[transform.angle]>) Failed: Next Pathways Check<reset> ([<element[TP TO LOC].on_click[<entry[clickLoc].command>].on_hover[<[nextSectionLoc]>]>])"
+                            - debug LOG "(dDungeon) (name:<[testOptions.name]> flip:<[transform.flip]> rotate:<[transform.angle]>) Failed: Next Pathways Check (<[nextSectionLoc]>)"
+                        - while next
 
-                        - if !<[testOptions].proc[dd_Validate_NextPathways].context[<[pasteLoc]>|<[testPathwayKey]>]>:
-                            - if <[debugConfig.output_failed_validation_next_pathways]>:
-                                - clickable dd_Clickable_Teleport def.loc:<[nextSectionLoc]> until:10m save:clickLoc
-                                - narrate "(name:<[testOptions.name]> flip:<[flip]> rotate:<[rotate]>) Failed: Next Pathways Check<reset> ([<element[TP TO LOC].on_click[<entry[clickLoc].command>].on_hover[<[nextSectionLoc]>]>])"
-                                - debug LOG "(dDungeon) (name:<[testOptions.name]> flip:<[flip]> rotate:<[rotate]>) Failed: Next Pathways Check (<[nextSectionLoc]>)"
-                            - while next
+                    # - if !<[previousType].proc[dd_Validate_MatchingHallwayType].context[<[testPathwayOptions.hallwayType].if_null[default]>]>:
+                    #     - clickable dd_Clickable_Teleport def.loc:<[nextSectionLoc]> until:10m save:clickLoc
+                    #     - narrate "(name:<[testOptions.name]> flip:<[flip]> rotate:<[rotate]>) Failed: Hallway Type Match<reset> ([<element[TP TO LOC].on_click[<entry[clickLoc].command>]>])"
+                    #     - while next
 
-                        # - if !<[previousType].proc[dd_Validate_MatchingHallwayType].context[<[testPathwayOptions.hallwayType].if_null[default]>]>:
-                        #     - clickable dd_Clickable_Teleport def.loc:<[nextSectionLoc]> until:10m save:clickLoc
-                        #     - narrate "(name:<[testOptions.name]> flip:<[flip]> rotate:<[rotate]>) Failed: Hallway Type Match<reset> ([<element[TP TO LOC].on_click[<entry[clickLoc].command>]>])"
-                        #     - while next
+                    #Validations up until this point did not require the schematic to be loaded
+                    #Load the schematic and run further validations
+                    #Flip/Rotate as needed to match previous operations
+                    - ~run dd_Schematic_SetOrientation def.schemPath:<[targetSectionSchemPath]> def.flip:<[transform.flip]> def.rotation:<[transform.angle]>
 
-                        #Validations up until this point did not require the schematic to be loaded
-                        #Load the schematic and run further validations
-                        #Flip/Rotate as needed to match previous operations
-                        - ~run dd_Schematic_SetOrientation def.schemPath:<[targetSectionSchemPath]> def.flip:<[flip]> def.rotation:<[rotate]>
-
-                        - if !<proc[dd_Validate_SchematicPasteLocation].context[<[targetSectionSchemPath]>|<[pasteLoc]>]>:
-                            - if <[debugConfig.output_failed_validation_overlapping]>:
-                                - clickable dd_Clickable_Teleport def.loc:<[nextSectionLoc]> until:10m save:clickLoc
-                                - narrate "(name:<[testOptions.name]> flip:<[flip]> rotate:<[rotate]>) Failed: Overlapping Failure ([<element[TP TO LOC].on_click[<entry[clickLoc].command>].on_hover[<[nextSectionLoc]>]>])"
-                                - debug LOG "(dDungeon) (name:<[testOptions.name]> flip:<[flip]> rotate:<[rotate]>) Failed: Overlapping Failure (<[nextSectionLoc]>)"
-                            - ~run dd_Schematic_UndoOrientation def.schemPath:<[targetSectionSchemPath]> def.flip:<[flip]> def.rotation:<[rotate]>
-                            - while next
+                    - if !<proc[dd_Validate_SchematicPasteLocation].context[<[targetSectionSchemPath]>|<[pasteLoc]>]>:
+                        - if <[debugConfig.output_failed_validation_overlapping].if_null[false]>:
+                            - clickable dd_Clickable_Teleport def.loc:<[nextSectionLoc]> until:10m save:clickLoc
+                            - narrate "(name:<[testOptions.name]> flip:<[transform.flip]> rotate:<[transform.angle]>) Failed: Overlapping Failure ([<element[TP TO LOC].on_click[<entry[clickLoc].command>].on_hover[<[nextSectionLoc]>]>])"
+                            - debug LOG "(dDungeon) (name:<[testOptions.name]> flip:<[transform.flip]> rotate:<[transform.angle]>) Failed: Overlapping Failure (<[nextSectionLoc]>)"
+                        - ~run dd_Schematic_UndoOrientation def.schemPath:<[targetSectionSchemPath]> def.flip:<[transform.flip]> def.rotation:<[transform.angle]>
+                        - while next
 
 
-                        #Wooooo!
-                        - define sectionFound true
-                        - define buildVariables.lastSuccessful <[targetSection]>
+                    #Wooooo!
+                    - define sectionFound true
+                    - define buildVariables.lastSuccessful <[targetSection]>
 
-                        #Get the cuboid of the placed area
-                        - define cuboid <[pasteLoc].add[<[testOptions.pos1]>].to_cuboid[<[pasteLoc].add[<[testOptions.pos2]>]>]>
-                        - adjust <cuboid[<[world].name>_dcarea]> add_member:<[cuboid]>
+                    #Print debug info if enabled
+                    - if <[debugConfig.output_successful_section_placed].if_null[false]>:
+                        - clickable dd_Clickable_Teleport def.loc:<[nextSectionLoc]> until:10m save:clickLoc
+                        - narrate "(flip:<[transform.flip]> rotate:<[transform.angle]> name:<[testOptions.name]>) Section Pasted ([<element[TP TO LOC].on_click[<entry[clickLoc].command>].on_hover[<[nextSectionLoc]>]>])"
+                        - debug LOG "[dDungeon] (flip:<[transform.flip]> rotate:<[transform.angle]> name:<[testOptions.name]>) Section Pasted (<[nextSectionLoc]>)"
 
-                        #Increment the occurrence count of this section
-                        - flag <[world]> dd_sections.<[category]>.<[targetType]>.<[testOptions.nameGroup]>.occurrences:++
+                    #Get the cuboid of the placed area
+                    - define cuboid <[pasteLoc].add[<[testOptions.pos1]>].to_cuboid[<[pasteLoc].add[<[testOptions.pos2]>]>]>
+                    - adjust <cuboid[<[world].name>_dcarea]> add_member:<[cuboid]>
 
-                        #Knock down the count of hallways to place if we placed a hallway
-                        - if <[targetType].starts_with[hallway_]>:
-                            - define buildVariables.hallwaysRemaining:--
+                    #Increment the occurrence count of this section
+                    - flag <[world]> dd_sections.<[category]>.<[targetType]>.<[testOptions.nameGroup]>.occurrences:++
 
-                        # # - narrate "Placing section (<[targetFile]>) at <[pasteLoc]>"
+                    #Knock down the count of hallways to place if we placed a hallway
+                    - if <[targetType].starts_with[hallway_]>:
+                        - define buildVariables.hallwaysRemaining:--
 
-                        #Paste the section
-                        - ~schematic paste noair name:<[targetSectionSchemPath]> <[pasteLoc]> entities
-                        - ~run dd_Schematic_UndoOrientation def.schemPath:<[targetSectionSchemPath]> def.flip:<[flip]> def.rotation:<[rotate]>
+                    # # - narrate "Placing section (<[targetFile]>) at <[pasteLoc]>"
 
-                        #Flag options block with "transformed" section options data
-                        - flag <[pasteLoc]> dd_SectionOptions:<[testOptions]>
-                        - flag <[pasteLoc]> dd_SectionOptions.readonly:true
+                    #Paste the section
+                    - ~schematic paste noair name:<[targetSectionSchemPath]> <[pasteLoc]> entities
+                    - ~run dd_Schematic_UndoOrientation def.schemPath:<[targetSectionSchemPath]> def.flip:<[transform.flip]> def.rotation:<[transform.angle]>
 
-                        #Reload any saved flags for the section due to flags being lost when pasting when saved to air blocks. Happens because we paste with noair set.
-                        - if !<[testOptions.flags].keys.is_empty.if_null[true]>:
-                            - ~run dd_ReloadSectionFlags def.optionsLoc:<[pasteLoc]>
+                    #Flag options block with "transformed" section options data
+                    - flag <[pasteLoc]> dd_SectionOptions:<[testOptions]>
+                    - flag <[pasteLoc]> dd_SectionOptions.readonly:true
 
-                        #Remove this pathway from pathway options (since we just used it...)
-                        - define testOptions.pathways.<[testPathwayKey]>:!
+                    #Reload any saved flags for the section due to flags being lost when pasting when saved to air blocks. Happens because we paste with noair set.
+                    - if !<[testOptions.flags].keys.is_empty.if_null[true]>:
+                        - ~run dd_ReloadSectionFlags def.optionsLoc:<[pasteLoc]>
 
-                        #Fire custom event for Section being placed
-                        - definemap context area:<[cuboid]> dungeon_key:<[dungeonKey]> dungeon_category:<[category]> dungeon_section_type:<[targetType]> dungeon_section_name:<[testOptions.name]>
-                        - customevent id:dd_dungeon_section_placed context:<[context]>
+                    #Remove this pathway from pathway options (since we just used it...)
+                    - define testOptions.pathways.<[testPathwayKey]>:!
 
-                        # TODO - Remove this logic in favor of just firing a Custom Event (already added)
-                        # TODO -      Custom Events allow easier control as to firing multiple tasks, and switching what runs based on section type etc.
-                        #Run dungeon specific custom noise generation if it is specified
-                        - if <[dungeonSettings.noise_generation_task].exists>:
-                            - define taskScript <[dungeonSettings.noise_generation_task].as[script].if_null[null]>
-                            - if <[taskScript]> != null && <[taskScript].data_key[type]> == task:
-                                - run <[taskScript]> def.cuboid:<[cuboid]> def.type:<[targetType]>
+                    #Fire custom event for Section being placed
+                    - definemap context area:<[cuboid]> dungeon_key:<[dungeonKey]> dungeon_category:<[category]> dungeon_section_type:<[targetType]> dungeon_section_name:<[testOptions.name]>
+                    - customevent id:dd_dungeon_section_placed context:<[context]>
 
-                        #Run any modifiers on section area that should always take place
-                        - ~run dd_StandardSectionModifiers_SetupFakeBlocks def.area:<[cuboid]>
-                        - ~run dd_StandardSectionModifiers_ChangeAirToCaveair def.area:<[cuboid]>
+                    # TODO - Remove this logic in favor of just firing a Custom Event (already added)
+                    # TODO -      Custom Events allow easier control as to firing multiple tasks, and switching what runs based on section type etc.
+                    #Run dungeon specific custom noise generation if it is specified
+                    - if <[dungeonSettings.noise_generation_task].exists>:
+                        - define taskScript <[dungeonSettings.noise_generation_task].as[script].if_null[null]>
+                        - if <[taskScript]> != null && <[taskScript].data_key[type]> == task:
+                            - run <[taskScript]> def.cuboid:<[cuboid]> def.type:<[targetType]>
 
-                        #Queue other pathways from this section
-                        - ~run dd_QueuePathways def.loc:<[pasteLoc]> def.sectionOptions:<[testOptions]> def.buildVariables:<[buildVariables]>
+                    #Run any modifiers on section area that should always take place
+                    - ~run dd_StandardSectionModifiers_SetupFakeBlocks def.area:<[cuboid]>
+                    - ~run dd_StandardSectionModifiers_ChangeAirToCaveair def.area:<[cuboid]>
 
-                        #Queue inventories to be processed later
-                        - ~run dd_QueueInventories def.loc:<[pasteLoc]> def.sectionOptions:<[testOptions]>
+                    #Queue other pathways from this section
+                    - ~run dd_QueuePathways def.loc:<[pasteLoc]> def.sectionOptions:<[testOptions]> def.buildVariables:<[buildVariables]>
+
+                    #Queue inventories to be processed later
+                    - ~run dd_QueueInventories def.loc:<[pasteLoc]> def.sectionOptions:<[testOptions]>

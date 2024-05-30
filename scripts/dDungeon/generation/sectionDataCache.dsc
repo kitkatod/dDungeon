@@ -27,6 +27,13 @@ dd_SectionDataCache_Prepare:
             #Save the name group to the section's data
             - define sectionOptions.nameGroup <[nameGroup]>
 
+            #Save list of pathway directions
+            - define pathDirectionList <list[]>
+            - foreach <[sectionOptions.pathways]> key:offset as:pathOptions:
+                - if <[pathOptions.allowIncoming].if_null[true]>:
+                    - define pathDirectionList:->:<[pathOptions.direction].round>
+            - define sectionOptions.pathway_directions <[pathDirectionList].deduplicate>
+
             #Save the (mostly) untouched data to the world
             - flag <[world]> dd_sectionData.<[category]>.<[type]>.<[name].before[.yml]>:<[sectionOptions]>
 

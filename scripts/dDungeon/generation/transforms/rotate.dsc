@@ -1,14 +1,11 @@
 dd_Transform_RotateAroundY:
     debug: false
     type: procedure
-    definitions: sectionData|rotation
+    definitions: sectionData|rotationRadians
     script:
     #If rotation is 0, just return sectionData
-    - if <[rotation]> == 0:
+    - if <[rotationRadians]> == 0:
         - determine <[sectionData]>
-
-    #Get radians to rotate location tags for simplicity
-    - define rotRad <[rotation].to_radians.mul[-1]>
 
     #Get pathways map
     - define pathways <[sectionData.pathways].if_null[<map[]>]>
@@ -18,12 +15,12 @@ dd_Transform_RotateAroundY:
         #Get path definition
         - define path <[pathways.<[pathKey]>]>
         #Rotate direction
-        - define direction <[path.direction].rotate_around_y[<[rotRad]>].round>
+        - define direction <[path.direction].rotate_around_y[<[rotationRadians]>].round>
         #Save direction
         - define path.direction <[direction]>
 
         #Rotate pathKey
-        - define newPathKey <[pathKey].proc[dd_KeyToLocation].rotate_around_y[<[rotRad]>].proc[dd_LocationToKey]>
+        - define newPathKey <[pathKey].proc[dd_KeyToLocation].rotate_around_y[<[rotationRadians]>].proc[dd_LocationToKey]>
         #Save path definition
         - define newPathways.<[newPathKey]> <[path]>
 
@@ -39,7 +36,7 @@ dd_Transform_RotateAroundY:
         #Get inventory definition
         - define inv <[inventories.<[invKey]>]>
         #Rotate invKey
-        - define newInvKey <[invKey].proc[dd_KeyToLocation].rotate_around_y[<[rotRad]>].proc[dd_LocationToKey]>
+        - define newInvKey <[invKey].proc[dd_KeyToLocation].rotate_around_y[<[rotationRadians]>].proc[dd_LocationToKey]>
         #Save inv definition
         - define newInventories.<[newInvKey]> <[inv]>
     #Save new Inventories data
@@ -47,12 +44,12 @@ dd_Transform_RotateAroundY:
 
     #Flip pos1
     - define pos <[sectionData.pos1]>
-    - define pos <[pos].rotate_around_y[<[rotRad]>].round>
+    - define pos <[pos].rotate_around_y[<[rotationRadians]>].round>
     - define sectionData.pos1 <[pos]>
 
     #Flip pos2
     - define pos <[sectionData.pos2]>
-    - define pos <[pos].rotate_around_y[<[rotRad]>].round>
+    - define pos <[pos].rotate_around_y[<[rotationRadians]>].round>
     - define sectionData.pos2 <[pos]>
 
     #Flip flags
@@ -60,7 +57,7 @@ dd_Transform_RotateAroundY:
     - define newFlags <map[]>
     - foreach <[flags]> as:flags_map key:flag_offset:
         #Rotate invKey
-        - define newFlagOffset <[flag_offset].proc[dd_KeyToLocation].rotate_around_y[<[rotRad]>].proc[dd_LocationToKey]>
+        - define newFlagOffset <[flag_offset].proc[dd_KeyToLocation].rotate_around_y[<[rotationRadians]>].proc[dd_LocationToKey]>
         #Save flag definition
         - define newFlags.<[newFlagOffset]> <[flags_map]>
     #Save new flags data
