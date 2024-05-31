@@ -78,11 +78,11 @@ dd_SpawnTables_AmbientSpawning:
                         - foreach next
 
                     #Check relative angle
-                    - define relativeAngle <[iPlayer].proc[dd_Util_TargetDegreesFromEntityDirection].context[<[spawnLoc]>]>
-                    - if <[dungeonSettings.ambient_spawn_relative_to_player]> == BEHIND && <[relativeAngle]> < 90:
+                    - define isInFront <[iPlayer].eye_location.facing[<[spawnLoc]>].degrees[90]>
+                    - if <[dungeonSettings.ambient_spawn_relative_to_player]> == BEHIND && <[isInFront]>:
                         - define validLoc false
                         - foreach stop
-                    - if <[dungeonSettings.ambient_spawn_relative_to_player]> == FORWARD && <[relativeAngle]> > 90:
+                    - if <[dungeonSettings.ambient_spawn_relative_to_player]> == FORWARD && <[isInFront].not>:
                         - define validLoc false
                         - foreach stop
 
