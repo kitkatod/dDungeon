@@ -240,3 +240,10 @@ dd_ProcessNextSection:
 
                     #Queue inventories to be processed later
                     - ~run dd_QueueInventories def.loc:<[pasteLoc]> def.sectionOptions:<[testOptions]>
+
+            - mark EndOfSectionTest
+            #Increment the success/fail count of this section
+            - if <[sectionFound]>:
+                - flag <[world]> dd_section_counter.<[category]>.<[targetType]>.<[schemOptions.name]>.success_count:++
+            - else:
+                - flag <[world]> dd_section_counter.<[category]>.<[targetType]>.<[schemOptions.name]>.fail_count:++
