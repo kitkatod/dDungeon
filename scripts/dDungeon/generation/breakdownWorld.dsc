@@ -3,6 +3,9 @@ dd_BreakdownWorld:
     type: task
     definitions: world
     script:
+    #Remove reference of the world from the server
+    - flag server dd_DungeonWorlds.<[world].flag[dd_DungeonKey]>:!
+
     #Disable dungeon spawning in world
     - flag <[world]> dd_allowSpawning:false
 
@@ -25,9 +28,6 @@ dd_BreakdownWorld:
 
     #Remove exit area note
     - note remove as:dd_exitArea_<[world].name>
-
-    #Remove reference of the world from the server
-    - flag server dd_DungeonWorlds.<[world].flag[dd_DungeonKey]>:!
 
     #Brief pause between cleaning up everything (mainly teleporting players, and allowing any dungeon mob spawning to finish) before destroying
     - wait 2s
