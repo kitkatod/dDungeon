@@ -5,17 +5,18 @@ dd_SpawnTables_Events:
         #Run Ambient spawning and Spawner spawning
         on delta time secondly every:5:
         - ~run dd_SpawnTables_CleanupSpawnerBossbars
-        - foreach <server.worlds> as:world:
-            - if !<[world].has_flag[dd_DungeonSettings]> || !<[world].flag[dd_allowSpawning].if_null[false]>:
+        - foreach <server.flag[dd_DungeonWorlds].if_null[<map[]>]> key:dungeonKey as:dungeonWorldName:
+            - define dungeonWorld <[dungeonWorldName].as[world].if_null[null]>
+            - if <[dungeonWorld]> == null:
                 - foreach next
+            - if <[dungeonWorld].flag[dd_allowSpawning].if_null[false]> && <[dungeonWorld].has_flag[dd_DungeonSettings]>:
+                - ~run dd_SpawnTables_AmbientSpawning def.world:<[dungeonWorld]>
 
-            - ~run dd_SpawnTables_AmbientSpawning def.world:<[world]>
-
-            #Run spawning on each spawner in the world
-            - define spawnerLocs <[world].flag[dd_spawnerLocs]>
-            - foreach <[spawnerLocs]> as:spawnerLoc:
-                - ~run dd_SpawnTables_RunSpawner def.spawnerLoc:<[spawnerLoc]>
-                - wait 1t
+                #Run spawning on each spawner in the world
+                - define spawnerLocs <[dungeonWorld].flag[dd_spawnerLocs]>
+                - foreach <[spawnerLocs]> as:spawnerLoc:
+                    - ~run dd_SpawnTables_RunSpawner def.spawnerLoc:<[spawnerLoc]>
+                    - wait 1t
 
         #Roll Loot Tables for entities
         on entity dies in:world_flagged:dd_DungeonSettings:
