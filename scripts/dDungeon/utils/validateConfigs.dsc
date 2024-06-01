@@ -74,6 +74,6 @@ dd_ValidateConfigs:
 
     - if <[outOfDateSchematics]> > 0:
         - narrate "<red>[dDungeon] There are <[outOfDateSchematics]> Schematic Data files out of date. Consider resaving schematics to update format."
-        - narrate "<red>[dDungeon]   - You can run <&dq>/ex run dd_ResaveAllSchematics<&dq> to have dDungeon resave all saved schematics. Fair warning - this takes a few minutes to finish."
+        - narrate "<red>[dDungeon] You can run <&dq>/ex run dd_ResaveAllSchematics<&dq> to have dDungeon resave all saved schematics. Fair warning - this takes a few minutes to finish."
 
     - narrate "<gold>[dDungeon] Validation Finished"
