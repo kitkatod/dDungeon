@@ -30,6 +30,11 @@ dd_SpawnTables_RunSpawner:
         - definemap context location:<[spawnerLoc]> players:<[spawnerData.assisting_players].if_null[<list[]>]> spawn_table:<[spawnerData.spawn_table]>
         - customevent id:dd_dungeon_spawner_destroyed context:<[context]>
 
+        - if <script[dd_Config].data_key[debugging.output_spawner_removed].if_null[false]>:
+            - define msg "[dDungeon] Spawner being removed at <[spawnerLoc].block>"
+            - announce <[msg]> to_ops
+            - debug LOG <[msg]>
+
         # Remove the spawner
         - flag <[spawnerLoc]> dd_spawner:!
         - stop
@@ -88,6 +93,11 @@ dd_SpawnTables_RunSpawner:
         - stop
 
     #Do the spawn!
+    - if <script[dd_Config].data_key[debugging.output_spawner_triggered].if_null[false]>:
+        - define msg "[dDungeon] Spawner spawning was triggered <[spawnerLoc].block>"
+        - announce <[msg]> to_ops
+        - debug LOG <[msg]>
+
     - define spawnLoc <[spawningLocs].random>
     - ~run dd_rollSpawnTable def.loc:<[spawnLoc]> def.spawnTable:<[spawnerData.spawn_table]> def.targetSpawnPoints:<[spawnPointsMax]> def.spawnRadius:<[spawnerData.spawn_radius]> save:spawnRun
     - define spawningResults <entry[spawnRun].created_queue.determination.first.if_null[null]>

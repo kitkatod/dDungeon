@@ -37,3 +37,9 @@ dd_Config:
         output_failed_validation_overlapping: false
         #Output schematic name and orientation anytime a schematic section is placed
         output_successful_section_placed: false
+
+        output_ambient_spawning_triggered: false
+
+        output_spawner_triggered: false
+
+        output_spawner_removed: false

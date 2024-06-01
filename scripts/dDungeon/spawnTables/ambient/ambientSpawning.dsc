@@ -100,9 +100,14 @@ dd_SpawnTables_AmbientSpawning:
             - foreach next
 
         #Do the spawn!
-        # - announce "<gold><bold> *** Spawned mobs for <italic><underline><[player].name>"
+        - define spawnLoc <[spawningLocs].random>
+        - if <script[dd_Config].data_key[debugging.output_ambient_spawning_triggered].if_null[false]>:
+            - define msg "[dDungeon] Ambient Spawning triggered <[spawnLoc].block>"
+            - announce <[msg]> to_ops
+            - debug LOG <[msg]>
+
         - flag <[player]> dd_SpawnTables_spawnedRecently:true expire:<[dungeonSettings.ambient_spawn_player_delay_period].if_null[10s]>
-        - ~run dd_rollSpawnTable def.loc:<[spawningLocs].random> def.spawnTable:<[dungeonSettings.ambient_spawn_table].if_null[generic]> def.targetSpawnPoints:<[allowedSpawnPoints]> save:spawnRun
+        - ~run dd_rollSpawnTable def.loc:<[spawnLoc]> def.spawnTable:<[dungeonSettings.ambient_spawn_table].if_null[generic]> def.targetSpawnPoints:<[allowedSpawnPoints]> save:spawnRun
 
         #Bump up the grid section's spawn points used flag for each entity spawned, and how many points they're worth
         - define spawningResults <entry[spawnRun].created_queue.determination.first>
