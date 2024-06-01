@@ -13,6 +13,8 @@ dd_Events:
         after reload scripts:
         - if <script[dd_Config].data_key[validate_config_on_reload].if_null[false]>:
             - run dd_ValidateConfigs
+        - if !<server.has_flag[dd_server_id]>:
+            - flag server dd_server_id:<util.random_uuid>
 
         #Prevent TNT/Creeper griefs
         on block destroyed by explosion in:world_flagged:dd_DungeonSettings:
