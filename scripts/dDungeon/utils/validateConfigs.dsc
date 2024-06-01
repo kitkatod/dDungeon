@@ -73,6 +73,6 @@ dd_ValidateConfigs:
                         - narrate "<red>[dDungeon] Schematic Section Configuration Error, Configured Loot Table not found (<[lootTableName]>) in (<[fileName]>)" targets:<server.online_ops>
 
     - if <[outOfDateSchematics]> > 0:
-        - narrate "<red>[dDungeon] There are Schematic Data files out of date. Consider resaving schematics to update format."
+        - narrate "<red>[dDungeon] There are <[outOfDateSchematics]> Schematic Data files out of date. Consider resaving schematics to update format."
 
     - narrate "<gold>[dDungeon] Validation Finished"
