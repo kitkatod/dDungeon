@@ -26,7 +26,7 @@ dd_Generation_ReportSectionCounts:
         - define msg "Success:<[data.success]> Fail:<[data.fail]> Section:<[data.category]>/<[data.type]>/<[data.name]>"
         - debug LOG "[dDungeon] <[msg]>"
 
-    - define reportServerUrl <script[dd_Config].data_key[report_server_url].if_null[null]>
+    - define reportServerUrl <script[dd_Config].data_key[report_server_url].parsed.if_null[null]>
     - if <[reportServerUrl]> != null:
         - definemap webData BeginDateTime:<[world].flag[dd_startTime].format[yyyy-MM-dd hh:mm:ss].replace[ ].with[T]> EndDateTime:<util.time_now.format[yyyy-MM-dd hh:mm:ss].replace[ ].with[T]> Sections:<[dataList]>
         - define url <[reportServerUrl]>/GenerationData/LogData?serverId=<server.flag[dd_server_id]>&generationId=<[world].flag[dd_generation_id]>
