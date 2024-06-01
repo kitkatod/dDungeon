@@ -107,6 +107,8 @@ dd_Create:
         - flag <[world]> "dd_currentGenerationStep:Backfilling Sections"
         - ~run dd_BackfillSections def.world:<[world]> def.material:<[dungeonSettings.backfill_dungeon_material].if_null[stone]>
 
+    #Report section counts
+    - ~run dd_Generation_ReportSectionCounts def.world:<[world]>
 
     #Bulk backfill space outside dungeon
     - if <[dungeonSettings.backfill_dungeon].if_null[true]>:

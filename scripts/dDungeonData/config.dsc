@@ -13,6 +13,10 @@ dd_Config:
     - dd_spawner
     - dd_fakeBlock
 
+    #Base path for report server
+    #null to disable reporting server data feed
+    report_server_url: null
+
     #Settings used by scripts to hide/show debugging information
     debugging:
         #Whether to output to user creating a dungeon when Schematic Placement Validation Fails for a specific reason
