@@ -6,7 +6,7 @@
 ##          ***
 ##          It's probably wise to take a backup of the "/plugins/Denizen/schematics/dDungeon" directory before running this.
 dd_ResaveAllSchematics:
-    debug: true
+    debug: false
     type: task
     script:
     #Get list of all files
