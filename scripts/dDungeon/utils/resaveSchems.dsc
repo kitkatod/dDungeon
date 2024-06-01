@@ -20,14 +20,14 @@ dd_ResaveAllSchematics:
             - foreach <proc[dd_GetFilesList].context[<[category]>|<[type]>]> as:file:
                 - define fileList:->:<[file]>
 
-    - narrate "<blue> Processing <[fileList].size> files..."
+    - narrate "<blue>[dDungeon] Processing <[fileList].size> files..."
 
     #Load each schematic and resave it
     - while !<[fileList].is_empty>:
         #Get next file
         - define file <[fileList].first>
         - define fileList:<-:<[file]>
-        - narrate "<n><blue> *** <[file]>"
+        - narrate "<n><blue>[dDungeon] *** <[file]>"
 
         #Create a temporary world for the schematic
         - define worldName tmp_fixerworld_<util.random_uuid.replace[-]>
@@ -73,8 +73,8 @@ dd_ResaveAllSchematics:
 
         #Wait until world is destroyed
         - waituntil <server.worlds.parse_tag[<[parse_value].name>].contains[<[worldName]>].not> max:30s rate:10t
-        - narrate "<blue>    World Destroyed.<n>"
+        - narrate "<blue>[dDungeon] World Destroyed.<n>"
         - wait 10t
 
     #Process is done.
-    - narrate "<blue> All schematics have been resaved."
+    - narrate "<blue>[dDungeon] All schematics have been resaved."
