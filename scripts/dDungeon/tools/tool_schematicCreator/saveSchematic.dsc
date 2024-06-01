@@ -8,6 +8,7 @@ dd_SchematicEditor_SaveSchematic:
 
     - define optionsBlockData <[optionsLoc].flag[dd_SectionOptions]>
     - define optionsBlockData.schematic_data_version <script[dd_ValidateConfigs].data_key[data.dd_schematic_data_version].if_null[1.0]>
+    - define optionsBlockData.schematic_id <util.random_uuid>
 
     - if <[optionsBlockData.readonly].if_null[false]>:
         - narrate "<red> *** Whoah!! It looks like you're trying to save a Dungeon Section that was generated as part of a Dungeon."
