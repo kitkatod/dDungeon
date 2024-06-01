@@ -3,7 +3,7 @@ dd_ValidateConfigs:
     type: task
     data:
         dd_version: 1.2.0
-        dd_schematic_data_version: 1.0
+        dd_schematic_data_version: 1.1
     script:
     #Show version
     - narrate "<gold>[dDungeon] Running Validation. v<script.data_key[data.dd_version]>"
