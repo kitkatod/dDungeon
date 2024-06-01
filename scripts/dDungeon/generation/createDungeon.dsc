@@ -53,6 +53,7 @@ dd_Create:
     - flag <[world]> dd_spawnerLocs:<list[]>
     - flag <[world]> dd_sectionCount:1
     - flag <[world]> dd_inventoryCount:0
+    - flag <[world]> dd_generation_id:<util.random_uuid>
 
     #Do basic setup of new world
     - run dd_SetupAttributeModifiers def.world:<[world]>
