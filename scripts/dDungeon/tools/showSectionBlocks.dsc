@@ -8,6 +8,11 @@ dd_ShowSectionBlocks_Events:
         - foreach <[users]> as:user:
             - ~run dd_ShowSectionBlocks_Player def.user:<[user]>
 
+        #Remove selected section flag when changing worlds
+        after player teleports flagged:dd_SchematicEditor_selectedOptionsLocation:
+        - if <context.origin.world.name> != <context.destination.world.name>:
+            - flag <player> dd_SchematicEditor_selectedOptionsLocation:!
+
 dd_ShowSectionBlocks_Player:
     debug: false
     type: task
