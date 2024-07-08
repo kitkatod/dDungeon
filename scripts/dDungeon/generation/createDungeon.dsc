@@ -54,6 +54,7 @@ dd_Create:
     - flag <[world]> dd_sectionCount:1
     - flag <[world]> dd_inventoryCount:0
     - flag <[world]> dd_generation_id:<util.random_uuid>
+    - flag <[world]> dd_spawnerLocs:<list[]>
 
     #Do basic setup of new world
     - run dd_SetupAttributeModifiers def.world:<[world]>
@@ -127,15 +128,6 @@ dd_Create:
     #Prepare world for player use
     - flag <[world]> dd_area:<cuboid[<[world].name>_dcarea]>
     - flag <[world]> dd_allowSpawning:true
-    - flag <[world]> dd_spawnerLocs:<list[]>
-
-    #Get references to all dungeon spawners
-    - foreach <[world].flag[dd_area].blocks_flagged[dd_spawner]> as:spawnerLoc:
-        - flag <[spawnerLoc]> dd_spawner.currentBank:<[spawnerLoc].flag[dd_spawner.bank]>
-        - flag <[spawnerLoc]> dd_spawner.bossbarId:<util.random_uuid>
-        - flag <[spawnerLoc]> dd_spawner.currentlySpawnedPoints:0
-        - flag <[spawnerLoc]> dd_spawner.bossbarPlayers:<list[]>
-        - flag <[world]> dd_spawnerLocs:->:<[spawnerLoc]>
 
     #Cleanup any remaining data
     - ~run dd_SectionDataCache_Unload def.world:<[world]>

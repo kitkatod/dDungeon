@@ -52,6 +52,9 @@ dd_Create_SpawnRoom:
     - ~run dd_StandardSectionModifiers_SetupFakeBlocks def.area:<[cuboid]>
     - ~run dd_StandardSectionModifiers_ChangeAirToCaveair def.area:<[cuboid]>
 
+    #Setup spawners
+    - ~run dd_StandardSectionModifiers_SetupSectionSpawners def.area:<[cuboid]>
+
     #Save noted area of entire dungeon
     - note <[cuboid]> as:<[world].name>_dcarea
 

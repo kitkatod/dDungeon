@@ -235,6 +235,9 @@ dd_ProcessNextSection:
                     - ~run dd_StandardSectionModifiers_SetupFakeBlocks def.area:<[cuboid]>
                     - ~run dd_StandardSectionModifiers_ChangeAirToCaveair def.area:<[cuboid]>
 
+                    #Setup spawners
+                    - ~run dd_StandardSectionModifiers_SetupSectionSpawners def.area:<[cuboid]>
+
                     #Queue other pathways from this section
                     - ~run dd_QueuePathways def.loc:<[pasteLoc]> def.sectionOptions:<[testOptions]> def.buildVariables:<[buildVariables]>
 
