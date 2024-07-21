@@ -23,6 +23,15 @@ dd_SchematicEditor_SaveSchematic:
 
     - define cuboid <[pos1].to_cuboid[<[pos2]>]>
 
+    #Save size of schematic to yml file - will be used during generation for determining validation parameters
+    - define optionsBlockData.height <[cuboid].size.y>
+    - if <[cuboid].size.x> < <[cuboid].size.z>:
+        - define optionsBlockData.min_width <[cuboid].size.x>
+        - define optionsBlockData.max_width <[cuboid].size.z>
+    - else:
+        - define optionsBlockData.min_width <[cuboid].size.z>
+        - define optionsBlockData.max_width <[cuboid].size.x>
+
     #Reset any previous flags that were saved
     - define optionsBlockData.flags:!
 
