@@ -9,8 +9,6 @@ dd_Generation_ReportSectionGeneration:
 
     - if !<[world].exists>:
         - stop
-    - if !<[world].has_flag[dd_section_counter]>:
-        - stop
 
     - define generationId <[world].flag[dd_generation_id].if_null[null]>
     - if <[generationId]> == null:
