@@ -64,31 +64,37 @@ dd_Validate_SchematicPasteLocation:
 dd_Validate_NextPathways:
     debug: false
     type: procedure
-    definitions: sectionData|pasteOrigin|selectedPathwayKey
+    definitions: sectionData|pasteOrigin|selectedPathwayKey|hallwayType
     script:
+    - define world <[pasteOrigin].world>
+    - define height <[world].flag[dd_sections.<[sectionData.category]>.hallway_<[hallwayType]>.pathway_validation_height].if_null[6]>
+    - define width <[world].flag[dd_sections.<[sectionData.category]>.hallway_<[hallwayType]>.pathway_validation_width_flat].if_null[6]>
+
     - foreach <[sectionData.pathways]> as:pathData key:offset:
         - if <[offset]> == <[selectedPathwayKey]>:
             - foreach next
         - define pathLoc <[pasteOrigin].add[<[offset]>].add[<[pathData.direction]>]>
         #Get two cuboid corners of the area "in front" of the pathway depending on direction
         - if <[pathData.direction].y> > 0:
-            - define pos1 <location[3,0,3]>
-            - define pos2 <location[-3,5,-3]>
+            - define width <[world].flag[dd_sections.<[sectionData.category]>.hallway_<[hallwayType]>.pathway_validation_width_down].if_null[6]>
+            - define pos1 <location[<[width].mul[0.5]>,0,<[width].mul[0.5]>]>
+            - define pos2 <location[-<[width].mul[0.5]>,<[height]>,-<[width].mul[0.5]>]>
         - else if <[pathData.direction].y> < 0:
-            - define pos1 <location[3,0,3]>
-            - define pos2 <location[-3,-5,-3]>
+            - define width <[world].flag[dd_sections.<[sectionData.category]>.hallway_<[hallwayType]>.pathway_validation_width_down].if_null[6]>
+            - define pos1 <location[<[width].mul[0.5]>,0,<[width].mul[0.5]>]>
+            - define pos2 <location[-<[width].mul[0.5]>,-<[height]>,-<[width].mul[0.5]>]>
         - else if <[pathData.direction].x> > 0:
-            - define pos1 <location[0,-2,-6]>
-            - define pos2 <location[6,6,6]>
+            - define pos1 <location[0,-2,-<[width].mul[0.5]>]>
+            - define pos2 <location[<[width]>,<[height]>,<[width].mul[0.5]>]>
         - else if <[pathData.direction].x> < 0:
-            - define pos1 <location[0,-2,-6]>
-            - define pos2 <location[-6,6,6]>
+            - define pos1 <location[0,-2,-<[width].mul[0.5]>]>
+            - define pos2 <location[-<[width]>,<[height]>,<[width].mul[0.5]>]>
         - else if <[pathData.direction].z> > 0:
-            - define pos1 <location[-6,-2,0]>
-            - define pos2 <location[6,6,6]>
+            - define pos1 <location[-<[width].mul[0.5]>,-2,0]>
+            - define pos2 <location[<[width].mul[0.5]>,<[height]>,<[width]>]>
         - else if <[pathData.direction].z> < 0:
-            - define pos1 <location[-6,-2,0]>
-            - define pos2 <location[6,6,-6]>
+            - define pos1 <location[-<[width].mul[0.5]>,-2,0]>
+            - define pos2 <location[<[width].mul[0.5]>,<[height]>,-<[width]>]>
 
         #Check if the area in "front" of the pathways would be blocked
         - define cuboid <[pathLoc].add[<[pos1]>].to_cuboid[<[pathLoc].add[<[pos2]>]>]>

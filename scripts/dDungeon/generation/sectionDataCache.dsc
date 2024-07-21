@@ -11,6 +11,13 @@ dd_SectionDataCache_Prepare:
         - define sectionList <util.list_files[schematics/dDungeon/<[category]>/<[type]>]>
         - if <[sectionList].is_empty>:
             - foreach next
+
+        #List of height/widths of sections in each type. Will be used to determine a validation area size for proc[dd_Validate_NextPathways]
+        - define typeHeights <list[]>
+        - define typeMinWidths_Up <list[]>
+        - define typeMinWidths_Down <list[]>
+        - define typeMinWidths_Flat <list[]>
+
         - foreach <[sectionList]> as:name:
             #Skip non-YAML files
             - if !<[name].ends_with[.yml]>:
@@ -33,6 +40,28 @@ dd_SectionDataCache_Prepare:
                 - if <[pathOptions.allowIncoming].if_null[true]>:
                     - define pathDirectionList:->:<[pathOptions.direction].round>
             - define sectionOptions.pathway_directions <[pathDirectionList].deduplicate>
+
+
+            #Get MinWidths and Hight for section based on if the section has an up/down/horizontal facing incoming pathway connection
+            - define hasUp false
+            - define hasDown false
+            - define hasStraight false
+
+            - if <[sectionOptions.pathway_directions].filter_tag[<[filter_value].y.is_more_than[0]>].any>:
+                - define hasUp true
+            - if <[sectionOptions.pathway_directions].filter_tag[<[filter_value].y.is_less_than[0]>].any>:
+                - define hasDown true
+            - if <[sectionOptions.pathway_directions].filter_tag[<[filter_value].y.equals[0]>].any>:
+                - define hasStraight true
+
+            - if <[hasUp]> || <[hasDown]> || <[hasStraight]>:
+                - define typeHeights:->:<[sectionOptions.height].if_null[0]>
+            - if <[hasUp]>:
+                - define typeMinWidths_Up:->:<[sectionOptions.min_width].if_null[0]>
+            - if <[hasDown]>:
+                - define typeMinWidths_Down:->:<[sectionOptions.min_width].if_null[0]>
+            - if <[hasStraight]>:
+                - define typeMinWidths_Flat:->:<[sectionOptions.min_width].if_null[0]>
 
             #Save the (mostly) untouched data to the world
             - flag <[world]> dd_sectionData.<[category]>.<[type]>.<[name].before[.yml]>:<[sectionOptions]>
@@ -58,6 +87,19 @@ dd_SectionDataCache_Prepare:
             - define runningSum:+:<[world].flag[dd_sections.<[category]>.<[type]>.<[nameGroup]>.weight]>
             - flag <[world]> dd_sections.<[category]>.<[type]>.<[nameGroup]>.weight_target:<[runningSum]>
         - flag <[world]> dd_sections.<[category]>.<[type]>.total_weight:<[runningSum]>
+
+        #Determine target validation size for up/down/horizontal pathways in this section type
+        #1: Order Lists
+        #2: Pick a value that will cover enough schematics in this type
+        - define typeHeights <[typeHeights].numerical>
+        - define typeMinWidths_Up <[typeMinWidths_Up].numerical>
+        - define typeMinWidths_Down <[typeMinWidths_Down].numerical>
+        - define typeMinWidths_Flat <[typeMinWidths_Flat].numerical>
+
+        - flag <[world]> dd_sections.<[category]>.<[type]>.pathway_validation_height:<[typeHeights].get[<[typeHeights].size.mul[0.5].round_up.if_null[0]>].if_null[6]>
+        - flag <[world]> dd_sections.<[category]>.<[type]>.pathway_validation_width_up:<[typeMinWidths_Up].get[<[typeMinWidths_Up].size.mul[0.5].round_up.if_null[0]>].if_null[3]>
+        - flag <[world]> dd_sections.<[category]>.<[type]>.pathway_validation_width_down:<[typeMinWidths_Down].get[<[typeMinWidths_Down].size.mul[0.5].round_up.if_null[0]>].if_null[3]>
+        - flag <[world]> dd_sections.<[category]>.<[type]>.pathway_validation_width_flat:<[typeMinWidths_Flat].get[<[typeMinWidths_Flat].size.mul[0.5].round_up.if_null[0]>].if_null[6]>
 
 
     #Target Structure

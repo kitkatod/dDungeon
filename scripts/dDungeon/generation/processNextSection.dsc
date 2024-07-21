@@ -163,7 +163,7 @@ dd_ProcessNextSection:
                         - ~run dd_Generation_ReportAddAttemptData def.world:<[world]> def.type:<[targetType]> def.name:<[targetSection]> def.angle:<[transform.angle]> def.flipped:<[transform.flip]> "def.failReason:Mismatch pathway direction"
                         - while next
 
-                    - if !<[testOptions].proc[dd_Validate_NextPathways].context[<[pasteLoc]>|<[testPathwayKey]>]>:
+                    - if !<[testOptions].proc[dd_Validate_NextPathways].context[<[pasteLoc]>|<[testPathwayKey]>|<[buildVariables.hallwayType]>]>:
                         - if <[debugConfig.output_failed_validation_next_pathways].if_null[false]>:
                             - clickable dd_Clickable_Teleport def.loc:<[nextSectionLoc]> until:10m save:clickLoc
                             - narrate "(name:<[testOptions.name]> flip:<[transform.flip]> rotate:<[transform.angle]>) Failed: Next Pathways Check<reset> ([<element[TP TO LOC].on_click[<entry[clickLoc].command>].on_hover[<[nextSectionLoc]>]>])"
