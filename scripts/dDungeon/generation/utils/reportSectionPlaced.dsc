@@ -1,7 +1,7 @@
 dd_Generation_ReportSectionGeneration:
     debug: false
     type: task
-    definitions: world|generationData|generationSectionId
+    definitions: world|generationData|generationSectionId|previousGenerationSectionId
     script:
     - define reportServerUrl <script[dd_Config].data_key[report_server_url].parsed.if_null[disable]>
     - if <[reportServerUrl].starts_with[disable]>:
@@ -15,6 +15,8 @@ dd_Generation_ReportSectionGeneration:
         - stop
 
     - definemap webData AttemptData:<[generationData]> GenerationSectionId:<[generationSectionId]>
+    - if <[previousGenerationSectionId].exists> && <[previousGenerationSectionId]> != null:
+        - define webData.PreviousGenerationSectionId <[previousGenerationSectionId]>
 
     - define url <[reportServerUrl]>/GenerationData/SectionPlaced?generationId=<[generationId]>
     - webget <[url]> method:POST data:<[webData].to_json[native_types=true]> save:webcall headers:<map[content-type=application/json]>
@@ -72,15 +74,15 @@ dd_Generation_ReportGenerationFinish:
 dd_Generation_ReportAddAttemptData:
     debug: false
     type: task
-    definitions: world|type|name|angle|flipped|failReason
+    definitions: world|sectionData|angle|flipped|failReason
     script:
-    - definemap data Type:<[type]> Name:<[name]> RotateAngle:<[angle]> Flipped:<[flipped]> ValidationFailReason:<[failReason]> DateTime:<util.time_now.format[yyyy-MM-dd hh:mm:ss.SSS].replace[ ].with[T]>
+    - definemap data SectionId:<[sectionData.schematic_id]> Type:<[sectionData.type]> Name:<[sectionData.name]> RotateAngle:<[angle]> Flipped:<[flipped]> ValidationFailReason:<[failReason]> DateTime:<util.time_now.format[yyyy-MM-dd hh:mm:ss.SSS].replace[ ].with[T]>
     - flag <[world]> dd_sectionGenerationData:->:<[data]>
 
 dd_Generation_ReportAddPlacedData:
     debug: false
     type: task
-    definitions: world|type|name|angle|flipped
+    definitions: world|sectionData|angle|flipped
     script:
-    - definemap data Type:<[type]> Name:<[name]> RotateAngle:<[angle]> Flipped:<[flipped]> DateTime:<util.time_now.format[yyyy-MM-dd hh:mm:ss.SSS].replace[ ].with[T]>
+    - definemap data SectionId:<[sectionData.schematic_id]> Type:<[sectionData.type]> Name:<[sectionData.name]> RotateAngle:<[angle]> Flipped:<[flipped]> DateTime:<util.time_now.format[yyyy-MM-dd hh:mm:ss.SSS].replace[ ].with[T]>
     - flag <[world]> dd_sectionGenerationData:->:<[data]>

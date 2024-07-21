@@ -98,13 +98,13 @@ dd_ProcessNextSection:
             # - clickable dd_Clickable_Teleport def.loc:<[nextSectionLoc]> until:10m save:clickLoc
             # - narrate "Trying <[targetType]>, <[targetSection]> at <gold><element[LOC].on_click[<entry[clickLoc].command>]>"
 
-            #Check if the previous section was the exact same file - if so, skip it
-            - if <[buildVariables.lastSuccessful]||null> == <[targetSection]> && <[previousType]||null> == <[targetType]>:
-                - ~run dd_Generation_ReportAddAttemptData def.world:<[world]> def.type:<[targetType]> def.name:<[targetSection]> def.angle:0 def.flipped:false "def.failReason:Matched previous section"
-                - while next
-
             #Load the schematic's data file (not the schematic yet)
             - define schemOptions <[world].flag[dd_sectionData.<[category]>.<[targetType]>.<[targetSection]>]>
+
+            #Check if the previous section was the exact same file - if so, skip it
+            - if <[buildVariables.lastSuccessful]||null> == <[targetSection]> && <[previousType]||null> == <[targetType]>:
+                - ~run dd_Generation_ReportAddAttemptData def.world:<[world]> def.sectionData:<[schemOptions]> def.angle:0 def.flipped:false "def.failReason:Matched previous section"
+                - while next
 
             #Check things that don't involve loading the schematic (for speeeeed)
             #Check max per dungeon counts
@@ -115,7 +115,7 @@ dd_ProcessNextSection:
                     - if <[debugConfig.output_failed_validation_max_occurrences].if_null[false]>:
                         - narrate "(name:<[schemOptions.name]>) Failed: reached max occurrences"
                         - debug LOG "(dDungeon) (name:<[schemOptions.name]>) Failed: reached max occurrences"
-                    - ~run dd_Generation_ReportAddAttemptData def.world:<[world]> def.type:<[targetType]> def.name:<[targetSection]> def.angle:0 def.flipped:false "def.failReason:Max Occurrences"
+                    - ~run dd_Generation_ReportAddAttemptData def.world:<[world]> def.sectionData:<[schemOptions]> def.angle:0 def.flipped:false "def.failReason:Max Occurrences"
                     - while next
 
             #Try different flipping/rotating. Proc will determine what combinations would even potentially work based on bathway combinations.
@@ -144,7 +144,7 @@ dd_ProcessNextSection:
                             - clickable dd_Clickable_Teleport def.loc:<[nextSectionLoc]> until:10m save:clickLoc
                             - narrate "(name:<[testOptions.name]> flip:<[transform.flip]> rotate:<[transform.angle]>) Failed: Pathway allows incoming<reset> ([<element[TP TO LOC].on_click[<entry[clickLoc].command>].on_hover[<[nextSectionLoc]>]>])"
                             - debug LOG "(dDungeon) (name:<[testOptions.name]> flip:<[transform.flip]> rotate:<[transform.angle]>) Failed: Pathway allows incoming (<[nextSectionLoc]>)"
-                        - ~run dd_Generation_ReportAddAttemptData def.world:<[world]> def.type:<[targetType]> def.name:<[targetSection]> def.angle:<[transform.angle]> def.flipped:<[transform.flip]> "def.failReason:Pathway disallows incoming connection"
+                        - ~run dd_Generation_ReportAddAttemptData def.world:<[world]> def.sectionData:<[testOptions]> def.angle:<[transform.angle]> def.flipped:<[transform.flip]> "def.failReason:Pathway disallows incoming connection"
                         - while next
 
                     - if !<[testOptions].proc[dd_Validate_WithinWorld].context[<[pasteLoc]>]>:
@@ -152,7 +152,7 @@ dd_ProcessNextSection:
                             - clickable dd_Clickable_Teleport def.loc:<[nextSectionLoc]> until:10m save:clickLoc
                             - narrate "(name:<[testOptions.name]> flip:<[transform.flip]> rotate:<[transform.angle]>) Failed: Within World Check<reset> ([<element[TP TO LOC].on_click[<entry[clickLoc].command>].on_hover[<[nextSectionLoc]>]>])"
                             - debug LOG "(dDungeon) (name:<[testOptions.name]> flip:<[transform.flip]> rotate:<[transform.angle]>) Failed: Within World Check (<[nextSectionLoc]>)"
-                        - ~run dd_Generation_ReportAddAttemptData def.world:<[world]> def.type:<[targetType]> def.name:<[targetSection]> def.angle:<[transform.angle]> def.flipped:<[transform.flip]> "def.failReason:Outside build area"
+                        - ~run dd_Generation_ReportAddAttemptData def.world:<[world]> def.sectionData:<[testOptions]> def.angle:<[transform.angle]> def.flipped:<[transform.flip]> "def.failReason:Outside build area"
                         - while next
 
                     - if !<[pathOptions.direction].proc[dd_Validate_MatchingPathways].context[<[testPathwayOptions.direction]>]>:
@@ -160,7 +160,7 @@ dd_ProcessNextSection:
                             - clickable dd_Clickable_Teleport def.loc:<[nextSectionLoc]> until:10m save:clickLoc
                             - narrate "(name:<[testOptions.name]> flip:<[transform.flip]> rotate:<[transform.angle]>) Failed: Matching Pathways ([<element[TP TO LOC].on_click[<entry[clickLoc].command>].on_hover[<[nextSectionLoc]>]>])"
                             - debug LOG "(dDungeon) (name:<[testOptions.name]> flip:<[transform.flip]> rotate:<[transform.angle]>) Failed: Matching Pathways (<[nextSectionLoc]>)"
-                        - ~run dd_Generation_ReportAddAttemptData def.world:<[world]> def.type:<[targetType]> def.name:<[targetSection]> def.angle:<[transform.angle]> def.flipped:<[transform.flip]> "def.failReason:Mismatch pathway direction"
+                        - ~run dd_Generation_ReportAddAttemptData def.world:<[world]> def.sectionData:<[testOptions]> def.angle:<[transform.angle]> def.flipped:<[transform.flip]> "def.failReason:Mismatch pathway direction"
                         - while next
 
                     - if !<[testOptions].proc[dd_Validate_NextPathways].context[<[pasteLoc]>|<[testPathwayKey]>|<[buildVariables.hallwayType]>]>:
@@ -168,7 +168,7 @@ dd_ProcessNextSection:
                             - clickable dd_Clickable_Teleport def.loc:<[nextSectionLoc]> until:10m save:clickLoc
                             - narrate "(name:<[testOptions.name]> flip:<[transform.flip]> rotate:<[transform.angle]>) Failed: Next Pathways Check<reset> ([<element[TP TO LOC].on_click[<entry[clickLoc].command>].on_hover[<[nextSectionLoc]>]>])"
                             - debug LOG "(dDungeon) (name:<[testOptions.name]> flip:<[transform.flip]> rotate:<[transform.angle]>) Failed: Next Pathways Check (<[nextSectionLoc]>)"
-                        - ~run dd_Generation_ReportAddAttemptData def.world:<[world]> def.type:<[targetType]> def.name:<[targetSection]> def.angle:<[transform.angle]> def.flipped:<[transform.flip]> "def.failReason:Next pathway overlaps existing section"
+                        - ~run dd_Generation_ReportAddAttemptData def.world:<[world]> def.sectionData:<[testOptions]> def.angle:<[transform.angle]> def.flipped:<[transform.flip]> "def.failReason:Next pathway overlaps existing section"
                         - while next
 
                     # - if !<[previousType].proc[dd_Validate_MatchingHallwayType].context[<[testPathwayOptions.hallwayType].if_null[default]>]>:
@@ -187,16 +187,16 @@ dd_ProcessNextSection:
                             - narrate "(name:<[testOptions.name]> flip:<[transform.flip]> rotate:<[transform.angle]>) Failed: Overlapping Failure ([<element[TP TO LOC].on_click[<entry[clickLoc].command>].on_hover[<[nextSectionLoc]>]>])"
                             - debug LOG "(dDungeon) (name:<[testOptions.name]> flip:<[transform.flip]> rotate:<[transform.angle]>) Failed: Overlapping Failure (<[nextSectionLoc]>)"
                         - ~run dd_Schematic_UndoOrientation def.schemPath:<[targetSectionSchemPath]> def.flip:<[transform.flip]> def.rotation:<[transform.angle]>
-                        - ~run dd_Generation_ReportAddAttemptData def.world:<[world]> def.type:<[targetType]> def.name:<[targetSection]> def.angle:<[transform.angle]> def.flipped:<[transform.flip]> "def.failReason:Section would overlap"
+                        - ~run dd_Generation_ReportAddAttemptData def.world:<[world]> def.sectionData:<[testOptions]> def.angle:<[transform.angle]> def.flipped:<[transform.flip]> "def.failReason:Section would overlap"
                         - while next
-
 
                     #Wooooo!
                     - define sectionFound true
                     - define buildVariables.lastSuccessful <[targetSection]>
+                    - define buildVariables.lastSuccessfulSectionGenerationId <[sectionGenerationId]>
 
                     #Add found section data to report list
-                    - ~run dd_Generation_ReportAddPlacedData def.world:<[world]> def.type:<[targetType]> def.name:<[targetSection]> def.angle:<[transform.angle]> def.flipped:<[transform.flip]>
+                    - ~run dd_Generation_ReportAddPlacedData def.world:<[world]> def.sectionData:<[testOptions]> def.angle:<[transform.angle]> def.flipped:<[transform.flip]>
 
                     #Print debug info if enabled
                     - if <[debugConfig.output_successful_section_placed].if_null[false]>:
@@ -257,5 +257,5 @@ dd_ProcessNextSection:
                     #Queue inventories to be processed later
                     - ~run dd_QueueInventories def.loc:<[pasteLoc]> def.sectionOptions:<[testOptions]>
 
-    - run dd_Generation_ReportSectionGeneration def.world:<[world]> def.generationData:<[world].flag[dd_sectionGenerationData]> def.generationSectionId:<[sectionGenerationId]>
+    - run dd_Generation_ReportSectionGeneration def.world:<[world]> def.generationData:<[world].flag[dd_sectionGenerationData]> def.generationSectionId:<[sectionGenerationId]> def.previousGenerationSectionId:<[buildVariables.lastSuccessfulSectionGenerationId]>
     - flag <[world]> dd_sectionGenerationData:<list[]>

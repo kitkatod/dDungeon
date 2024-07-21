@@ -5,6 +5,7 @@ dd_StartingBuildVariables:
     - define map <map[]>
     - define map.hallwaysRemaining 0
     - define map.hallwayType default
+    - define map.lastSuccessfulSectionGenerationId null
     #- define map.turnChanceOffset -50
     #- define map.deadEndChance -10
     #- define map.nextRoomType
