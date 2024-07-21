@@ -74,8 +74,17 @@ dd_Create_SpawnRoom:
     - note <[dungeonExitArea]> as:dd_exitArea_<[world].name>
     - flag <cuboid[dd_exitArea_<[world].name>]> dd_exitArea
 
+    #Starting build variables
+    - define buildVariables <proc[dd_StartingBuildVariables]>
+    - define buildVariables.lastSuccessfulSectionGenerationId <util.random_uuid>
+
     #Queue pathways off of spawn area
-    - ~run dd_QueuePathways def.loc:<[loc]> def.sectionOptions:<[sectionOptions]>
+    - ~run dd_QueuePathways def.loc:<[loc]> def.sectionOptions:<[sectionOptions]> def.buildVariables:<[buildVariables]>
 
     #Queue inventories in spawn area
     - ~run dd_QueueInventories def.loc:<[loc]> def.sectionOptions:<[sectionOptions]>
+
+    #Run reporting for spawn room section
+    - ~run dd_Generation_ReportAddPlacedData def.world:<[world]> def.sectionData:<[sectionOptions]> def.angle:0 def.flipped:<[flip]>
+    - run dd_Generation_ReportSectionGeneration def.world:<[world]> def.generationData:<[world].flag[dd_sectionGenerationData]> def.generationSectionId:<[buildVariables.lastSuccessfulSectionGenerationId]>
+    - flag <[world]> dd_sectionGenerationData:<list[]>
