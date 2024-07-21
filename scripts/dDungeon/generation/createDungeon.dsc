@@ -55,6 +55,7 @@ dd_Create:
     - flag <[world]> dd_inventoryCount:0
     - flag <[world]> dd_generation_id:<util.random_uuid>
     - flag <[world]> dd_spawnerLocs:<list[]>
+    - flag <[world]> dd_sectionGenerationData:<list[]>
 
     #Do basic setup of new world
     - run dd_SetupAttributeModifiers def.world:<[world]>
@@ -83,6 +84,9 @@ dd_Create:
         - ~modifyblock <[backfillCuboid]> <[dungeonSettings.backfill_dungeon_material].if_null[stone]>
         - ~schematic create name:dd_worldbackfill_<[world].name> <[backfillCuboid].min> area:<[backfillCuboid]>
         - ~modifyblock <[backfillCuboid]> air
+
+    #Report generation start
+    - ~run dd_Generation_ReportGenerationStart def.world:<[world]> def.category:<[dungeonSettings.category]>
 
     #Place a Spawn Room
     - ~run dd_Create_SpawnRoom def.world:<[world]>
@@ -121,6 +125,9 @@ dd_Create:
     #Announce stats
     - announce "<gold> *** Placed <[world].flag[dd_sectionCount]> sections"
     - announce "<gold> *** Rolled loot for <[world].flag[dd_inventoryCount]> inventories"
+
+    #Report generation finish
+    - run dd_Generation_ReportGenerationFinish def.world:<[world]>
 
     #Prepare world for player use
     - flag <[world]> dd_area:<cuboid[<[world].name>_dcarea]>
