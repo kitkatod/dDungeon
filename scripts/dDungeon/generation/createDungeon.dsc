@@ -9,12 +9,14 @@ dd_Create:
 
     - if !<[dungeonKey].exists>:
         - narrate "<red> *** ERROR: dungeonKey was not supplied"
+        - debug ERROR "[dDungeon] - dungeonKey was not supplied and is required"
         - stop
 
     #Wipe existing dungeon world if it exists
     - if <server.flag[dd_DungeonWorlds.<[dungeonKey]>].exists>:
         - define currentWorld <server.flag[dd_DungeonWorlds.<[dungeonKey]>].as[world]>
-        - narrate "<red> *** Destroying existing <[currentWorld].name> world"
+        - if <[monitor]>:
+            - narrate "<red> *** Destroying existing <[currentWorld].name> world"
         - ~run dd_BreakdownWorld def.world:<[currentWorld]>
 
     #Get a new world name (making this dynamic due to some world internals still processing for some time after the world is destroyed for whatever reason...)
@@ -120,11 +122,13 @@ dd_Create:
         - ~run dd_ExitDungeon
         - ~run dd_BackfillWorld def.world:<[world]>
         - ~run dd_EnterDungeon def.dungeonKey:<[dungeonKey]> def.exitLocation:<player.location>
-        - announce "<gold> *** World backfilled in <util.time_now.duration_since[<[backfillStartTime]>].formatted>"
+        - if <[monitor]>:
+            - announce "<gold> *** World backfilled in <util.time_now.duration_since[<[backfillStartTime]>].formatted>"
 
     #Announce stats
-    - announce "<gold> *** Placed <[world].flag[dd_sectionCount]> sections"
-    - announce "<gold> *** Rolled loot for <[world].flag[dd_inventoryCount]> inventories"
+    - if <[monitor]>:
+        - announce "<gold> *** Placed <[world].flag[dd_sectionCount]> sections"
+        - announce "<gold> *** Rolled loot for <[world].flag[dd_inventoryCount]> inventories"
 
     #Report generation finish
     - run dd_Generation_ReportGenerationFinish def.world:<[world]>
@@ -140,7 +144,8 @@ dd_Create:
     - flag <[world]> dd_startTime:!
 
     #Announce completion
-    - announce "<gold> *** Dungeon Generation completed in <util.time_now.duration_since[<[startTime]>].formatted> "
+    - if <[monitor]>:
+        - announce "<gold> *** Dungeon Generation completed in <util.time_now.duration_since[<[startTime]>].formatted> "
 
     #Fire custom event for Dungeon Generation Complete
     - definemap context world:<[world]> dungeon_key:<[dungeonKey]> dungeon_category:<[dungeonSettings.category]>
