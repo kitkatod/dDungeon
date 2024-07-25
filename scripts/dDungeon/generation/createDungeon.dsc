@@ -94,8 +94,9 @@ dd_Create:
     - ~run dd_Create_SpawnRoom def.world:<[world]>
 
     #Move players into dungeon spawn
-    - define entrancePoint <[world].flag[dd_DungeonSettings.entrancePoint]>
-    - run dd_EnterDungeon def.dungeonKey:<[dungeonKey]> def.exitLocation:<player.location>
+    - if <[monitor]>:
+        - define entrancePoint <[world].flag[dd_DungeonSettings.entrancePoint]>
+        - run dd_EnterDungeon def.dungeonKey:<[dungeonKey]> def.exitLocation:<player.location>
 
     #Process all pathways
     - flag <[world]> "dd_currentGenerationStep:Processing Pathways"
@@ -119,10 +120,11 @@ dd_Create:
         - define backfillStartTime <util.time_now>
         - flag <[world]> "dd_currentGenerationStep:Backfilling World"
         #Kick player out of dungeon world while it generates real quick
-        - ~run dd_ExitDungeon
-        - ~run dd_BackfillWorld def.world:<[world]>
-        - ~run dd_EnterDungeon def.dungeonKey:<[dungeonKey]> def.exitLocation:<player.location>
         - if <[monitor]>:
+            - ~run dd_ExitDungeon
+        - ~run dd_BackfillWorld def.world:<[world]>
+        - if <[monitor]>:
+            - ~run dd_EnterDungeon def.dungeonKey:<[dungeonKey]> def.exitLocation:<player.location>
             - announce "<gold> *** World backfilled in <util.time_now.duration_since[<[backfillStartTime]>].formatted>"
 
     #Announce stats
