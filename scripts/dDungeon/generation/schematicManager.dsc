@@ -39,14 +39,14 @@ dd_Schematic_LoadAll:
 
     - define queueList <list[]>
     - foreach <util.list_files[schematics/dDungeon/<[category]>]> as:type:
-        #If we're spending too much time, wait a tick to slow down a bit
-        - if <util.time_now.duration_since[<[checkTime]>].in_milliseconds> >= 40:
-            - wait 1t
-            - define checkTime <util.time_now>
-
         - if <[type].starts_with[_]>:
             - foreach next
         - foreach <util.list_files[schematics/dDungeon/<[category]>/<[type]>]> as:file:
+            #If we're spending too much time, wait a tick to slow down a bit
+            - if <util.time_now.duration_since[<[checkTime]>].in_milliseconds> >= 40:
+                - wait 1t
+                - define checkTime <util.time_now>
+
             - if <[file].starts_with[_]> || !<[file].ends_with[.schem]>:
                 - foreach next
             - define schemPath <[category]>/<[type]>/<[file].before[.schem]>
