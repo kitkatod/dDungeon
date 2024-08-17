@@ -30,7 +30,7 @@ dd_BreakdownWorld:
     - note remove as:dd_exitArea_<[world].name>
 
     #Brief pause between cleaning up everything (mainly teleporting players, and allowing any dungeon mob spawning to finish) before destroying
-    - wait 2s
+    - wait 5s
 
     #Destroy the world
     - adjust <[world]> destroy
