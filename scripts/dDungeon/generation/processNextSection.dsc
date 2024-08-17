@@ -10,9 +10,6 @@ dd_ProcessNextSection:
     #Get config settings
     - define debugConfig <script[dd_Config].data_key[debugging].if_null[<map[]>]>
 
-    #Reporting id for section
-    - define sectionGenerationId <util.random_uuid>
-
     #Get objects from settings
     - define nextSectionLoc <[pathwayQueueSettings.pasteLoc]>
     - define buildVariables <[pathwayQueueSettings.buildVariables]>
@@ -22,6 +19,10 @@ dd_ProcessNextSection:
     - define category <[dungeonSettings.category]>
     - define sectionCountSoftCapReached <[dungeonSettings.section_count_soft_max].if_null[450].is_less_than_or_equal_to[<[world].flag[dd_sectionCount]>]>
     - define dungeonKey <[world].flag[dd_DungeonKey].if_null[null]>
+
+    #Reporting id for section
+    - define sectionGenerationId <util.random_uuid>
+    - define lastSuccessfulSectionGenerationId <[buildVariables.lastSuccessfulSectionGenerationId]>
 
     #Make sure the area is loaded incase we move far away from the origin
     - ~run dd_LoadAreaChunks def:<[nextSectionLoc].chunk>|4|15s
@@ -257,5 +258,5 @@ dd_ProcessNextSection:
                     #Queue inventories to be processed later
                     - ~run dd_QueueInventories def.loc:<[pasteLoc]> def.sectionOptions:<[testOptions]>
 
-    - run dd_Generation_ReportSectionGeneration def.world:<[world]> def.generationData:<[world].flag[dd_sectionGenerationData]> def.generationSectionId:<[sectionGenerationId]> def.previousGenerationSectionId:<[buildVariables.lastSuccessfulSectionGenerationId]>
+    - run dd_Generation_ReportSectionGeneration def.world:<[world]> def.generationData:<[world].flag[dd_sectionGenerationData]> def.generationSectionId:<[sectionGenerationId]> def.previousGenerationSectionId:<[lastSuccessfulSectionGenerationId]>
     - flag <[world]> dd_sectionGenerationData:<list[]>

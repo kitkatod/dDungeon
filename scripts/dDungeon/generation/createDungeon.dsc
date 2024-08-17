@@ -88,7 +88,7 @@ dd_Create:
         - ~modifyblock <[backfillCuboid]> air
 
     #Report generation start
-    - ~run dd_Generation_ReportGenerationStart def.world:<[world]> def.category:<[dungeonSettings.category]>
+    - ~run dd_Generation_ReportGenerationStart def.world:<[world]> def.category:<[dungeonSettings.category]> def.giveUrl:<[monitor]>
 
     #Place a Spawn Room
     - ~run dd_Create_SpawnRoom def.world:<[world]>
@@ -133,7 +133,7 @@ dd_Create:
         - announce "<gold> *** Rolled loot for <[world].flag[dd_inventoryCount]> inventories"
 
     #Report generation finish
-    - run dd_Generation_ReportGenerationFinish def.world:<[world]>
+    - run dd_Generation_ReportGenerationFinish def.world:<[world]> def.giveUrl:<[monitor]>
 
     #Prepare world for player use
     - flag <[world]> dd_area:<cuboid[<[world].name>_dcarea]>
