@@ -66,7 +66,7 @@ dd_Create:
     - adjust <[world]> time:18000
 
     #Run monitor task in background if it was requested
-    - if <[monitor].if_null[false]>:
+    - if <[monitor]>:
         - run dd_create_monitorgeneration def.world:<[world]> def.players:<player>
 
     #Start loading all schematics
