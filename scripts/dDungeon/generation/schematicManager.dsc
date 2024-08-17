@@ -3,31 +3,34 @@ dd_Schematic_Load:
     type: task
     definitions: world|schemPath
     script:
-    - if <schematic[<[schemPath]>].exists>:
+    - define schemName <[world].name>_<[schemPath]>
+    - if <schematic[<[schemName]>].exists>:
         - stop
     # - if <[world].flag[dd_loadedSchematics].contains_single[<[schemPath]>].if_null[false]>:
     #     - stop
-    - ~schematic load name:<[schemPath]> filename:dDungeon/<[schemPath]>
-    - flag <[world]> dd_loadedSchematics:->:<[schemPath]>
+    - ~schematic load name:<[schemName]> filename:dDungeon/<[schemPath]>
+    - flag <[world]> dd_loadedSchematics:->:<[schemName]>
 
 
 dd_Schematic_SetOrientation:
     debug: false
     type: task
-    definitions: schemPath|flip|rotation
+    definitions: world|schemPath|flip|rotation
     script:
+    - define schemName <[world].name>_<[schemPath]>
     - if <[flip]>:
-        - ~schematic flip_z name:<[schemPath]>
-    - ~schematic rotate name:<[schemPath]> angle:<[rotation]>
+        - ~schematic flip_z name:<[schemName]>
+    - ~schematic rotate name:<[schemName]> angle:<[rotation]>
 
 dd_Schematic_UndoOrientation:
     debug: false
     type: task
-    definitions: schemPath|flip|rotation
+    definitions: world|schemPath|flip|rotation
     script:
-    - ~schematic rotate name:<[schemPath]> angle:-<[rotation]>
+    - define schemName <[world].name>_<[schemPath]>
+    - ~schematic rotate name:<[schemName]> angle:-<[rotation]>
     - if <[flip]>:
-        - ~schematic flip_z name:<[schemPath]>
+        - ~schematic flip_z name:<[schemName]>
 
 dd_Schematic_LoadAll:
     debug: false

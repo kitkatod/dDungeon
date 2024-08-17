@@ -21,10 +21,10 @@ dd_Create_SpawnRoom:
     - define flip <util.random_boolean>
     - if <[flip]>:
         - define sectionOptions <[sectionOptions].proc[dd_Transform_FlipOverX]>
-        - ~run dd_Schematic_SetOrientation def.schemPath:<[sectionName]> def.flip:<[flip]> def.rotation:0
+        - ~run dd_Schematic_SetOrientation def.world:<[world]> def.schemPath:<[sectionName]> def.flip:<[flip]> def.rotation:0
 
     #Paste the spawn section and undo orientation
-    - ~schematic paste name:<[sectionName]> <[loc]>
+    - ~schematic paste name:<[world].name>_<[sectionName]> <[loc]>
 
     #Apply modified section options back to origin
     - flag <[loc]> dd_SectionOptions:<[sectionOptions]>
@@ -33,7 +33,7 @@ dd_Create_SpawnRoom:
     - flag <[loc]> dd_SectionOptions.readonly:true
 
     #Undo flip/rotate as needed. (Is this really needed for the Spawn Room?)
-    - ~run dd_Schematic_UndoOrientation def.schemPath:<[sectionName]> def.flip:<[flip]> def.rotation:0
+    - ~run dd_Schematic_UndoOrientation def.world:<[world]> def.schemPath:<[sectionName]> def.flip:<[flip]> def.rotation:0
 
     #Get area of pasted section, handle any post transforms
     - define cuboid <[loc].add[<[sectionOptions.pos1]>].to_cuboid[<[loc].add[<[sectionOptions.pos2]>]>]>

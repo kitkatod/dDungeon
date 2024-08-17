@@ -95,6 +95,7 @@ dd_ProcessNextSection:
             - define targetSection <[possibleSections].first>
             - define possibleSections:<-:<[targetSection]>
             - define targetSectionSchemPath <[category]>/<[targetType]>/<[targetSection]>
+            - define targetSectionSchemName <[world].name>_<[targetSectionSchemPath]>
 
             # - clickable dd_Clickable_Teleport def.loc:<[nextSectionLoc]> until:10m save:clickLoc
             # - narrate "Trying <[targetType]>, <[targetSection]> at <gold><element[LOC].on_click[<entry[clickLoc].command>]>"
@@ -180,14 +181,14 @@ dd_ProcessNextSection:
                     #Validations up until this point did not require the schematic to be loaded
                     #Load the schematic and run further validations
                     #Flip/Rotate as needed to match previous operations
-                    - ~run dd_Schematic_SetOrientation def.schemPath:<[targetSectionSchemPath]> def.flip:<[transform.flip]> def.rotation:<[transform.angle]>
+                    - ~run dd_Schematic_SetOrientation def.world:<[world]> def.schemPath:<[targetSectionSchemPath]> def.flip:<[transform.flip]> def.rotation:<[transform.angle]>
 
-                    - if !<proc[dd_Validate_SchematicPasteLocation].context[<[targetSectionSchemPath]>|<[pasteLoc]>]>:
+                    - if !<proc[dd_Validate_SchematicPasteLocation].context[<[targetSectionSchemName]>|<[pasteLoc]>]>:
                         - if <[debugConfig.output_failed_validation_overlapping].if_null[false]>:
                             - clickable dd_Clickable_Teleport def.loc:<[nextSectionLoc]> until:10m save:clickLoc
                             - narrate "(name:<[testOptions.name]> flip:<[transform.flip]> rotate:<[transform.angle]>) Failed: Overlapping Failure ([<element[TP TO LOC].on_click[<entry[clickLoc].command>].on_hover[<[nextSectionLoc]>]>])"
                             - debug LOG "(dDungeon) (name:<[testOptions.name]> flip:<[transform.flip]> rotate:<[transform.angle]>) Failed: Overlapping Failure (<[nextSectionLoc]>)"
-                        - ~run dd_Schematic_UndoOrientation def.schemPath:<[targetSectionSchemPath]> def.flip:<[transform.flip]> def.rotation:<[transform.angle]>
+                        - ~run dd_Schematic_UndoOrientation def.world:<[world]> def.schemPath:<[targetSectionSchemPath]> def.flip:<[transform.flip]> def.rotation:<[transform.angle]>
                         - ~run dd_Generation_ReportAddAttemptData def.world:<[world]> def.sectionData:<[testOptions]> def.angle:<[transform.angle]> def.flipped:<[transform.flip]> "def.failReason:Section would overlap"
                         - while next
 
@@ -219,8 +220,8 @@ dd_ProcessNextSection:
                     # # - narrate "Placing section (<[targetFile]>) at <[pasteLoc]>"
 
                     #Paste the section
-                    - ~schematic paste noair name:<[targetSectionSchemPath]> <[pasteLoc]> entities
-                    - ~run dd_Schematic_UndoOrientation def.schemPath:<[targetSectionSchemPath]> def.flip:<[transform.flip]> def.rotation:<[transform.angle]>
+                    - ~schematic paste noair name:<[targetSectionSchemName]> <[pasteLoc]> entities
+                    - ~run dd_Schematic_UndoOrientation def.world:<[world]> def.schemPath:<[targetSectionSchemPath]> def.flip:<[transform.flip]> def.rotation:<[transform.angle]>
 
                     #Flag options block with "transformed" section options data
                     - flag <[pasteLoc]> dd_SectionOptions:<[testOptions]>
