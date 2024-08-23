@@ -75,7 +75,7 @@ dd_Events:
         - run dd_EnterDungeon def.dungeonKey:<[data.dungeon_key]> def.exitLocation:<[data.exit_location].if_null[<player.location>]>
 
         #Exit dungeon
-        on player enters area_flagged:dd_exitArea:
+        after player enters area_flagged:dd_exitArea:
         - ratelimit <player> 10t
         #Skip if in spectator mode
         - if <player.gamemode> == spectator:
@@ -84,7 +84,7 @@ dd_Events:
         #Check periodically while player is in the area incase there normally isn't line of sight available when entering the area
         #(To prevent teleporting players in an adjacent nearby hallway, not the actual room where the exit area is)
         - while <context.area.contains[<player.location>]>:
-            - if <player.eye_location.face[<context.area.center>].ray_trace> == null:
+            - if <player.eye_location.face[<context.area.center>].ray_trace[range=<player.eye_location.distance[<context.area.center>]>].if_null[null]> == null:
                 - run dd_ExitDungeon
                 - stop
             - wait 5t
