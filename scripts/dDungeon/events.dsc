@@ -80,7 +80,14 @@ dd_Events:
         #Skip if in spectator mode
         - if <player.gamemode> == spectator:
             - stop
-        - run dd_ExitDungeon
+        #Skip if there isn't clear line of sight to the center of the area
+        #Check periodically while player is in the area incase there normally isn't line of sight available when entering the area
+        #(To prevent teleporting players in an adjacent nearby hallway, not the actual room where the exit area is)
+        - while <context.area.contains[<player.location>]>:
+            - if <player.eye_location.face[<context.area.center>].ray_trace> == null:
+                - run dd_ExitDungeon
+                - stop
+            - wait 5t
 
         #Fire custom events for players leaving/entering dungeon worlds
         on player dies in:world_flagged:dd_DungeonSettings:
