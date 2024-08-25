@@ -22,14 +22,13 @@ dd_FloodfillArea:
     #Map is in the form of checkedMap.X.Y.Z
     #If a coordinate-key exists, it's been checked already and doesn't need to be checked again
     - define checkedMap <map[]>
+    - define checkedMap.<[backfillLocation].x>.<[backfillLocation].y>.<[backfillLocation].z> true
 
     #Keep checking locations on the queue until we've run the queue empty
     - while !<[checkQueue].is_empty>:
         #Pop next location off queue
         - define checkLoc <[checkQueue].first>
         - define checkQueue:<-:<[checkLoc]>
-        #Mark the location as checked
-        - define checkedMap.<[checkLoc].x>.<[checkLoc].y>.<[checkLoc].z> true
 
         #If we're spending too much time, wait a tick to slow down a bit
         - if <util.time_now.duration_since[<[checkTime]>].in_milliseconds> >= 40:
@@ -49,23 +48,29 @@ dd_FloodfillArea:
             - define nextCheck <[checkLoc].add[1,0,0]>
             - if !<[checkedMap.<[nextCheck].x>.<[nextCheck].y>.<[nextCheck].z>].exists>:
                 - define checkQueue:->:<[nextCheck]>
+                - define checkedMap.<[nextCheck].x>.<[nextCheck].y>.<[nextCheck].z> true
 
             - define nextCheck <[checkLoc].add[-1,0,0]>
             - if !<[checkedMap.<[nextCheck].x>.<[nextCheck].y>.<[nextCheck].z>].exists>:
                 - define checkQueue:->:<[nextCheck]>
+                - define checkedMap.<[nextCheck].x>.<[nextCheck].y>.<[nextCheck].z> true
 
             - define nextCheck <[checkLoc].add[0,1,0]>
             - if !<[checkedMap.<[nextCheck].x>.<[nextCheck].y>.<[nextCheck].z>].exists>:
                 - define checkQueue:->:<[nextCheck]>
+                - define checkedMap.<[nextCheck].x>.<[nextCheck].y>.<[nextCheck].z> true
 
             - define nextCheck <[checkLoc].add[0,-1,0]>
             - if !<[checkedMap.<[nextCheck].x>.<[nextCheck].y>.<[nextCheck].z>].exists>:
                 - define checkQueue:->:<[nextCheck]>
+                - define checkedMap.<[nextCheck].x>.<[nextCheck].y>.<[nextCheck].z> true
 
             - define nextCheck <[checkLoc].add[0,0,1]>
             - if !<[checkedMap.<[nextCheck].x>.<[nextCheck].y>.<[nextCheck].z>].exists>:
                 - define checkQueue:->:<[nextCheck]>
+                - define checkedMap.<[nextCheck].x>.<[nextCheck].y>.<[nextCheck].z> true
 
             - define nextCheck <[checkLoc].add[0,0,-1]>
             - if !<[checkedMap.<[nextCheck].x>.<[nextCheck].y>.<[nextCheck].z>].exists>:
                 - define checkQueue:->:<[nextCheck]>
+                - define checkedMap.<[nextCheck].x>.<[nextCheck].y>.<[nextCheck].z> true
