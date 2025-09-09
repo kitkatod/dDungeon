@@ -37,7 +37,7 @@ dd_ProcessNextSection:
 
     #Check if we need to skip hallways on the pathway
     - if <[pathOptions.hallwayType].if_null[default]> == skip_hallway:
-        - define buildVariables.hallwaysRemaining 0
+        - define buildVariables.hallwaysRemaining -99
     - else:
         - define buildVariables.hallwayType <[pathOptions.hallwayType].if_null[default]>
 
